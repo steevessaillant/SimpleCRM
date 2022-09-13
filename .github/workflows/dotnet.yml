@@ -21,10 +21,22 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Run Test and Generating metrics 
+    - name: Run Test and Test Report 
       uses: zyborg/dotnet-tests-report@v1
       with:
           project_path: CRMTests
           report_name:  SimpleCRM_test_metrics
           report_title: SimpleCRM test metrics
           github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name : Generating [coverlet] Code Covergare report
+      uses: b3b00/coverlet-action@1.1.9
+      with:
+        testProject: 'CRMTests.csproj'
+        output: 'lcov.info'
+        outputFormat: 'lcov'
+        excludes: '[program]*,[test]test.*'
+    - name: Generating [coveralls] Code Covergare report      
+      uses: coverallsapp/github-action@v1.1.1
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN }} 
+        path-to-lcov: ${{steps.coverlet.outputs.coverageFile}} 
