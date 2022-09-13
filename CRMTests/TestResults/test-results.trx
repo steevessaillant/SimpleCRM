@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2cd434b6-ef80-4319-978a-be96b37748fa" name="SteevesSaillant@CAW-PF3F2WK3 2022-09-13 16:18:03" runUser="AzureAD\SteevesSaillant" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2022-09-13T16:18:03.2647895-04:00" queuing="2022-09-13T16:18:03.2647898-04:00" start="2022-09-13T16:18:02.4189446-04:00" finish="2022-09-13T16:18:03.2975696-04:00" />
+  <TestSettings name="default" id="54919b59-a529-4070-847f-70b9172b6ca6">
+    <Deployment runDeploymentRoot="SteevesSaillant_CAW-PF3F2WK3_2022-09-13_16_18_03" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9592ca45-100e-4003-8ef1-dab74c76c23a" testId="b30ad694-2aed-a1c5-a193-693e819d53a9" testName="SimpleCRM.CustomerOperationsFeature.Controller_Throws_Argument_Null_Exception_When_Repo_Is_Null" computerName="CAW-PF3F2WK3" duration="00:00:00.0011618" startTime="2022-09-13T16:18:03.2177082-04:00" endTime="2022-09-13T16:18:03.2177089-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9592ca45-100e-4003-8ef1-dab74c76c23a" />
+    <UnitTestResult executionId="61bd1dcf-d944-4ea4-a0a3-87ac9a144d28" testId="8459a88e-7ad6-a94b-0b33-e085e2c15144" testName="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRMFailsWhenNotFound() [01] Given we have non-existing customer" computerName="CAW-PF3F2WK3" duration="00:00:00.0465286" startTime="2022-09-13T16:18:03.2060317-04:00" endTime="2022-09-13T16:18:03.2060728-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61bd1dcf-d944-4ea4-a0a3-87ac9a144d28" />
+    <UnitTestResult executionId="f713dfb7-e79d-4f9f-a094-cfec75c82781" testId="db946401-1a85-dfa5-709e-2155d4dadf7f" testName="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRM() [02] When this customer is deleted" computerName="CAW-PF3F2WK3" duration="00:00:00.0001210" startTime="2022-09-13T16:18:03.2242944-04:00" endTime="2022-09-13T16:18:03.2242951-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f713dfb7-e79d-4f9f-a094-cfec75c82781" />
+    <UnitTestResult executionId="3037fe3b-3374-4836-8e41-66597c8a0257" testId="4fb2c682-4d6e-61c6-a248-e60cf3fa753c" testName="SimpleCRM.CustomerOperationsFeature.PostCustomerToCRM() [03] Then the customer is added" computerName="CAW-PF3F2WK3" duration="00:00:00.0034182" startTime="2022-09-13T16:18:03.2229538-04:00" endTime="2022-09-13T16:18:03.2229547-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3037fe3b-3374-4836-8e41-66597c8a0257" />
+    <UnitTestResult executionId="e911baee-e1b7-4901-b703-c13d94eb1c21" testId="4fb2c682-4d6e-61c6-a248-e60cf3fa753c" testName="SimpleCRM.CustomerOperationsFeature.PostCustomerToCRM() [01] Given we have a new customer" computerName="CAW-PF3F2WK3" duration="00:00:00.0010471" startTime="2022-09-13T16:18:03.2190194-04:00" endTime="2022-09-13T16:18:03.2190202-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e911baee-e1b7-4901-b703-c13d94eb1c21" />
+    <UnitTestResult executionId="337bca8d-e1af-4a02-a0ec-245526658de3" testId="8459a88e-7ad6-a94b-0b33-e085e2c15144" testName="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRMFailsWhenNotFound() [02] When this customer is deleted" computerName="CAW-PF3F2WK3" duration="00:00:00.0028864" startTime="2022-09-13T16:18:03.2085495-04:00" endTime="2022-09-13T16:18:03.2085504-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="337bca8d-e1af-4a02-a0ec-245526658de3" />
+    <UnitTestResult executionId="c6c9c9e0-0559-4744-b637-20aec07a27b0" testId="4fb2c682-4d6e-61c6-a248-e60cf3fa753c" testName="SimpleCRM.CustomerOperationsFeature.PostCustomerToCRM() [02] When this customer is added" computerName="CAW-PF3F2WK3" duration="00:00:00.0004759" startTime="2022-09-13T16:18:03.2195110-04:00" endTime="2022-09-13T16:18:03.2195118-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c6c9c9e0-0559-4744-b637-20aec07a27b0" />
+    <UnitTestResult executionId="f6a4f2bf-d4c9-4e55-a790-c6996f8d4464" testId="db946401-1a85-dfa5-709e-2155d4dadf7f" testName="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRM() [03] Then the customer is deleted" computerName="CAW-PF3F2WK3" duration="00:00:00.0004896" startTime="2022-09-13T16:18:03.2248529-04:00" endTime="2022-09-13T16:18:03.2248536-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f6a4f2bf-d4c9-4e55-a790-c6996f8d4464" />
+    <UnitTestResult executionId="1b9176db-03ed-4e97-ab48-6be34740ec2b" testId="db946401-1a85-dfa5-709e-2155d4dadf7f" testName="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRM() [01] Given we have an existing customer" computerName="CAW-PF3F2WK3" duration="00:00:00.0009829" startTime="2022-09-13T16:18:03.2241907-04:00" endTime="2022-09-13T16:18:03.2241914-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b9176db-03ed-4e97-ab48-6be34740ec2b" />
+    <UnitTestResult executionId="d6c60274-3190-4f97-9cd6-e9cec19ec308" testId="8459a88e-7ad6-a94b-0b33-e085e2c15144" testName="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRMFailsWhenNotFound() [03] Then the non-existing customer cannot deleted" computerName="CAW-PF3F2WK3" duration="00:00:00.0032111" startTime="2022-09-13T16:18:03.2117830-04:00" endTime="2022-09-13T16:18:03.2117838-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6c60274-3190-4f97-9cd6-e9cec19ec308" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRM" storage="c:\users\steevessaillant\source\repos\xunit_csharp_example\crmtests\bin\debug\netcoreapp3.1\crmtests.dll" id="db946401-1a85-dfa5-709e-2155d4dadf7f">
+      <Execution id="1b9176db-03ed-4e97-ab48-6be34740ec2b" />
+      <TestMethod codeBase="C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\netcoreapp3.1\CRMTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="SimpleCRM.CustomerOperationsFeature" name="DeleteCustomerFromCRM" />
+    </UnitTest>
+    <UnitTest name="SimpleCRM.CustomerOperationsFeature.PostCustomerToCRM" storage="c:\users\steevessaillant\source\repos\xunit_csharp_example\crmtests\bin\debug\netcoreapp3.1\crmtests.dll" id="4fb2c682-4d6e-61c6-a248-e60cf3fa753c">
+      <Execution id="e911baee-e1b7-4901-b703-c13d94eb1c21" />
+      <TestMethod codeBase="C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\netcoreapp3.1\CRMTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="SimpleCRM.CustomerOperationsFeature" name="PostCustomerToCRM" />
+    </UnitTest>
+    <UnitTest name="SimpleCRM.CustomerOperationsFeature.DeleteCustomerFromCRMFailsWhenNotFound" storage="c:\users\steevessaillant\source\repos\xunit_csharp_example\crmtests\bin\debug\netcoreapp3.1\crmtests.dll" id="8459a88e-7ad6-a94b-0b33-e085e2c15144">
+      <Execution id="61bd1dcf-d944-4ea4-a0a3-87ac9a144d28" />
+      <TestMethod codeBase="C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\netcoreapp3.1\CRMTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="SimpleCRM.CustomerOperationsFeature" name="DeleteCustomerFromCRMFailsWhenNotFound" />
+    </UnitTest>
+    <UnitTest name="SimpleCRM.CustomerOperationsFeature.Controller_Throws_Argument_Null_Exception_When_Repo_Is_Null" storage="c:\users\steevessaillant\source\repos\xunit_csharp_example\crmtests\bin\debug\netcoreapp3.1\crmtests.dll" id="b30ad694-2aed-a1c5-a193-693e819d53a9">
+      <Execution id="9592ca45-100e-4003-8ef1-dab74c76c23a" />
+      <TestMethod codeBase="C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\netcoreapp3.1\CRMTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="SimpleCRM.CustomerOperationsFeature" name="Controller_Throws_Argument_Null_Exception_When_Repo_Is_Null" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b30ad694-2aed-a1c5-a193-693e819d53a9" executionId="9592ca45-100e-4003-8ef1-dab74c76c23a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8459a88e-7ad6-a94b-0b33-e085e2c15144" executionId="61bd1dcf-d944-4ea4-a0a3-87ac9a144d28" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db946401-1a85-dfa5-709e-2155d4dadf7f" executionId="f713dfb7-e79d-4f9f-a094-cfec75c82781" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fb2c682-4d6e-61c6-a248-e60cf3fa753c" executionId="3037fe3b-3374-4836-8e41-66597c8a0257" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fb2c682-4d6e-61c6-a248-e60cf3fa753c" executionId="e911baee-e1b7-4901-b703-c13d94eb1c21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8459a88e-7ad6-a94b-0b33-e085e2c15144" executionId="337bca8d-e1af-4a02-a0ec-245526658de3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fb2c682-4d6e-61c6-a248-e60cf3fa753c" executionId="c6c9c9e0-0559-4744-b637-20aec07a27b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db946401-1a85-dfa5-709e-2155d4dadf7f" executionId="f6a4f2bf-d4c9-4e55-a790-c6996f8d4464" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db946401-1a85-dfa5-709e-2155d4dadf7f" executionId="1b9176db-03ed-4e97-ab48-6be34740ec2b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8459a88e-7ad6-a94b-0b33-e085e2c15144" executionId="d6c60274-3190-4f97-9cd6-e9cec19ec308" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="10" executed="10" passed="10" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET Core 3.1.28)&#xD;
+[xUnit.net 00:00:00.32]   Discovering: CRMTests&#xD;
+[xUnit.net 00:00:00.34]   Discovered:  CRMTests&#xD;
+[xUnit.net 00:00:00.35]   Starting:    CRMTests&#xD;
+[xUnit.net 00:00:00.48]   Finished:    CRMTests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

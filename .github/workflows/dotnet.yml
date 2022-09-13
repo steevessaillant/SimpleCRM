@@ -21,12 +21,10 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal --logger:"trx;LogFileName=test-results.trx"
-    - name: Generating metrics
+    - name: Run Test and Generating metrics 
       uses: zyborg/dotnet-tests-report@v1
       with:
-          project_path: SimpleCRM/CRMTests.Tests
+          project_path: CRMTests
           report_name:  SimpleCRM_test_metrics
           report_title: SimpleCRM test metrics
           github_token: ${{ secrets.GITHUB_TOKEN }}
