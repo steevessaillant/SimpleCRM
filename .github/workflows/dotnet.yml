@@ -28,7 +28,8 @@ jobs:
           report_name:  SimpleCRM_test_metrics
           report_title: SimpleCRM test metrics
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          extra_test_parameters: -p:coverletOutput=lcov.info -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:Exclude=\"[program]*,[test]test.*\" --results-directory TestResults
+          extra_test_parameters: -p:coverletOutput=lcov.info -p:CollectCoverage=true -p:CoverletOutputFormat=lcov -p:Exclude=\"[program]*,[test]test.*\"
+
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
