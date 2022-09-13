@@ -26,7 +26,7 @@ jobs:
     - name: Generating metrics
       uses: zyborg/dotnet-tests-report@v1
       with:
-          project_path: SimpleCRM/CRMTests.Tests
+          project_path: CRMTests
           report_name:  SimpleCRM_test_metrics
           report_title: SimpleCRM test metrics
           github_token: ${{ secrets.GITHUB_TOKEN }}
