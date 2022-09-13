@@ -23,17 +23,11 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=TestOutputResults.xml"
-    
-    
-    - name: Generate Report
+    - name: Generate Test Reports
       id: xunit-viewer
-      uses: AutoModality/action-xunit-viewer@v1
-      with:
-          results: ${{ env.RESULTS_PATH }}
-    - name: The generated report
-      run: echo "The report is ${{ steps.xunit-viewer.outputs.report-file }}"    
+      uses: AutoModality/action-xunit-viewer@v1  
     - name: Attach the report
       uses: actions/upload-artifact@v1
       with:
-          name: alternate-results-path-reports
-          path: TestResults\TestOutputResults.xml
+         name: ${{ steps.xunit-viewer.outputs.report-name }}
+         path: ${{ steps.xunit-viewer.outputs.report-dir }}
