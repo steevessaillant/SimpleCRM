@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q3pHNqo2w/Fge9llLpRc2u8HhBgxN6n9hFVoX/Z3RTHUedQSS1EqKhqlGNiYn0It658noBc7ybvYMtxIh3UcIg==",
+  "dgSpecHash": "F7QtmeFL4brBFVMTy9ph9gWFY19ibbVOezqJz6Ys2EUzYD4oMDi8L69upGeWmxUTTY0VLZkEdn11QGeTko1VYQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\SimpleCRMTests\\SimpleCRMTests.csproj",
+  "projectFilePath": "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\SimpleCRMTests\\CRMTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
