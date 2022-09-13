@@ -22,5 +22,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-
       run: dotnet test --no-build --verbosity normal --logger:"xunit;LogFilePath=test_result.xml"
+    - name: Generating metrics
+      uses: zyborg/dotnet-tests-report@v1
+      with:
+          project_path: SimpleCRM/CRMTests.Tests
+          report_name:  SimpleCRM_test_metrics
+          report_title: SimpleCRM test metrics
+          github_token: ${{ secrets.GITHUB_TOKEN }}
