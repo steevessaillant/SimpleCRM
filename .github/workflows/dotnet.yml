@@ -29,8 +29,8 @@ jobs:
           report_title: SimpleCRM test metrics
           github_token: ${{ secrets.GITHUB_TOKEN }}
           extra_test_parameters:  --collect:"XPlat Code Coverage" --results-directory:"coverage"
-    - name: Code Coverage Report
-    - uses: 5monkeys/cobertura-action@master
-      with:
-        path: coverage/**/*.xml
-        minimum_coverage: 30 
+    #- name: Code Coverage Report
+    #- uses: 5monkeys/cobertura-action@master
+    #  with:
+    #    path: coverage/**/*.xml
+    #    minimum_coverage: 30 
