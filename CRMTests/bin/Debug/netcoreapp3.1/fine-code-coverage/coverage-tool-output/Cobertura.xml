@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.4727272727272727" branch-rate="0.5" lines-covered="26" lines-valid="55" branches-covered="2" branches-valid="4" complexity="15" version="0" timestamp="1663065397">
+<coverage line-rate="0.4727272727272727" branch-rate="0.5" lines-covered="26" lines-valid="55" branches-covered="2" branches-valid="4" complexity="15" version="0" timestamp="1663083530">
   <sources>
     <source>C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\</source>
   </sources>

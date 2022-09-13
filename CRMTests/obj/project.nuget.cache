@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gvtP5+01I33SS9kPJWq5X8kkkLXBvR9U2+wkpBOi97ZLnGLNBK/rl/tWqdpbW5XEHi+OwjhG2bwir8PEcl7z/Q==",
+  "dgSpecHash": "ZsARo5nuY57o0iaWOXi0yyR8ZOrmenP0lS5G2CzAkdeT2TcQE6E1NKgKBSLLpnMRFWnZESWNkM+Ip4xq5NL25Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\CRMTests\\CRMTests.csproj",
   "expectedPackageFiles": [
@@ -106,7 +106,8 @@
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\xunit.core\\2.4.2\\xunit.core.2.4.2.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\xunit.extensibility.core\\2.4.2\\xunit.extensibility.core.2.4.2.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\xunit.extensibility.execution\\2.4.2\\xunit.extensibility.execution.2.4.2.nupkg.sha512",
-    "C:\\Users\\SteevesSaillant\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512"
+    "C:\\Users\\SteevesSaillant\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512",
+    "C:\\Users\\SteevesSaillant\\.nuget\\packages\\xunitxml.testlogger\\2.1.26\\xunitxml.testlogger.2.1.26.nupkg.sha512"
   ],
   "logs": []
 }

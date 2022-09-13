@@ -115,3 +115,5 @@ C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\ne
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\netcoreapp3.1\CRMTests.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\netcoreapp3.1\CRMTests.pdb
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\netcoreapp3.1\CRMTests.genruntimeconfig.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll

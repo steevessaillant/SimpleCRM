@@ -1843,6 +1843,12 @@
           "build/netcoreapp3.1/xunit.runner.visualstudio.props": {}
         }
       },
+      "XunitXml.TestLogger/2.1.26": {
+        "type": "package",
+        "build": {
+          "build/netstandard1.0/XunitXml.TestLogger.props": {}
+        }
+      },
       "CRMRepository/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -6508,6 +6514,21 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
+    "XunitXml.TestLogger/2.1.26": {
+      "sha512": "jPP+0SR33SK2rAnkbzx3DnltwiTrCbWcDBPWNDoKfW1SLT+Wq/YJlGGNkjpkNkU5VqhgfIuqhyWPAgYM4iMOow==",
+      "type": "package",
+      "path": "xunitxml.testlogger/2.1.26",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/_common/Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll",
+        "build/_common/Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger.dll",
+        "build/net45/XunitXml.TestLogger.props",
+        "build/netstandard1.0/XunitXml.TestLogger.props",
+        "xunitxml.testlogger.2.1.26.nupkg.sha512",
+        "xunitxml.testlogger.nuspec"
+      ]
+    },
     "CRMRepository/1.0.0": {
       "type": "project",
       "path": "../CRMRepository/CRMRepository.csproj",
@@ -6527,6 +6548,7 @@
       "Microsoft.NET.Test.Sdk >= 17.3.1",
       "Moq >= 4.18.2",
       "Xbehave >= 2.4.1",
+      "XunitXml.TestLogger >= 2.1.26",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.2",
       "xunit.runner.visualstudio >= 2.4.5"
@@ -6593,6 +6615,10 @@
           "Xbehave": {
             "target": "Package",
             "version": "[2.4.1, )"
+          },
+          "XunitXml.TestLogger": {
+            "target": "Package",
+            "version": "[2.1.26, )"
           },
           "coverlet.collector": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

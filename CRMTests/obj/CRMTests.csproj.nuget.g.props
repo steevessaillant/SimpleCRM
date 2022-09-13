@@ -13,6 +13,7 @@
     <SourceRoot Include="C:\Users\SteevesSaillant\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)xunitxml.testlogger\2.1.26\build\netstandard1.0\XunitXml.TestLogger.props" Condition="Exists('$(NuGetPackageRoot)xunitxml.testlogger\2.1.26\build\netstandard1.0\XunitXml.TestLogger.props')" />
     <Import Project="$(NuGetPackageRoot)xunit.runner.visualstudio\2.4.5\build\netcoreapp3.1\xunit.runner.visualstudio.props" Condition="Exists('$(NuGetPackageRoot)xunit.runner.visualstudio\2.4.5\build\netcoreapp3.1\xunit.runner.visualstudio.props')" />
     <Import Project="$(NuGetPackageRoot)xunit.core\2.4.2\build\xunit.core.props" Condition="Exists('$(NuGetPackageRoot)xunit.core\2.4.2\build\xunit.core.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.testplatform.testhost\17.3.1\build\netcoreapp2.1\Microsoft.TestPlatform.TestHost.props" Condition="Exists('$(NuGetPackageRoot)microsoft.testplatform.testhost\17.3.1\build\netcoreapp2.1\Microsoft.TestPlatform.TestHost.props')" />
