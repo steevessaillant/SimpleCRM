@@ -1,0 +1,9 @@
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\bin\Debug\netcoreapp3.1\CRMRepository.deps.json
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\bin\Debug\netcoreapp3.1\CRMRepository.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\bin\Debug\netcoreapp3.1\CRMRepository.pdb
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\netcoreapp3.1\CRMRepository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\netcoreapp3.1\CRMRepository.AssemblyInfoInputs.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\netcoreapp3.1\CRMRepository.AssemblyInfo.cs
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\netcoreapp3.1\CRMRepository.csproj.CoreCompileInputs.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\netcoreapp3.1\CRMRepository.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\netcoreapp3.1\CRMRepository.pdb
