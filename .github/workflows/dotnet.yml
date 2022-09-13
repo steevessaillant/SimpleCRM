@@ -30,14 +30,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           extra_test_parameters:  --collect:"XPlat Code Coverage" --results-directory:"coverage"
 
-    - name : list folders
-      run: | 
-        cd CRMTests
-        ls -la
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        filename: ./coverage/**/coverage.cobertura.xml
+        filename: ./TestResults/**/coverage.cobertura.xml
         badge: true
         fail_below_min: true
         format: markdown
