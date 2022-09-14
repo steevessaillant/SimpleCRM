@@ -32,7 +32,7 @@ jobs:
       run: |
         ./collectCoverage.sh || true
         ls -la
-        cd .results
+        cd .coverage
         ls -la
     #- name: ReportGenerator
     #  uses: danielpalme/ReportGenerator-GitHub-Action@5.1.10
