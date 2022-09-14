@@ -59,7 +59,15 @@ jobs:
       with:
         name: CoverageReport # Artifact name        
         path: ./.coverage # Directory containing files to upload
-    
+    - name: Upload results to codecov.io
+    - uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        files: ./.coverage/**/coverage.cobertura.xml # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request'
