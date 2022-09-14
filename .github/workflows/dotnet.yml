@@ -33,7 +33,7 @@ jobs:
       if: github.event_name == 'pull_request'
       with:
          github-repo: steevessaillant/SimpleCRM
-         project-name: SimpleCRM
+         project-name: simple-crm
       env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Produce the coverage report
