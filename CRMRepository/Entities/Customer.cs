@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CRMRepository.Entities
 {
     public class Customer : IEquatable<Customer>
     {
+        [ExcludeFromCodeCoverage]
         public string Id { get; set; }
+        [ExcludeFromCodeCoverage]
         public string FirstName { get; set; }
+        [ExcludeFromCodeCoverage]
         public string LastName { get; set; }
 
+        [ExcludeFromCodeCoverage]
         public override bool Equals(object obj)
         {
             return Equals(obj as Customer);
         }
 
+        [ExcludeFromCodeCoverage]
         public bool Equals(Customer other)
         {
             return other != null &&
@@ -22,6 +28,7 @@ namespace CRMRepository.Entities
                    LastName == other.LastName;
         }
 
+        [ExcludeFromCodeCoverage]
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -32,11 +39,13 @@ namespace CRMRepository.Entities
             return $"{{ Id:{Id} FirstName:{FirstName} LastName:{LastName}}}";
         }
 
+        [ExcludeFromCodeCoverage]
         public static bool operator ==(Customer left, Customer right)
         {
             return EqualityComparer<Customer>.Default.Equals(left, right);
         }
 
+        [ExcludeFromCodeCoverage]
         public static bool operator !=(Customer left, Customer right)
         {
             return !(left == right);

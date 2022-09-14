@@ -2,18 +2,16 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace CRMRepository
 {
     public class CustomerRepository : IRepository<Customer>
     {
         private List<Customer> tempDataStore = new List<Customer>();
-        
-        public IQueryable<Customer> Query => throw new NotImplementedException();
 
         public void Add(Customer entity)
         {
@@ -23,6 +21,8 @@ namespace CRMRepository
             }
         }
 
+        //for now exclude becuase it is not implemented
+        [ExcludeFromCodeCoverage]
         public void Delete(Customer entity)
         {
             throw new NotImplementedException();
@@ -39,6 +39,8 @@ namespace CRMRepository
             return tempDataStore;
         }
 
+        //for now exclude becuase it is not implemented
+        [ExcludeFromCodeCoverage]
         public Customer Get(Customer entity)
         {
             throw new NotImplementedException();
