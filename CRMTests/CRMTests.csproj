@@ -28,4 +28,8 @@
     <ProjectReference Include="..\CRMRestApi\CRMRestApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Integration\" />
+  </ItemGroup>
+
 </Project>
