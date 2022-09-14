@@ -60,7 +60,7 @@ jobs:
         name: CoverageReport # Artifact name        
         path: ./.coverage # Directory containing files to upload
     - name: Upload results to codecov.io
-    - uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         files: ./.coverage/**/coverage.cobertura.xml # optional
