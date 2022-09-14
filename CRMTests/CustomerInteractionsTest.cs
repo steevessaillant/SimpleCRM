@@ -10,7 +10,7 @@ using Xunit;
 
 namespace SimpleCRM
 {
-    public class CustomerOperationsFeature
+    public class CustomerInteractionsTest
     {
         #region functional api acceptance tests
         [Scenario]
