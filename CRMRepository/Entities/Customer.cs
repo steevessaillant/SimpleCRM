@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CRMRepository
+namespace CRMRepository.Entities
 {
     public class Customer
     {

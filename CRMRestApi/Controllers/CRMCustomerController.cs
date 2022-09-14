@@ -1,4 +1,5 @@
 ﻿using CRMRepository;
+using CRMRepository.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 

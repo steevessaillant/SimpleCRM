@@ -1,4 +1,5 @@
 using CRMRepository;
+using CRMRepository.Entities;
 using CRMRestApi.Controllers;
 using FluentAssertions;
 using Moq;
