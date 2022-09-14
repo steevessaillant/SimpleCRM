@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MRb6j+160bs35ypXafXk/LF/SP78+ugu2PMjrlhvhYEe9pOc+WKtSLFoNRMFc3yj0selN2m8JAiX/J3LWKNcBg==",
+  "dgSpecHash": "1qqLprtUozE4dabMTlEUWUWvLb5D4GHy0Z7mRg9eu2AcnLppFszLAkWEKKcZMfrze8A46LNXJjGK5anHerF7Bg==",
   "success": true,
   "projectFilePath": "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\CRMRepository\\CRMRepository.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\SteevesSaillant\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
