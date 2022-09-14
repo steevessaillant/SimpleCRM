@@ -31,6 +31,7 @@ jobs:
     - name: Move cobertura result file to ./.results
       run: |
         ./collectCoverage.sh || true
+        ls -la
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.10
       with:

@@ -44,3 +44,11 @@ C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApi\obj\Debug\
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApi\obj\Debug\netcoreapp3.1\CRMRestApi.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApi\obj\Debug\netcoreapp3.1\CRMRestApi.pdb
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApi\obj\Debug\netcoreapp3.1\CRMRestApi.genruntimeconfig.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\appsettings.Development.json
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\appsettings.json
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\CRMRestApi.exe
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\CRMRestApi.deps.json
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\CRMRestApi.runtimeconfig.json
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\CRMRestApi.runtimeconfig.dev.json
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\CRMRestApi.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\TestResults\CRMRestApi.pdb
