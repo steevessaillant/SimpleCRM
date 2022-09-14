@@ -22,6 +22,11 @@ namespace CRMRepository.Entities
                    LastName == other.LastName;
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override string ToString()
         {
             return $"{{ Id:{Id} FirstName:{FirstName} LastName:{LastName}}}";
