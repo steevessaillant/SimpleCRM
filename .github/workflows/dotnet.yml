@@ -29,7 +29,7 @@ jobs:
           report_title: SimpleCRM test metrics
           github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Apply Code Coverage
-      uses: SamuelCabralCruz/free-code-coverage/update-github-repo@vX.X.X
+      uses: SamuelCabralCruz/free-code-coverage/update-github-repo@v0.0.13
       with:
          github-repo: steevessaillant/SimpleCRM
          project-name: SimpleCRM
