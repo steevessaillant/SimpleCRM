@@ -58,7 +58,7 @@ jobs:
       uses: actions/upload-artifact@v2.2.3
       with:
         name: CoverageReport # Artifact name        
-        path: ./coverage # Directory containing files to upload
+        path: ./.coverage/**/coverage.cobertura.xml # Directory containing files to upload
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request'
