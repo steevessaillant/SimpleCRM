@@ -12,6 +12,7 @@ namespace SimpleCRM
 {
     public class CustomerInteractionsTest
     {
+
         #region functional api acceptance tests
         [Scenario]
         public void PostCustomerToCRM(CRMCustomerController controller,Customer customer, Mock<IRepository<Customer>> customerRepoMock)
@@ -115,6 +116,7 @@ namespace SimpleCRM
                     {
                         exception = ex;
                     }
+
                 });
 
 
