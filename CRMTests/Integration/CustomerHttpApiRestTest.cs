@@ -24,9 +24,9 @@ namespace CRMTests.Integration
                 exePath = "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\CRMRestApiV2\\bin\\Debug\\net6.0\\CRMRestApiV2.exe";
             }else
             {
-                string command = "cd ../../../";
+                string command = "cd ../../../;chmod -R 777 ./";
                 string result = "";
-                using (Process proc = new System.Diagnostics.Process())
+                using (Process proc = new Process())
                 {
                     proc.StartInfo.FileName = "/bin/bash";
                     proc.StartInfo.Arguments = "-c \" " + command + " \"";
