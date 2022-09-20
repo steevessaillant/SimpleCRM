@@ -1,9 +1,6 @@
 ﻿using CRMRepository;
 using CRMRepository.Entities;
-using CRMRestApiV2;
-using CRMRestApiV2.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace CRMRestApiV2.Controllers
 {
@@ -11,9 +8,11 @@ namespace CRMRestApiV2.Controllers
     [ApiController]
     public class CRMCustomerController : ControllerBase
     {
-        private readonly IRepository<Customer> repository = new CustomerRepository();
+        private IRepository<Customer> repository = new CustomerRepository();
 
         private readonly ILogger<CRMCustomerController> _logger;
+
+        public IRepository<Customer> Repository { get => repository; set => repository = value; }
 
         public CRMCustomerController(ILogger<CRMCustomerController> logger)
         {
@@ -24,14 +23,14 @@ namespace CRMRestApiV2.Controllers
         [HttpGet(Name = "GetCustomers")]
         public IEnumerable<Customer> Get()
         {
-            return repository.FetchAll().ToArray();
+            return Repository.FetchAll().ToArray();
         }
 
         [HttpPost]
         public void Post(Customer customer)
         {
-            this.repository.Add(customer);
-            this.repository.Save();
+            this.Repository.Add(customer);
+            this.Repository.Save();
         }
 
         [HttpDelete]
@@ -39,13 +38,19 @@ namespace CRMRestApiV2.Controllers
         {
             try
             {
-                this.repository.Delete(this.repository.Get(customer));
-                this.repository.Save();
+                this.Repository.Delete(this.Repository.Get(customer));
+                this.Repository.Save();
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
+
+        public void ClearDataSource()
+        {
+            this.Repository.Clear();
+        }
+
     }
 }

@@ -1,22 +1,19 @@
 ﻿using CRMRepository.Entities;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace CRMRepository
 {
     public class CustomerRepository : IRepository<Customer>, IPersistableFile
     {
         private readonly List<Customer> tempDataStore = new();
-        public string Path { get => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Customers.json"; }
+
+        public string Path => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Customers.json";
 
         public void Add(Customer entity)
         {
-            //if(tempDataStore.)
             if(!tempDataStore.Exists(x => x.Id == entity.Id))
             {
                 tempDataStore.Add(entity);
@@ -33,7 +30,8 @@ namespace CRMRepository
         [ExcludeFromCodeCoverage]
         public void Delete(Customer entity)
         {
-            throw new NotImplementedException();
+            tempDataStore.Remove(entity);
+            this.Save();
         }
 
         public List<Customer> FetchAll()
@@ -46,13 +44,22 @@ namespace CRMRepository
         [ExcludeFromCodeCoverage]
         public Customer Get(Customer entity)
         {
-            throw new NotImplementedException();
+            if(tempDataStore.Exists(x => x.Id == entity.Id))
+            {
+                return entity;
+            }
+            return null;
         }
 
         public void Save()
         {
             tempDataStore
                 .ExportToTextFile<Customer>(this.Path);
+        }
+
+        public void Update(Customer entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using CRMRepository.Entities;
 using System.Linq;
 
 namespace CRMRepository

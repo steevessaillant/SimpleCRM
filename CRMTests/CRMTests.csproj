@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CRMRepository\CRMRepository.csproj" />
+    <ProjectReference Include="..\CRMRestApiV2\CRMRestApiV2.csproj" />
   </ItemGroup>
 
 </Project>
