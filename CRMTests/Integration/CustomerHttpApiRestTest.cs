@@ -15,7 +15,7 @@ namespace CRMTests.Integration
         public async void CustomerPostEndpointPingShouldRespondAlive()
         {
             using var process = new Process();
-            string exePath = "/home/runner/work/SimpleCRM/SimpleCRM/CRMRestApiV2/bin/Debug/net6.0/CRMRestApiV2.exe";
+            string exePath = "../CRMRestApiV2/bin/Debug/net6.0/CRMRestApiV2.exe";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
