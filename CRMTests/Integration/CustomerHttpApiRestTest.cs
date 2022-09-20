@@ -24,7 +24,7 @@ namespace CRMTests.Integration
                 exePath = "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\CRMRestApiV2\\bin\\Debug\\net6.0\\CRMRestApiV2.exe";
             }else
             {
-                string command = "cd ../../../;chmod -R 777 ./";
+                string command = "cd ../../../;chmod -R 777 /home/runner/work/SimpleCRM/SimpleCRM/CRMRestApiV2/bin/Debug/net6.0";
                 string result = "";
                 using (Process proc = new Process())
                 {
