@@ -1,0 +1,12 @@
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\bin\Debug\net6.0\CRMRepository.deps.json
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\bin\Debug\net6.0\CRMRepository.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\bin\Debug\net6.0\CRMRepository.pdb
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\CRMRepository.csproj.AssemblyReference.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\CRMRepository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\CRMRepository.AssemblyInfoInputs.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\CRMRepository.AssemblyInfo.cs
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\CRMRepository.csproj.CoreCompileInputs.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\CRMRepository.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\refint\CRMRepository.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\CRMRepository.pdb
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRepository\obj\Debug\net6.0\ref\CRMRepository.dll
