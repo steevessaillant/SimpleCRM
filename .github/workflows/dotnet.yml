@@ -19,8 +19,6 @@ jobs:
       with:
         dotnet-version: '6.0'
         include-prerelease: True
-    - name: Restore dependencies
-      run: dotnet restores
     - name: Build
       run: dotnet build --no-restore
     - name: Run Test and Test Report 
