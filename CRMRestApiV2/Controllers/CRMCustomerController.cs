@@ -1,24 +1,30 @@
 ﻿using CRMRepository;
 using CRMRepository.Entities;
+using CRMRestApiV2;
+using CRMRestApiV2.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace CRMRestApi.Controllers
+namespace CRMRestApiV2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CRMCustomerController : ControllerBase
     {
-        private readonly IRepository<Customer> repository;
+        private readonly IRepository<Customer> repository = new CustomerRepository();
 
-        public CRMCustomerController(IRepository<Customer> repository)
+        private readonly ILogger<CRMCustomerController> _logger;
+
+        public CRMCustomerController(ILogger<CRMCustomerController> logger)
         {
-            if (repository is null)
-            {
-                throw new ArgumentNullException(nameof(repository));
-            }
+            _logger = logger;
 
-            this.repository = repository;
+        }
+
+        [HttpGet(Name = "GetCustomers")]
+        public IEnumerable<Customer> Get()
+        {
+            return repository.FetchAll().ToArray();
         }
 
         [HttpPost]
@@ -38,7 +44,7 @@ namespace CRMRestApi.Controllers
             }
             catch (Exception ex)
             {
-                throw ex; 
+                throw ex;
             }
         }
     }

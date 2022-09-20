@@ -9,16 +9,24 @@ using System.Reflection;
 
 namespace CRMRepository
 {
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : IRepository<Customer>, IPersistableFile
     {
-        private List<Customer> tempDataStore = new List<Customer>();
+        private readonly List<Customer> tempDataStore = new();
+        public string Path { get => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Customers.json"; }
 
         public void Add(Customer entity)
         {
+            //if(tempDataStore.)
             if(!tempDataStore.Exists(x => x.Id == entity.Id))
             {
                 tempDataStore.Add(entity);
             }
+        }
+
+        public void Clear()
+        {
+            tempDataStore.Clear();
+            this.Save();
         }
 
         //for now exclude becuase it is not implemented
@@ -30,12 +38,7 @@ namespace CRMRepository
 
         public List<Customer> FetchAll()
         {
-                using (StreamReader r = new StreamReader(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)
-                + "\\Customers.json"))
-                {
-                    string json = r.ReadToEnd();
-                    tempDataStore = JsonConvert.DeserializeObject<List<Customer>>(json);
-                }
+            tempDataStore.ImportCustomersFromTextFile(this.Path);
             return tempDataStore;
         }
 
@@ -49,8 +52,7 @@ namespace CRMRepository
         public void Save()
         {
             tempDataStore
-                .ExportToTextFile<Customer>(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)
-                + "\\Customers.json",',');
+                .ExportToTextFile<Customer>(this.Path);
         }
     }
 }

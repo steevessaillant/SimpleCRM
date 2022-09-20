@@ -5,14 +5,17 @@ using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using Xbehave;
 using Xunit;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SimpleCRM
 {
     public class CustomerInteractionsTest
     {
-
+       
         #region functional api acceptance tests
         [Scenario]
         public void PostCustomerToCRM(CRMCustomerController controller,Customer customer, Mock<IRepository<Customer>> customerRepoMock)
@@ -139,6 +142,7 @@ namespace SimpleCRM
         {
             Assert.Throws<ArgumentNullException>(() => new CRMCustomerController(null));
         }
+
         #endregion
     }
 }
