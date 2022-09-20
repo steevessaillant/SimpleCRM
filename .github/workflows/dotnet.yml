@@ -14,10 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '6.0.0' # SDK Version to use; x will use the latest version of the 3.1 channel
+        dotnet-version: '6.0'
+        include-prerelease: True
     - name: Restore dependencies
       run: dotnet restores
     - name: Build
