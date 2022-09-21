@@ -10,6 +10,7 @@ namespace CRMRepository
         void Add(TEntity entity);
         void Delete(TEntity entity);
         TEntity Get(TEntity entity);
+        TEntity GetById(string Id);
         void Save();
         void Update(TEntity entity);
         void Clear();

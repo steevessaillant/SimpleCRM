@@ -27,7 +27,6 @@ namespace CRMRepository
         }
 
         //for now exclude becuase it is not implemented
-        [ExcludeFromCodeCoverage]
         public void Delete(Customer entity)
         {
             tempDataStore.Remove(entity);
@@ -40,13 +39,20 @@ namespace CRMRepository
             return tempDataStore;
         }
 
-        //for now exclude becuase it is not implemented
-        [ExcludeFromCodeCoverage]
         public Customer Get(Customer entity)
         {
             if(tempDataStore.Exists(x => x.Id == entity.Id))
             {
                 return entity;
+            }
+            return null;
+        }
+
+        public Customer GetById(string Id)
+        {
+            if (tempDataStore.Exists(x => x.Id == Id))
+            {
+                return tempDataStore.Find(x => x.Id == Id);
             }
             return null;
         }
