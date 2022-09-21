@@ -5,11 +5,13 @@ using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Xbehave;
 using Xunit;
 
 namespace SimpleCRM
 {
+    [ExcludeFromCodeCoverage]
     public class CustomerInteractionsTest
     {
         private readonly CRMCustomerController controller = new(null);
