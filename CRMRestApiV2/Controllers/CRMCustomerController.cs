@@ -26,6 +26,12 @@ namespace CRMRestApiV2.Controllers
             return Repository.FetchAll().ToArray();
         }
 
+        [HttpGet(Name = "GetCustomer")]
+        public Customer Get(string Id)
+        {
+            return Repository.GetById(Id);
+        }
+
         [HttpPost]
         public void Post(Customer customer)
         {

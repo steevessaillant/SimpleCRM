@@ -3,12 +3,14 @@ using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Xbehave;
 using Xunit;
 
 namespace SimpleCRM
 {
+    [ExcludeFromCodeCoverage]
     public class CustomerInteractionsIntegrationsTest
     {
         private readonly CRMCustomerController controller = new CRMCustomerController(null);
@@ -46,6 +48,39 @@ namespace SimpleCRM
                     controller.Get()
                     .Should()
                     .Contain(Jane); ;
+                });
+
+            //cleanup
+            controller.ClearDataSource();
+
+        }
+
+        [Scenario]
+        public void GetCustomersJohnFromCRM(CRMCustomerController controller, Customer John, CustomerRepository customerRepo)
+        {
+
+            controller = this.controller;
+
+            "Given we have John Doe a new customer that has been added to the CRM"
+                .x(() =>
+                {
+                    John = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+                    controller.Post(John);
+                });
+
+            "When the customer JOhn Doe is requested"
+                .x(() =>
+                {
+                    controller.Get(John.Id);
+                });
+
+
+            "Then the customer JOhn Doe is returned"
+                .x(() =>
+                {
+                    controller.Get()
+                    .Should()
+                    .Contain(John);
                 });
 
             //cleanup
