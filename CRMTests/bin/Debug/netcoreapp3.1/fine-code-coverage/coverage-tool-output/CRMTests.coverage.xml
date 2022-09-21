@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="1" branch-rate="1" version="1.9" timestamp="1663193670" lines-covered="53" lines-valid="53" branches-covered="4" branches-valid="4">
+<coverage line-rate="1" branch-rate="1" version="1.9" timestamp="1663617772" lines-covered="53" lines-valid="53" branches-covered="4" branches-valid="4">
   <sources>
     <source>C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\</source>
   </sources>
@@ -119,9 +119,9 @@
             </method>
             <method name="ToString" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="38" hits="2" branch="False" />
-                <line number="39" hits="2" branch="False" />
                 <line number="40" hits="2" branch="False" />
+                <line number="41" hits="2" branch="False" />
+                <line number="42" hits="2" branch="False" />
               </lines>
             </method>
           </methods>
@@ -129,9 +129,9 @@
             <line number="10" hits="9" branch="False" />
             <line number="12" hits="9" branch="False" />
             <line number="14" hits="9" branch="False" />
-            <line number="38" hits="2" branch="False" />
-            <line number="39" hits="2" branch="False" />
             <line number="40" hits="2" branch="False" />
+            <line number="41" hits="2" branch="False" />
+            <line number="42" hits="2" branch="False" />
           </lines>
         </class>
       </classes>

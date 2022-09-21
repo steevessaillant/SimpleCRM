@@ -1,17 +1,22 @@
 using CRMRepository;
 using CRMRepository.Entities;
-using CRMRestApi.Controllers;
+using CRMRestApiV2.Controllers;
 using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Xbehave;
 using Xunit;
 
 namespace SimpleCRM
 {
+    [ExcludeFromCodeCoverage]
     public class CustomerInteractionsTest
     {
+        private readonly CRMCustomerController controller = new(null);
+
+
         #region functional api acceptance tests
         [Scenario]
         public void PostCustomerToCRM(CRMCustomerController controller,Customer customer, Mock<IRepository<Customer>> customerRepoMock)
@@ -20,12 +25,13 @@ namespace SimpleCRM
             "Given we have a new customer"
                 .x(() =>
                 {
+                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
                     customerRepoMock.Setup(x => x.Add(customer));
                     customerRepoMock.Setup(x => x.FetchAll()).Returns(new List<Customer> { customer });
                     customerRepoMock.Setup(x => x.Save());
-                    controller = new CRMCustomerController(customerRepoMock.Object);
+                    controller.Repository = customerRepoMock.Object;
                 });
 
             "When this customer is added"
@@ -56,18 +62,21 @@ namespace SimpleCRM
             "Given we have an existing customer"
                 .x(() =>
                 {
+                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller.Repository = customerRepoMock.Object;
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
-                    customerRepoMock.Setup(x => x.Add(customer));
-                    customerRepoMock.Setup(x => x.Get(customer)).Returns(customer);
-                    customerRepoMock.Setup(x => x.Delete(customer));
-                    customerRepoMock.Setup(x => x.Save());
-                    controller = new CRMCustomerController(customerRepoMock.Object);
+                    
                 });
 
             "When this customer is deleted"
                 .x(() =>
                 {
+                    customerRepoMock.Setup(x => x.Add(customer));
+                    customerRepoMock.Setup(x => x.Get(customer)).Returns(customer);
+                    customerRepoMock.Setup(x => x.Delete(customer));
+                    customerRepoMock.Setup(x => x.Save());
+                    controller = this.controller;
                     controller.Delete(customer);
                 });
 
@@ -75,11 +84,12 @@ namespace SimpleCRM
             "Then the customer is deleted"
                 .x(() =>
                 {
-                    var actualCustomer = customerRepoMock.Object.Get(customer);
+                    var actualCustomer = controller.Repository.Get(customer);
                     
                     actualCustomer 
                     .Should()
                     .Be(customer);
+
 
                     customerRepoMock.Verify(x => x.Delete(customer), Times.Once);
                     customerRepoMock.Verify(x => x.Save(), Times.Once);
@@ -94,14 +104,16 @@ namespace SimpleCRM
             "Given we have non-existing customer"
                 .x(() =>
                 {
+                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller.Repository = customerRepoMock.Object;
                     customer = new Customer { Id = "JD2", FirstName = "Jane", LastName = "Doe" };
                     customerRepoMock.Setup(x => x.Get(customer))
                     .Throws<ArgumentOutOfRangeException>(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
                     customerRepoMock.Setup(x => x.Delete(customer))
                     .Throws<ArgumentOutOfRangeException>(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
 
-                    controller = new CRMCustomerController(customerRepoMock.Object);
+                    controller = this.controller;
                 });
 
             "When this customer is deleted"
@@ -115,6 +127,7 @@ namespace SimpleCRM
                     {
                         exception = ex;
                     }
+
                 });
 
 
@@ -124,19 +137,10 @@ namespace SimpleCRM
                     exception.ParamName
                     .Should()
                     .Be("The Customer: " + customer.ToString() + " was not found");
-
-
                 });
 
         }
         #endregion
 
-        #region technical tests
-        [Fact]
-        public void Controller_Throws_Argument_Null_Exception_When_Repo_Is_Null()
-        {
-            Assert.Throws<ArgumentNullException>(() => new CRMCustomerController(null));
-        }
-        #endregion
     }
 }

@@ -32,6 +32,8 @@ namespace CRMRepository.Entities
         public override int GetHashCode()
         {
             return base.GetHashCode();
+
+            throw new DivideByZeroException("Cannot divide by 0");
         }
 
         public override string ToString()

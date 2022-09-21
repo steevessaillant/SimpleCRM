@@ -5,7 +5,7 @@ using System;
 
 namespace CRMRestApi.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CRMCustomerController : ControllerBase
     {

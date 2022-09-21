@@ -1,17 +1,16 @@
 ﻿using CRMRepository.Entities;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace CRMRepository
 {
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : IRepository<Customer>, IPersistableFile
     {
-        private List<Customer> tempDataStore = new List<Customer>();
+        private readonly List<Customer> tempDataStore = new();
+
+        public string Path => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Customers.json";
 
         public void Add(Customer entity)
         {
@@ -21,36 +20,52 @@ namespace CRMRepository
             }
         }
 
+        public void Clear()
+        {
+            tempDataStore.Clear();
+            this.Save();
+        }
+
         //for now exclude becuase it is not implemented
-        [ExcludeFromCodeCoverage]
         public void Delete(Customer entity)
         {
-            throw new NotImplementedException();
+            tempDataStore.Remove(entity);
+            this.Save();
         }
 
         public List<Customer> FetchAll()
         {
-                using (StreamReader r = new StreamReader(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)
-                + "\\Customers.json"))
-                {
-                    string json = r.ReadToEnd();
-                    tempDataStore = JsonConvert.DeserializeObject<List<Customer>>(json);
-                }
+            tempDataStore.ImportCustomersFromTextFile(this.Path);
             return tempDataStore;
         }
 
-        //for now exclude becuase it is not implemented
-        [ExcludeFromCodeCoverage]
         public Customer Get(Customer entity)
         {
-            throw new NotImplementedException();
+            if(tempDataStore.Exists(x => x.Id == entity.Id))
+            {
+                return entity;
+            }
+            return null;
+        }
+
+        public Customer GetById(string Id)
+        {
+            if (tempDataStore.Exists(x => x.Id == Id))
+            {
+                return tempDataStore.Find(x => x.Id == Id);
+            }
+            return null;
         }
 
         public void Save()
         {
             tempDataStore
-                .ExportToTextFile<Customer>(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)
-                + "\\Customers.json",',');
+                .ExportToTextFile<Customer>(this.Path);
+        }
+
+        public void Update(Customer entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

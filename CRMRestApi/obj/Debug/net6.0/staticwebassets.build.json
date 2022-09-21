@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "QssdK3iE23pT85VZFIlfg09mpmDmRU6SWBUA5nie2k4=",
+  "Source": "CRMRestApi",
+  "BasePath": "_content/CRMRestApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
