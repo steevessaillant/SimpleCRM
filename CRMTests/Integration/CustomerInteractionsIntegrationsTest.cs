@@ -92,7 +92,7 @@ namespace SimpleCRM
 
         #region technical data infrastucture tests
 
-        private readonly string dataFile = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Customers.json";
+        private readonly string dataFile = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Customers.json";
 
         [Fact]
         public void MemoryToFileIOShouldPersist()
