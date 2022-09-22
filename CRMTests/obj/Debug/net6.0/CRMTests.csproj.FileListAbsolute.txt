@@ -1,9 +1,4 @@
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\CoverletSourceRootsMapping
-C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.csproj.AssemblyReference.cache
-C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.AssemblyInfoInputs.cache
-C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.AssemblyInfo.cs
-C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.csproj.CoreCompileInputs.cache
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\testhost.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\CRMRestApiV2.deps.json
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\CRMRestApiV2.runtimeconfig.json
@@ -115,9 +110,15 @@ C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\ne
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\CRMRestApiV2.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\CRMRepository.pdb
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\CRMRestApiV2.pdb
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.csproj.AssemblyReference.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.AssemblyInfoInputs.cache
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.AssemblyInfo.cs
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.csproj.CoreCompileInputs.cache
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.csproj.CopyComplete
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\refint\CRMTests.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.pdb
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\CRMTests.genruntimeconfig.cache
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\obj\Debug\net6.0\ref\CRMTests.dll
+C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMTests\bin\Debug\net6.0\CRMRestApiV2.xml
