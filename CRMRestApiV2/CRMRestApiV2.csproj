@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NSwag.AspNetCore" Version="13.17.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -14,11 +15,7 @@
     <ProjectReference Include="..\CRMRepository\CRMRepository.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command=" &lt;Target Name=&quot;openapi&quot; AfterTargets=&quot;Build&quot;&gt;&#xD;&#xA;    &lt;Message Text=&quot;generating openapi&quot; Importance=&quot;high&quot; /&gt;&#xD;&#xA;    &lt;Exec EnvironmentVariables=&quot;DOTNET_ENVIRONMENT=SwaggerBuild&quot; Command=&quot;dotnet tool run swagger tofile --yaml --output openapi.yaml $(OutputPath)$(AssemblyName).dll service&quot; /&gt;&#xD;&#xA;  &lt;/Target&gt;" />
-  </Target>
-
 </Project>
