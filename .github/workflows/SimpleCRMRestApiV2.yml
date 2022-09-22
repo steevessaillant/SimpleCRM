@@ -34,6 +34,8 @@ jobs:
         dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
     - name: Restore
       run: dotnet restore ${{ env.WORKING_DIRECTORY }}
+    - name: Install Swashbuckle.AspNetCore.Cli for post build event to generate swagger.json
+      run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version 6.4.0
     - name: Build
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
