@@ -10,7 +10,7 @@ namespace CRMRepository
     {
         private readonly List<Customer> tempDataStore = new();
 
-        public string Path => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Customers.json";
+        public string Path => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Customers.json";
 
         public CustomerRepository()
         {
