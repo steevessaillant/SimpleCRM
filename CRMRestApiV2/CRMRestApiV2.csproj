@@ -22,6 +22,7 @@
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="dotnet tool restore" />
+    <Exec Command="dotnet tool install --global Swashbuckle.AspNetCore.Cli --version 6.4.0" />
     <Exec Command="swagger tofile --output swagger.json $(OutputPath)$(AssemblyName).dll v1" />
   </Target>
 </Project>
