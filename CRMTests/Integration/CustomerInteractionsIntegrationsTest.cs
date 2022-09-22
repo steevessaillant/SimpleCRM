@@ -51,7 +51,8 @@ namespace SimpleCRM
                 });
 
             //cleanup
-            controller.ClearDataSource();
+            controller.Delete(John);
+            controller.Delete(Jane);
 
         }
 
@@ -68,14 +69,14 @@ namespace SimpleCRM
                     controller.Post(John);
                 });
 
-            "When the customer JOhn Doe is requested"
+            "When the customer John Doe is requested"
                 .x(() =>
                 {
                     controller.Get(John.Id);
                 });
 
 
-            "Then the customer JOhn Doe is returned"
+            "Then the customer John Doe is returned"
                 .x(() =>
                 {
                     controller.Get()
@@ -84,7 +85,7 @@ namespace SimpleCRM
                 });
 
             //cleanup
-            controller.ClearDataSource();
+            controller.Delete(John);
 
         }
         #endregion
@@ -109,14 +110,14 @@ namespace SimpleCRM
         {
             var customerRepo = this.controller.Repository;
             Customer testCustomer = new() { Id = "TEST", FirstName = "Tester", LastName = "Testing" };
-            List<Customer> tempDataStore = new() { testCustomer };
-            tempDataStore.ExportToTextFile(customerRepo.Path);
-            var actual = tempDataStore.ImportCustomersFromTextFile(customerRepo.Path);
-            actual.Should().Contain(testCustomer);
-            actual.Should().BeAssignableTo<List<Customer>>();
+            List<Customer> actualDataStore = new() { testCustomer };
+            actualDataStore.ExportToTextFile(customerRepo.Path);
+            actualDataStore.ImportCustomersFromTextFile(customerRepo.Path);
+            actualDataStore.Should().Contain(testCustomer);
+            actualDataStore.Should().BeAssignableTo<List<Customer>>();
             //clean up
             customerRepo.Clear();
-            tempDataStore.ExportToTextFile<Customer>(customerRepo.Path);
+            actualDataStore.ExportToTextFile<Customer>(customerRepo.Path);
         }
         #endregion
     }

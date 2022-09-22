@@ -12,6 +12,10 @@ namespace CRMRepository
 
         public string Path => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Customers.json";
 
+        public CustomerRepository()
+        {
+            tempDataStore.ImportCustomersFromTextFile(this.Path);
+        }
         public void Add(Customer entity)
         {
             if(!tempDataStore.Exists(x => x.Id == entity.Id))
@@ -35,7 +39,6 @@ namespace CRMRepository
 
         public List<Customer> FetchAll()
         {
-            tempDataStore.ImportCustomersFromTextFile(this.Path);
             return tempDataStore;
         }
 
