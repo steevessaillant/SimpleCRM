@@ -20,13 +20,11 @@ namespace CRMRestApiV2.Controllers
 
         }
 
-        [HttpGet(Name = "GetCustomers")]
-        public IEnumerable<Customer> Get()
-        {
-            return Repository.FetchAll().ToArray();
-        }
+        [HttpGet]
+        public IEnumerable<Customer> Get() => Repository.FetchAll().ToArray();
 
-        [HttpGet(Name = "GetCustomer")]
+        [Route("/{id?}")]
+        [HttpGet]
         public Customer Get(string Id)
         {
             return Repository.GetById(Id);
@@ -44,7 +42,7 @@ namespace CRMRestApiV2.Controllers
         {
             try
             {
-                this.Repository.Delete(this.Repository.Get(customer));
+                this.Repository.Delete(customer);
                 this.Repository.Save();
             }
             catch
@@ -53,7 +51,7 @@ namespace CRMRestApiV2.Controllers
             }
         }
 
-        public void ClearDataSource()
+        protected void ClearDataSource()
         {
             this.Repository.Clear();
         }

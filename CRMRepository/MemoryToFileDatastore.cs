@@ -15,10 +15,10 @@ namespace CRMRepository
             sw.WriteLine(Json);
         }
 
-        public static List<Customer> ImportCustomersFromTextFile<Customer>(this List<Customer> data,string fileName)
+        public static void ImportCustomersFromTextFile<Customer>(this List<Customer> data,string fileName)
         {
             var fileContents = File.ReadAllText(fileName);
-            return JsonConvert.DeserializeObject<List<Customer>>(fileContents).ToList<Customer>();
+            data.AddRange(JsonConvert.DeserializeObject<List<Customer>>(fileContents).ToList());
         }
 
     }
