@@ -2,6 +2,6 @@
 {
     public interface IPersistableFile
     {
-        string Path { get;}
+        string DataSourceFleLocalPath { get;}
     }
 }

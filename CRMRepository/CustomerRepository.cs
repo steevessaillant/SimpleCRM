@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CRMRepository
 {
@@ -10,12 +11,27 @@ namespace CRMRepository
     {
         private readonly List<Customer> tempDataStore = new();
 
-        public string Path => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Customers.json";
-
-        public CustomerRepository()
+        public string DataSourceFleLocalPath
         {
-            tempDataStore.ImportCustomersFromTextFile(this.Path);
+            get
+            {
+                return Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName, "Customers.json");
+            }
         }
+
+        public CustomerRepository(bool restoreFromTextFile = true)
+        {
+            if (restoreFromTextFile)
+            {
+                tempDataStore.LoadCustomersFromTextFile<Customer>(DataSourceFleLocalPath);
+            }
+            else
+            {
+                this.Clear();
+                this.Save();
+            }
+        }
+       
         public void Add(Customer entity)
         {
             if(!tempDataStore.Exists(x => x.Id == entity.Id))
@@ -32,9 +48,8 @@ namespace CRMRepository
 
         //for now exclude becuase it is not implemented
         public void Delete(Customer entity)
-        {
+        { 
             tempDataStore.Remove(entity);
-            this.Save();
         }
 
         public List<Customer> FetchAll()
@@ -63,7 +78,7 @@ namespace CRMRepository
         public void Save()
         {
             tempDataStore
-                .ExportToTextFile<Customer>(this.Path);
+                .ExportToTextFile<Customer>(this.DataSourceFleLocalPath);
         }
 
         public void Update(Customer entity)

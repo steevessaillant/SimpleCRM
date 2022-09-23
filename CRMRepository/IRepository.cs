@@ -4,7 +4,7 @@ namespace CRMRepository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        string Path { get;}
+        string DataSourceFleLocalPath { get;}
 
         List<TEntity> FetchAll();
         void Add(TEntity entity);

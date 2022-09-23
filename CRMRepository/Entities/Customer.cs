@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 
 namespace CRMRepository.Entities
 {
+    [DataContract]
     public class Customer : IEquatable<Customer>
     {
         [ExcludeFromCodeCoverage]
+        [DataMember]
         public string Id { get; set; }
         [ExcludeFromCodeCoverage]
+        [DataMember]
         public string FirstName { get; set; }
         [ExcludeFromCodeCoverage]
+        [DataMember]
         public string LastName { get; set; }
 
         [ExcludeFromCodeCoverage]

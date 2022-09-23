@@ -2,7 +2,9 @@ using CRMRepository;
 using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Xbehave;
@@ -13,14 +15,13 @@ namespace SimpleCRM
     [ExcludeFromCodeCoverage]
     public class CustomerInteractionsIntegrationsTest
     {
-        private readonly CRMCustomerController controller = new CRMCustomerController(null);
 
         #region functional api acceptance tests
         [Scenario]
         public void PostCustomersJohnAndJaneToCRM(CRMCustomerController controller,Customer John,Customer Jane, CustomerRepository customerRepo)
         {
 
-            controller = this.controller;            
+            controller = new(null);
 
             "Given we have a these new customers to add to the CRM"
                 .x(() =>
@@ -60,7 +61,7 @@ namespace SimpleCRM
         public void GetCustomersJohnFromCRM(CRMCustomerController controller, Customer John, CustomerRepository customerRepo)
         {
 
-            controller = this.controller;
+            controller = new(null);
 
             "Given we have John Doe a new customer that has been added to the CRM"
                 .x(() =>
@@ -92,32 +93,33 @@ namespace SimpleCRM
 
         #region technical data infrastucture tests
 
-        private readonly string dataFile = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Customers.json";
-
         [Fact]
-        public void MemoryToFileIOShouldPersist()
+        public void ExportToTextFileShouldPersistTestCustomer()
         {
-            var customerRepo = this.controller.Repository;
-            List<Customer> tempDataStore = new();
-            tempDataStore.ExportToTextFile(customerRepo.Path);
-
-            File.Exists(customerRepo.Path).Should().BeTrue();
-
+            CRMCustomerController controller = new(null);
+            
+            Customer testCustomer = new() { Id = "TEST", FirstName = "Tester", LastName = "Testing" };
+            controller.Post(testCustomer);
+            
+           
+            controller.Repository
+                .As<CustomerRepository>()
+                .FetchAll()
+                .LoadCustomersFromTextFile<Customer>(controller.Repository.DataSourceFleLocalPath)
+                .Should().Contain(testCustomer);
+           
+            //clean up
+            controller.Delete(testCustomer);
+                
         }
 
         [Fact]
-        public void ImportFromTextFileShouldReturnNotNUllEmptyListList()
+        public void CanResetAndCreateAnEmptyList()
         {
-            var customerRepo = this.controller.Repository;
-            Customer testCustomer = new() { Id = "TEST", FirstName = "Tester", LastName = "Testing" };
-            List<Customer> actualDataStore = new() { testCustomer };
-            actualDataStore.ExportToTextFile(customerRepo.Path);
-            actualDataStore.ImportCustomersFromTextFile(customerRepo.Path);
-            actualDataStore.Should().Contain(testCustomer);
-            actualDataStore.Should().BeAssignableTo<List<Customer>>();
-            //clean up
-            customerRepo.Clear();
-            actualDataStore.ExportToTextFile<Customer>(customerRepo.Path);
+            var customerRepo = new CustomerRepository(false);
+
+            customerRepo.FetchAll().Count.Should().Be(0);
+
         }
         #endregion
     }
