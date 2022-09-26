@@ -9,13 +9,25 @@ namespace CRMRepository
 {
     public class CustomerRepository : IRepository<Customer>, IPersistableFile
     {
-        private readonly List<Customer> tempDataStore = new();
+        private List<Customer> tempDataStore = new();
 
         public string DataSourceFleLocalPath
         {
             get
             {
-                return Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName, "Customers.json");
+                var possiblePath = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\Data\\Customers.json";
+
+                if (File.Exists(possiblePath)){
+                    return possiblePath;
+                }
+                else
+                {
+                    var dirInfo = Directory.CreateDirectory(Directory.GetParent(Environment.CurrentDirectory).FullName +  "\\Data");
+                    using var file = File.CreateText(dirInfo.FullName + "\\Customers.json");
+                    file.Close();
+                    return possiblePath;
+                }
+
             }
         }
 
@@ -23,7 +35,7 @@ namespace CRMRepository
         {
             if (restoreFromTextFile)
             {
-                tempDataStore.LoadCustomersFromTextFile<Customer>(DataSourceFleLocalPath);
+                tempDataStore =  tempDataStore.LoadCustomersFromTextFile<Customer>(DataSourceFleLocalPath);
             }
             else
             {

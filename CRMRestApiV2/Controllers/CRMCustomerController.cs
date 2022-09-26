@@ -44,8 +44,7 @@ namespace CRMRestApiV2.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [Route("/{id?}")]
-        [HttpGet]
+        [HttpGet("{Id}")]
         public Customer Get(string Id)
         {
             return Repository.GetById(Id);
@@ -77,6 +76,24 @@ namespace CRMRestApiV2.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// Delete customer
+        /// </summary>
+        /// <param name="customer"></param>
+        [HttpDelete("{Id}")]
+        public void Delete(string Id)
+        {
+            try
+            {
+                this.Repository.Delete(this.Repository.GetById(Id));
+                this.Repository.Save();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        /// <summary>
         /// <summary>
         /// Remove all data form the file datasource leaving just an empty array --> []
         /// </summary>

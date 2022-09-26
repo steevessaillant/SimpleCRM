@@ -121,6 +121,15 @@ namespace SimpleCRM
             customerRepo.FetchAll().Count.Should().Be(0);
 
         }
+        
+        [Fact]
+        public void WillCreateFileIfItDoesNotExist()
+        {
+            var customerRepo = new CustomerRepository(false);
+
+            File.Exists(customerRepo.DataSourceFleLocalPath).Should().BeTrue();
+
+        }
         #endregion
     }
 }

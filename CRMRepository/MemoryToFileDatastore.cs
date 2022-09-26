@@ -43,8 +43,8 @@ namespace CRMRepository
             {
                 using var sr = File.OpenText(fileName);
                 var json = sr.ReadToEnd();
-                List<Entities.Customer> persistedList = JsonConvert.DeserializeObject<List<Entities.Customer>>(json);
-                return persistedList;
+                data = JsonConvert.DeserializeObject<List<Entities.Customer>>(json);
+                return data;
             }
             else
             {

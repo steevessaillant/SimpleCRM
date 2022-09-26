@@ -98,6 +98,48 @@ namespace SimpleCRM
         }
 
         [Scenario]
+        public void DeleteCustomerByIdFromCRM(CRMCustomerController controller, String Id, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
+        {
+
+            "Given we have an existing customer"
+                .x(() =>
+                {
+                    controller = this.controller;
+                    customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller.Repository = customerRepoMock.Object;
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+
+                });
+
+            "When this customer is deleted"
+                .x(() =>
+                {
+                    customerRepoMock.Setup(x => x.Add(customer));
+                    customerRepoMock.Setup(x => x.GetById(Id)).Returns(customer);
+                    customerRepoMock.Setup(x => x.Delete(customer));
+                    customerRepoMock.Setup(x => x.Save());
+                    controller = this.controller;
+                    controller.Delete(Id);
+                });
+
+
+            "Then the customer is deleted"
+                .x(() =>
+                {
+                    var actualCustomer = controller.Repository.Get(customer);
+
+                    actualCustomer
+                    .Should()
+                    .Be(null);
+
+
+                    customerRepoMock.Verify(x => x.Delete(customer), Times.Once);
+                    customerRepoMock.Verify(x => x.Save(), Times.Once);
+                });
+
+        }
+
+        [Scenario]
         public void DeleteCustomerFromCRMFailsWhenNotFound(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock,ArgumentOutOfRangeException exception)
         {
 
