@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMRestApiV2", "CRMRestApiV2\CRMRestApiV2.csproj", "{3FEC91D4-C3D7-4F80-9D4D-A9937D305425}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMIntegrationTests", "CRMIntegrationTests\CRMIntegrationTests.csproj", "{FBBF42B3-CF80-4070-AE99-46C75EE837C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMIntegrationTests", "CRMIntegrationTests\CRMIntegrationTests.csproj", "{FBBF42B3-CF80-4070-AE99-46C75EE837C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,5 +49,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {398AB851-DDF4-44A8-8C1F-9CEE69E16B7B}
+	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\SimpleCRM1.ndproj"
 	EndGlobalSection
 EndGlobal

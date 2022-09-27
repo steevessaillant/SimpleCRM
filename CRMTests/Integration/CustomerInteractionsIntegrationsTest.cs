@@ -93,43 +93,8 @@ namespace SimpleCRM
 
         #region technical data infrastucture tests
 
-        [Fact]
-        public void ExportToTextFileShouldPersistTestCustomer()
-        {
-            CRMCustomerController controller = new(null);
-            
-            Customer testCustomer = new() { Id = "TEST", FirstName = "Tester", LastName = "Testing" };
-            controller.Post(testCustomer);
-            
-           
-            controller.Repository
-                .As<CustomerRepository>()
-                .FetchAll()
-                .LoadCustomersFromTextFile<Customer>(controller.Repository.DataSourceFleLocalPath)
-                .Should().Contain(testCustomer);
-           
-            //clean up
-            controller.Delete(testCustomer);
-                
-        }
 
-        [Fact]
-        public void CanResetAndCreateAnEmptyList()
-        {
-            var customerRepo = new CustomerRepository(false);
-
-            customerRepo.FetchAll().Count.Should().Be(0);
-
-        }
-        
-        [Fact]
-        public void WillCreateFileIfItDoesNotExist()
-        {
-            var customerRepo = new CustomerRepository(false);
-
-            File.Exists(customerRepo.DataSourceFleLocalPath).Should().BeTrue();
-
-        }
+       
         #endregion
     }
 }

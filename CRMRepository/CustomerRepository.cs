@@ -7,42 +7,11 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace CRMRepository
 {
-    public class CustomerRepository : IRepository<Customer>, IPersistableFile
+    public class CustomerRepository : IRepository<Customer>
     {
         private List<Customer> tempDataStore = new();
 
-        public string DataSourceFleLocalPath
-        {
-            get
-            {
-                var possiblePath = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\Data\\Customers.json";
-
-                if (File.Exists(possiblePath)){
-                    return possiblePath;
-                }
-                else
-                {
-                    var dirInfo = Directory.CreateDirectory(Directory.GetParent(Environment.CurrentDirectory).FullName +  "\\Data");
-                    using var file = File.CreateText(dirInfo.FullName + "\\Customers.json");
-                    file.Close();
-                    return possiblePath;
-                }
-
-            }
-        }
-
-        public CustomerRepository(bool restoreFromTextFile = true)
-        {
-            if (restoreFromTextFile)
-            {
-                tempDataStore =  tempDataStore.LoadCustomersFromTextFile<Customer>(DataSourceFleLocalPath);
-            }
-            else
-            {
-                this.Clear();
-                this.Save();
-            }
-        }
+   
        
         public void Add(Customer entity)
         {
@@ -89,8 +58,7 @@ namespace CRMRepository
 
         public void Save()
         {
-            tempDataStore
-                .ExportToTextFile<Customer>(this.DataSourceFleLocalPath);
+            throw new NotImplementedException("Work in progress , migrationg datasource to azure table in progress");
         }
 
         public void Update(Customer entity)
