@@ -40,13 +40,13 @@ jobs:
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
-    - name: Generating XUnit Report
-      uses: AutoModality/action-xunit-viewer@v1  
-    - name: Attach the report
-      uses: actions/upload-artifact@v1
-      with:
-         name: ${{ steps.xunit-viewer.outputs.report-name }}
-         path: ${{ steps.xunit-viewer.outputs.report-dir }}
+    #- name: Generating XUnit Report
+    #  uses: AutoModality/action-xunit-viewer@v1  
+    #- name: Attach the report
+    #  uses: actions/upload-artifact@v1
+    #  with:
+    #     name: ${{ steps.xunit-viewer.outputs.report-name }}
+    #     path: ${{ steps.xunit-viewer.outputs.report-dir }}
     - name: Publish
       run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: Publish Artifacts
