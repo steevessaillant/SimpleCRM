@@ -72,22 +72,6 @@ namespace CRMRestApiV2.Controllers
         }
 
         /// <summary>
-        /// Delete a range of customer
-        /// </summary>
-        /// <param name="customer"></param>
-        [HttpDelete("/api/[controller]/deleterange")]
-        public void DeleteRange(List<Customer> customerSubList)
-        {
-            try
-            {
-                this.Repository.DeleteRange(customerSubList);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        /// <summary>
         /// Delete customer
         /// </summary>
         /// <param name="Id"></param>       
