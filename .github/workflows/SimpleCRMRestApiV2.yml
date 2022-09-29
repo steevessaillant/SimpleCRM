@@ -4,6 +4,20 @@ on:
     branches:
     - dev
 env:
+  RESOURCEGROUPNAME: "simplecrmkubernetescluster-rg"
+  EXISTINGRESOURCEGROUPNAME: "SimpleCRMResourceGroup"
+  SUBSCRIPTIONID: "8d512b56-1f3e-4976-a2d6-23d19fa62963"
+  IMAGENAME: "simplecrmkubernetescluster54b4"
+  REGISTRYSKU: "Standard"
+  REGISTRYNAME: "simplecrmkubernetesclusteracr"
+  REGISTRYLOCATION: "South Central US"
+  EXISTINGCLUSTERID: "/subscriptions/8d512b56-1f3e-4976-a2d6-23d19fa62963/resourcegroups/SimpleCRMResourceGroup/providers/Microsoft.ContainerService/managedClusters/simplecrmkubernetescluster"
+  EXISTINGCLUSTERNAME: "simplecrmkubernetescluster"
+  APPINSIGHTSLOCATION: "East US"
+  HTTPSAPPLICATIONROUTINGENABLED: false
+  KUBERNETESAPI: "apps/v1"
+  NAMESPACE: "simplecrmkubernetescluster7150"
+  #AZURE VARIABLES
   AZURE_WEBAPP_NAME: SimpleCRMRestApiV2
   AZURE_WEBAPP_PACKAGE_PATH: CRMRestApiV2/publish
   AZURE_APIM_RESOURCE_PATH: /api
