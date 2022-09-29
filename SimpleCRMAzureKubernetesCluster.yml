@@ -1,8 +1,12 @@
 name: Build and deploy .NET Core application to Web App SimpleCRMRestApiV2 with API Management Service SimpleApiV2api-CRMRestApiV2 then Build and Deploy to AKS
+
 on:
   push:
-    branches:
-    - dev
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [closed]
+    
 env:
   RESOURCEGROUPNAME: "simplecrmkubernetescluster-rg"
   EXISTINGRESOURCEGROUPNAME: "SimpleCRMResourceGroup"
