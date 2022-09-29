@@ -1,4 +1,4 @@
-name: Build and Deploy to AKS
+name: Build and deploy .NET Core application to Web App SimpleCRMRestApiV2 with API Management Service SimpleApiV2api-CRMRestApiV2 then Build and Deploy to AKS
 on:
   push:
     branches:
@@ -17,15 +17,57 @@ env:
   HTTPSAPPLICATIONROUTINGENABLED: false
   KUBERNETESAPI: "apps/v1"
   NAMESPACE: "simplecrmkubernetescluster7150"
+  #AZURE VARIABLES
+  AZURE_WEBAPP_NAME: SimpleCRMRestApiV2
+  AZURE_WEBAPP_PACKAGE_PATH: CRMRestApiV2/publish
+  AZURE_APIM_RESOURCE_PATH: /api
+  AZURE_APIM_RESOURCEGROUP: SimpleCRMResourceGroup
+  AZURE_APIM_SERVICENAME: SimpleApiV2api
+  AZURE_APIM_API_ID: CRMRestApiV2
+  AZURE_APIM_APPSERVICEURL: https://simplecrmrestapiv2.azurewebsites.net
+  SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 6.4.0
+  SWASHBUCKLE_DOTNET_CORE_VERSION: 6.0.x
+  API_IMPORT_SPECIFICATION_PATH: CRMRestApiV2/publish/swagger.json
+  API_IMPORT_DLL: CRMRestApiV2/bin/Release/net6.0/CRMRestApiV2.dll
+  API_IMPORT_VERSION: v1
+  CONFIGURATION: Debug
 
 jobs:
   build:
     name: Build and push image to container registry
     runs-on: ubuntu-latest
     steps:
-    using: "composite"
     - uses: actions/checkout@v2
-    - uses: ./.github/workflows/SimpleCRMRestApiV2.yml
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    - name: Setup SwashBuckle .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
+    - name: Restore
+      run: dotnet restore ${{ env.WORKING_DIRECTORY }}
+    - name: Install Swashbuckle.AspNetCore.Cli for post build event to generate swagger.json
+      run: dotnet tool install --local Swashbuckle.AspNetCore.Cli --version 6.4.0 
+    - name: Build
+      run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
+    - name: Test
+      run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
+    #- name: Generating XUnit Report
+    #  uses: AutoModality/action-xunit-viewer@v1  
+    #- name: Attach the report
+    #  uses: actions/upload-artifact@v1
+    #  with:
+    #     name: ${{ steps.xunit-viewer.outputs.report-name }}
+    #     path: ${{ steps.xunit-viewer.outputs.report-dir }}
+    - name: Publish
+      run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: webapp
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
     # login to azure
     - name: Login to Azure
