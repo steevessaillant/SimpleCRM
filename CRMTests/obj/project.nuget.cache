@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1k2bq5NW6Bv8dVb3i2rCSsFDchNhKlhIFipbKue6x3o83tAiCk3A8/rdGWgB7BR86yiDr9LXfXtvpMb7Vhgfvg==",
+  "dgSpecHash": "fMKpA2XP4VIiKh03qSC8DJh1IHsvpZsrH9HeDiKD+vEYs68tXnzSB6a4hrCnhMc84PaygWEccy1AWCzOKPg21g==",
   "success": true,
   "projectFilePath": "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\CRMTests\\CRMTests.csproj",
   "expectedPackageFiles": [
@@ -9,8 +9,6 @@
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\fluentassertions\\6.7.0\\fluentassertions.6.7.0.nupkg.sha512",
-    "C:\\Users\\SteevesSaillant\\.nuget\\packages\\help\\1.0.0\\help.1.0.0.nupkg.sha512",
-    "C:\\Users\\SteevesSaillant\\.nuget\\packages\\jquery\\2.1.1\\jquery.2.1.1.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\microsoft.codecoverage\\17.3.1\\microsoft.codecoverage.17.3.1.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\microsoft.csharp\\4.4.1\\microsoft.csharp.4.4.1.nupkg.sha512",
@@ -56,7 +54,6 @@
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
-    "C:\\Users\\SteevesSaillant\\.nuget\\packages\\sampledependency\\1.0.0\\sampledependency.1.0.0.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
@@ -138,16 +135,5 @@
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\xunitxml.testlogger\\2.1.26\\xunitxml.testlogger.2.1.26.nupkg.sha512",
     "C:\\Users\\SteevesSaillant\\.nuget\\packages\\yamldotnet\\11.2.1\\yamldotnet.11.2.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'help 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "help",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }

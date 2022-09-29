@@ -79,21 +79,6 @@
           }
         }
       },
-      "help/1.0.0": {
-        "type": "package",
-        "dependencies": {
-          "SampleDependency": "1.0.0"
-        },
-        "compile": {
-          "lib/net40/System.Linq.Dynamic.dll": {}
-        },
-        "runtime": {
-          "lib/net40/System.Linq.Dynamic.dll": {}
-        }
-      },
-      "jQuery/2.1.1": {
-        "type": "package"
-      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
         "compile": {
@@ -961,12 +946,6 @@
             "assetType": "native",
             "rid": "ubuntu.16.10-x64"
           }
-        }
-      },
-      "SampleDependency/1.0.0": {
-        "type": "package",
-        "dependencies": {
-          "jQuery": "2.1.1"
         }
       },
       "Swashbuckle.AspNetCore/6.4.0": {
@@ -2387,8 +2366,7 @@
           "CRMRepository": "1.0.0",
           "NSwag.AspNetCore": "13.17.0",
           "Swashbuckle.AspNetCore": "6.4.0",
-          "TableStorage.Abstractions.TableEntityConverters": "2.0.1",
-          "help": "1.0.0"
+          "TableStorage.Abstractions.TableEntityConverters": "2.0.1"
         },
         "compile": {
           "bin/placeholder/CRMRestApiV2.dll": {}
@@ -2544,39 +2522,6 @@
         "lib/netstandard2.1/FluentAssertions.dll",
         "lib/netstandard2.1/FluentAssertions.pdb",
         "lib/netstandard2.1/FluentAssertions.xml"
-      ]
-    },
-    "help/1.0.0": {
-      "sha512": "+WZkw3QG/M/lF57RSJFxUymegULP5DKwMKiVSHcxjUR2L5FSsaeGq4pcs3L7EXpOCaKFkuEmyNqaYw2fOjZE6Q==",
-      "type": "package",
-      "path": "help/1.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "NuGet.exe",
-        "help.1.0.0.nupkg.sha512",
-        "help.nuspec",
-        "lib/net40/System.Linq.Dynamic.dll"
-      ]
-    },
-    "jQuery/2.1.1": {
-      "sha512": "/cy0NGAGBx0W6XLqrnehQAKeJhfnZLDdPnBvlNLq/k4mraD1a7rbHBYzV5PYBaz9t5wh+VrGhPUbPztvnFAOrQ==",
-      "type": "package",
-      "path": "jquery/2.1.1",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Content/Scripts/jquery-2.1.1-vsdoc.js",
-        "Content/Scripts/jquery-2.1.1.js",
-        "Content/Scripts/jquery-2.1.1.min.js",
-        "Content/Scripts/jquery-2.1.1.min.map",
-        "Tools/common.ps1",
-        "Tools/install.ps1",
-        "Tools/jquery-2.1.1.intellisense.js",
-        "Tools/uninstall.ps1",
-        "jquery.2.1.1.nupkg.sha512",
-        "jquery.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -4136,18 +4081,6 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
-      ]
-    },
-    "SampleDependency/1.0.0": {
-      "sha512": "rkrKnTI2KT/L+BaaB6/xZbDiqyQ702TxYp5adqgC/GYU7KBufnNArz/5KNetThpOeXmVEMg0VlFU+9/cKz0L4w==",
-      "type": "package",
-      "path": "sampledependency/1.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "content/Scripts/nugetexample.js",
-        "sampledependency.1.0.0.nupkg.sha512",
-        "sampledependency.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.4.0": {
@@ -7850,17 +7783,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'help 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "help",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  }
 }

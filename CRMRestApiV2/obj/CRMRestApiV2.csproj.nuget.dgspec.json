@@ -122,10 +122,6 @@
             "TableStorage.Abstractions.TableEntityConverters": {
               "target": "Package",
               "version": "[2.0.1, )"
-            },
-            "help": {
-              "target": "Package",
-              "version": "[1.0.0, )"
             }
           },
           "imports": [

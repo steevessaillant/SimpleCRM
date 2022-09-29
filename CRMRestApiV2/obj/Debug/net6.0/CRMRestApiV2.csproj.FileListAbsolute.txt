@@ -9,7 +9,6 @@ C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debu
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debug\net6.0\CRMRestApiV2.xml
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debug\net6.0\Azure.Data.Tables.dll
-C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debug\net6.0\System.Linq.Dynamic.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\SteevesSaillant\source\repos\XUnit_CSharp_Example\CRMRestApiV2\bin\Debug\net6.0\Namotion.Reflection.dll

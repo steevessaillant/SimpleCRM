@@ -11,8 +11,7 @@
           "CRMRepository": "1.0.0",
           "NSwag.AspNetCore": "13.17.0",
           "Swashbuckle.AspNetCore": "6.4.0",
-          "TableStorage.Abstractions.TableEntityConverters": "2.0.1",
-          "help": "1.0.0"
+          "TableStorage.Abstractions.TableEntityConverters": "2.0.1"
         },
         "runtime": {
           "CRMRestApiV2.dll": {}
@@ -47,18 +46,6 @@
           }
         }
       },
-      "help/1.0.0": {
-        "dependencies": {
-          "SampleDependency": "1.0.0"
-        },
-        "runtime": {
-          "lib/net40/System.Linq.Dynamic.dll": {
-            "assemblyVersion": "1.0.5840.25917",
-            "fileVersion": "1.0.5840.25917"
-          }
-        }
-      },
-      "jQuery/2.1.1": {},
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -324,11 +311,6 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
-      "SampleDependency/1.0.0": {
-        "dependencies": {
-          "jQuery": "2.1.1"
-        }
-      },
       "Swashbuckle.AspNetCore/6.4.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -994,20 +976,6 @@
       "path": "azure.data.tables/12.6.1",
       "hashPath": "azure.data.tables.12.6.1.nupkg.sha512"
     },
-    "help/1.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-+WZkw3QG/M/lF57RSJFxUymegULP5DKwMKiVSHcxjUR2L5FSsaeGq4pcs3L7EXpOCaKFkuEmyNqaYw2fOjZE6Q==",
-      "path": "help/1.0.0",
-      "hashPath": "help.1.0.0.nupkg.sha512"
-    },
-    "jQuery/2.1.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/cy0NGAGBx0W6XLqrnehQAKeJhfnZLDdPnBvlNLq/k4mraD1a7rbHBYzV5PYBaz9t5wh+VrGhPUbPztvnFAOrQ==",
-      "path": "jquery/2.1.1",
-      "hashPath": "jquery.2.1.1.nupkg.sha512"
-    },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",
       "serviceable": true,
@@ -1280,13 +1248,6 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
-    },
-    "SampleDependency/1.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rkrKnTI2KT/L+BaaB6/xZbDiqyQ702TxYp5adqgC/GYU7KBufnNArz/5KNetThpOeXmVEMg0VlFU+9/cKz0L4w==",
-      "path": "sampledependency/1.0.0",
-      "hashPath": "sampledependency.1.0.0.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.4.0": {
       "type": "package",
