@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Web App SimpleCRMRestApiV2 with 
 on:
   push:
     branches:
-      - dev
+    - dev
 env:
   RESOURCEGROUPNAME: "simplecrmkubernetescluster-rg"
   EXISTINGRESOURCEGROUPNAME: "SimpleCRMResourceGroup"
