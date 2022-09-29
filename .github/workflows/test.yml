@@ -1,6 +1,9 @@
 name: Build and Deploy to AKS
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - dev
 
 env:
   RESOURCEGROUPNAME: simplecrmkubernetescluster-rg
