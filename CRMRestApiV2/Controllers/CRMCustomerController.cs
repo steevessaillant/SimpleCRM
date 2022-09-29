@@ -87,11 +87,7 @@ namespace CRMRestApiV2.Controllers
                 throw;
             }
         }
-        /// <summary>
-        /// <summary>
-        /// Remove all data form the file datasource leaving just an empty array --> []
-        /// </summary>
-       
+        
 
     }
 }

@@ -75,7 +75,6 @@ namespace CRMRepository
             {
                 return AzureTableClient.GetById(Id);
             }
-            return null;
         }
 
 
