@@ -41,8 +41,7 @@ jobs:
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
     - name: Generating XUnit Report
-        id: xunit-viewer
-        uses: AutoModality/action-xunit-viewer@v1  
+      uses: AutoModality/action-xunit-viewer@v1  
     - name: Attach the report
       uses: actions/upload-artifact@v1
       with:
