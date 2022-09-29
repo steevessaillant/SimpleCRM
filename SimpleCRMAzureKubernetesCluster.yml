@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Web App SimpleCRMRestApiV2 with 
 on:
   push:
     branches:
-      - dev
+    - dev
 env:
   RESOURCEGROUPNAME: "simplecrmkubernetescluster-rg"
   EXISTINGRESOURCEGROUPNAME: "SimpleCRMResourceGroup"
@@ -34,7 +34,6 @@ env:
 
 jobs:
   build:
-    name: Build and push image to container registry
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -54,13 +53,6 @@ jobs:
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
-    #- name: Generating XUnit Report
-    #  uses: AutoModality/action-xunit-viewer@v1  
-    #- name: Attach the report
-    #  uses: actions/upload-artifact@v1
-    #  with:
-    #     name: ${{ steps.xunit-viewer.outputs.report-name }}
-    #     path: ${{ steps.xunit-viewer.outputs.report-dir }}
     - name: Publish
       run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: Publish Artifacts
