@@ -1,8 +1,7 @@
 name: Build and Deploy to AKS
 on:
   push:
-    branches:
-      - master
+    branches: ["dev"]
 
 env:
   RESOURCEGROUPNAME: "simplecrmkubernetescluster-rg"
