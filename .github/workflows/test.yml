@@ -6,7 +6,7 @@ on:
       - dev
 
 env:
-  RESOURCEGROUPNAME: simplecrmkubernetescluster-rg
+  RESOURCEGROUPNAME: VstsRG-simplecrmkubernetescluster-3190
   EXISTINGRESOURCEGROUPNAME: SimpleCRMResourceGroup
   SUBSCRIPTIONID: 8d512b56-1f3e-4976-a2d6-23d19fa62963
   IMAGENAME: simplecrmkubernetescluster54b4
