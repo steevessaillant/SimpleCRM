@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using CRMRepository.Entities;
+using System.Collections.Generic;
 
 namespace CRMRepository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
         List<TEntity> FetchAll();
-        void Add(TEntity entity);
+        void AddOrUpdate(TEntity entity);
         void Delete(TEntity entity);
         TEntity Get(TEntity entity);
-        TEntity GetById(string Id);
-        void Save();
         void Update(TEntity entity);
         void Clear();
-
+        TEntity GetById(string Id);
+        void DeleteRange(List<Customer> customerSubList);
+        void AddOrUpdateRange(List<Customer> customerSubList);
     }
 }

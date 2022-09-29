@@ -32,15 +32,9 @@ namespace CRMRestApiV2.Controllers
             _logger = logger;
 
         }
-        /// <summary>
-        /// Get all customers
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IEnumerable<Customer> Get() => Repository.FetchAll().ToArray();
 
         /// <summary>
-        /// Get customer by id
+        /// Get customer by Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -56,9 +50,9 @@ namespace CRMRestApiV2.Controllers
         [HttpPost]
         public void Post(Customer customer)
         {
-            this.Repository.Add(customer);
-            this.Repository.Save();
+            this.Repository.AddOrUpdate(customer);
         }
+
         /// <summary>
         /// Delete customer
         /// </summary>
@@ -69,7 +63,24 @@ namespace CRMRestApiV2.Controllers
             try
             {
                 this.Repository.Delete(customer);
-                this.Repository.Save();
+                //this.Repository.Save();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a range of customer
+        /// </summary>
+        /// <param name="customer"></param>
+        [HttpDelete("/api/[controller]/deleterange")]
+        public void DeleteRange(List<Customer> customerSubList)
+        {
+            try
+            {
+                this.Repository.DeleteRange(customerSubList);
             }
             catch
             {
@@ -79,14 +90,13 @@ namespace CRMRestApiV2.Controllers
         /// <summary>
         /// Delete customer
         /// </summary>
-        /// <param name="customer"></param>
+        /// <param name="Id"></param>       
         [HttpDelete("{Id}")]
         public void Delete(string Id)
         {
             try
             {
                 this.Repository.Delete(this.Repository.GetById(Id));
-                this.Repository.Save();
             }
             catch
             {
@@ -97,11 +107,7 @@ namespace CRMRestApiV2.Controllers
         /// <summary>
         /// Remove all data form the file datasource leaving just an empty array --> []
         /// </summary>
-        [NonAction]
-        protected void ClearDataSource()
-        {
-            this.Repository.Clear();
-        }
+       
 
     }
 }

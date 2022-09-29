@@ -28,9 +28,8 @@ namespace SimpleCRM
                     controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
-                    customerRepoMock.Setup(x => x.Add(customer));
+                    customerRepoMock.Setup(x => x.AddOrUpdate(customer));
                     customerRepoMock.Setup(x => x.FetchAll()).Returns(new List<Customer> { customer });
-                    customerRepoMock.Setup(x => x.Save());
                     controller.Repository = customerRepoMock.Object;
                 });
 
@@ -49,8 +48,7 @@ namespace SimpleCRM
                     .Find(x => x.Id == customer.Id)
                     .Should().Be(customer);
 
-                    customerRepoMock.Verify(x => x.Add(customer), Times.Once);
-                    customerRepoMock.Verify(x => x.Save(), Times.Once);
+                    customerRepoMock.Verify(x => x.AddOrUpdate(customer), Times.Once);
                 });
 
         }
@@ -72,10 +70,9 @@ namespace SimpleCRM
             "When this customer is deleted"
                 .x(() =>
                 {
-                    customerRepoMock.Setup(x => x.Add(customer));
+                    customerRepoMock.Setup(x => x.AddOrUpdate(customer));
                     customerRepoMock.Setup(x => x.Get(customer)).Returns(customer);
                     customerRepoMock.Setup(x => x.Delete(customer));
-                    customerRepoMock.Setup(x => x.Save());
                     controller = this.controller;
                     controller.Delete(customer);
                 });
@@ -92,7 +89,6 @@ namespace SimpleCRM
 
 
                     customerRepoMock.Verify(x => x.Delete(customer), Times.Once);
-                    customerRepoMock.Verify(x => x.Save(), Times.Once);
                 });
 
         }
@@ -114,10 +110,9 @@ namespace SimpleCRM
             "When this customer is deleted"
                 .x(() =>
                 {
-                    customerRepoMock.Setup(x => x.Add(customer));
+                    customerRepoMock.Setup(x => x.AddOrUpdate(customer));
                     customerRepoMock.Setup(x => x.GetById(Id)).Returns(customer);
                     customerRepoMock.Setup(x => x.Delete(customer));
-                    customerRepoMock.Setup(x => x.Save());
                     controller = this.controller;
                     controller.Delete(Id);
                 });
@@ -134,7 +129,6 @@ namespace SimpleCRM
 
 
                     customerRepoMock.Verify(x => x.Delete(customer), Times.Once);
-                    customerRepoMock.Verify(x => x.Save(), Times.Once);
                 });
 
         }
