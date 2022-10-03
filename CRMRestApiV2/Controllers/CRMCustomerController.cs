@@ -77,12 +77,16 @@ namespace CRMRestApiV2.Controllers
         /// <summary>
         /// Delete customer
         /// </summary>
-        /// <param name="Id"></param>       
+        /// <param name="Ids"></param> 
         [HttpDelete("{Ids}")]
         public HttpStatusCode DeleteRange(string? Ids)
         {
             try
             {
+                if (Ids == null)
+                {
+                    return HttpStatusCode.BadRequest;
+                }
                 var ids = Ids.Split(',');
                 var entities = new List<Customer>();
                 foreach (var id in ids)

@@ -165,7 +165,33 @@ namespace SimpleCRM
 
         #region technical data infrastucture tests
 
+        [Scenario]
+        public void TryDeleteNullCustomersFromCRMShouldReturnHTTPNOTFOUND(CRMCustomerController controller, string nonExistingIds, CustomerRepository customerRepo)
+        {
+            HttpStatusCode actual = HttpStatusCode.Unused;
+            HttpStatusCode expected = HttpStatusCode.BadRequest;
 
+            nonExistingIds = null;
+            controller = new(null);
+
+            "When the non exiting customer BadId is requested to be deleted"
+                .x(() =>
+                {
+                    actual = controller.DeleteRange(nonExistingIds);
+                });
+
+
+            "Then the customer John Doe is returned"
+                .x(() =>
+                {
+                    actual.Should().Be(expected);
+
+                }).Teardown(() =>
+                {
+                    controller = null;
+                });
+
+        }
 
 
         #endregion
