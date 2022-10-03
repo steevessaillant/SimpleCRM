@@ -37,11 +37,15 @@ namespace CRMRepository
         }
 
         //for now exclude becuase it is not implemented
-        public void Delete(Customer entity)
+        public bool Delete(Customer entity)
         {
+            if (entity == null)
+            {
+                return false;
+            }
             var action = AzureTableClient.DeleteFromTable(entity);
             AzureTableClient.SaveToTableAsync(new List<Customer> { entity }, new List<Azure.Data.Tables.TableTransactionAction> { action });
-            this.customerList.Remove(entity);
+            return this.customerList.Remove(entity);
         }
 
         public void DeleteRange(List<Customer> entities)

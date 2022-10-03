@@ -2,7 +2,10 @@ using CRMRepository;
 using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Net;
 using Xbehave;
 
 namespace SimpleCRM
@@ -44,8 +47,56 @@ namespace SimpleCRM
                 })
                 .Teardown(() =>
                  {
-                     controller.Delete(actual.Id);
+                     controller.DeleteById(actual.Id);
+                     controller = null;
                  });
+
+        }
+
+        [Scenario]
+        public void GetAllCustomersFromCRM(CRMCustomerController controller, CustomerRepository customerRepo)
+        {
+            controller = new CRMCustomerController(null);
+            List<Customer> expected = new()
+            {
+                new() { Id = "JD1", FirstName = "John", LastName = "Doe" },
+                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" }
+            };
+
+            List<Customer> actual = null;
+
+
+            "Given we have a these new customers to add to the CRM"
+                     .x(() =>
+                     {
+                         actual = new()
+                            {
+                                new() { Id = "JD1", FirstName = "John", LastName = "Doe" },
+                                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" }
+                            };
+                     });
+
+            "When these customers are posted"
+                .x(() =>
+                {
+                    controller.Post(actual[0]);
+                    controller.Post(actual[1]);
+                });
+        
+
+
+            "Then these customer are added and saved"
+                .x(() =>
+                {
+
+                    actual.Should().BeEquivalentTo(expected);
+
+                })
+                .Teardown(() =>
+                {
+                    controller.DeleteRange("JD1,JD2");
+                    controller = null;
+                });
 
         }
 
@@ -77,8 +128,37 @@ namespace SimpleCRM
                 }).Teardown(() =>
                 {
                     controller.Delete(actual);
+                    controller = null;
                 });
            
+        }
+
+        [Scenario]
+        public void TryDeleteNonExistingCustomersFromCRMShouldReturnHTTPNOTFOUND(CRMCustomerController controller, string nonExistingId ,CustomerRepository customerRepo)
+        {
+            HttpStatusCode actual = HttpStatusCode.Unused;
+            HttpStatusCode expected = HttpStatusCode.NotFound;
+
+            nonExistingId = "NOTHERE";
+            controller = new(null);
+
+            "When the non exiting customer BadId is requested to be deleted"
+                .x(() =>
+                {
+                    actual = controller.DeleteById(nonExistingId);
+                });
+           
+
+            "Then the customer John Doe is returned"
+                .x(() =>
+                {
+                    actual.Should().Be(expected);
+
+                }).Teardown(() =>
+                {
+                    controller = null;
+                });
+
         }
 
         #endregion

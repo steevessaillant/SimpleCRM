@@ -65,6 +65,10 @@ namespace CRMRepository
             var entity = tableClient.Query<TableEntity>(x => x.PartitionKey == "Default"
             && x.RowKey == Id).FirstOrDefault();
 
+            if (entity == null)
+            {
+                return null;
+            }
             return entity.FromTableEntity<Customer>();
 
         }
@@ -80,7 +84,7 @@ namespace CRMRepository
         {
             if (customer is null)
             {
-                throw new ArgumentNullException(nameof(customer));
+                return null;
             }
 
             return new TableTransactionAction(TableTransactionActionType.Delete, customer.ToAzureTableEntity());

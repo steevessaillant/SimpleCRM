@@ -7,7 +7,7 @@ namespace CRMRepository
     {
         List<TEntity> FetchAll();
         void AddOrUpdate(TEntity entity);
-        void Delete(TEntity entity);
+        bool Delete(TEntity entity);
         TEntity Get(TEntity entity);
         void Update(TEntity entity);
         void Clear();

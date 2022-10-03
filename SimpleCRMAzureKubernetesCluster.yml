@@ -3,20 +3,19 @@ on:
   workflow_dispatch:
 
 env:
-  RESOURCEGROUPNAME: simplecrmkubernetescluster-rg
-  EXISTINGRESOURCEGROUPNAME: SimpleCRMResourceGroup
-  SUBSCRIPTIONID: 8d512b56-1f3e-4976-a2d6-23d19fa62963
-  IMAGENAME: simplecrmkubernetescluster54b4
-  REGISTRYSKU: Standard
-  REGISTRYNAME: simplecrmkubernetesclusteracr
-  REGISTRYLOCATION: South Central US
-  EXISTINGCLUSTERID: >-
-    /subscriptions/8d512b56-1f3e-4976-a2d6-23d19fa62963/resourcegroups/SimpleCRMResourceGroup/providers/Microsoft.ContainerService/managedClusters/simplecrmkubernetescluster
-  EXISTINGCLUSTERNAME: simplecrmkubernetescluster
-  APPINSIGHTSLOCATION: East US
-  HTTPSAPPLICATIONROUTINGENABLED: false
-  KUBERNETESAPI: apps/v1
-  NAMESPACE: simplecrmkubernetescluster7150
+  RESOURCEGROUPNAME:  '${{ secrets.RESOURCEGROUPNAME:  }}'
+  EXISTINGRESOURCEGROUPNAME:  '${{ secrets.EXISTINGRESOURCEGROUPNAME:  }}'
+  SUBSCRIPTIONID:  '${{ secrets.SUBSCRIPTIONID }}'
+  IMAGENAME:  '${{ secrets.IMAGENAME }}'
+  REGISTRYSKU:  '${{ secrets.REGISTRYSKU }}'
+  REGISTRYNAME:  '${{ secrets.REGISTRYNAME }}'
+  REGISTRYLOCATION: '${{ secrets.REGISTRYLOCATION }}'
+  EXISTINGCLUSTERID: '${{ secrets.EXISTINGCLUSTERID }}'
+  EXISTINGCLUSTERNAME: '${{ secrets.EXISTINGCLUSTERNAME }}'
+  APPINSIGHTSLOCATION: '${{ secrets.APPINSIGHTSLOCATION }}'
+  HTTPSAPPLICATIONROUTINGENABLED: '${{ secrets.HTTPSAPPLICATIONROUTINGENABLED }}'
+  KUBERNETESAPI: '${{ secrets.KUBERNETESAPI }}'
+  NAMESPACE: '${{ secrets.NAMESPACE }}'
 jobs:
   build:
     name: Build and push image to container registry
