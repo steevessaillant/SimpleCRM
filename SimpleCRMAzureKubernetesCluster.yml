@@ -44,7 +44,7 @@ jobs:
         run: >
           az acr create -n ${{ env.REGISTRYNAME }} -g ${{ env.RESOURCEGROUPNAME
           }} --location "${{env.REGISTRYLOCATION}}" --sku ${{env.REGISTRYSKU}}
-          --admin-enabled --subscription '${{ env.SUBSCRIPTIONID }}'
+          --admin-enabled --subscription "${{ env.SUBSCRIPTIONID }}"
 
           echo "::set-output name=acr_username::`az acr credential show -n ${{
           env.REGISTRYNAME }} --query username`"
