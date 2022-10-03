@@ -1,7 +1,8 @@
 name: Build and Deploy to Azure Kubernetes
 on:
   push:
-    branches: [ "dev" ]   
+    branches: 
+    - "dev" 
 
 env:
   RESOURCEGROUPNAME:  '${{ secrets.RESOURCEGROUPNAME:  }}'
