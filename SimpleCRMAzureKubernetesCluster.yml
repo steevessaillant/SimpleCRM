@@ -1,7 +1,5 @@
 name: Build and Deploy to Azure Kubernetes
 on:
-  workflow_dispatch:
-    branches: [ "dev" ]
   push:
     branches: [ "dev" ]   
 
