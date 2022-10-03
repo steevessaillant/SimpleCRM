@@ -56,20 +56,12 @@ jobs:
           echo "::add-mask::`az acr credential show -n ${{ env.REGISTRYNAME }}
           --query passwords[0].value`"
       - name: Build and push image to ACR
-        id: build-image
-        run: >
-          echo "::add-mask::${{ steps.createACR.outputs.acr_password }}"
-
-          docker login ${{ env.REGISTRYNAME }}.azurecr.io --username ${{
-          steps.createACR.outputs.acr_username }} --password ${{
-          steps.createACR.outputs.acr_password }}
-
-          docker build "$GITHUB_WORKSPACE/Application" -f 
-          "Application/Dockerfile" -t ${{ env.REGISTRYNAME }}.azurecr.io/${{
-          env.IMAGENAME }}:${{ github.sha }}
-
-          docker push ${{ env.REGISTRYNAME }}.azurecr.io/${{ env.IMAGENAME
-          }}:${{ github.sha }}
+        uses: docker/build-push-action@v2
+        with:
+           push: true
+           build-args: | 
+            version=${{ steps.tag.outputs.tag }}
+           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}
   deploy:
     name: Deploy application to AKS
     needs: build
