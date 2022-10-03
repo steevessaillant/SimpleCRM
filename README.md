@@ -18,4 +18,4 @@ For CRUD Update is MIssing for now.
 TODO : 
 1. Add real CRM business logic (other that REST CRUD stuff)
 2. Add a React NodeJS UI and theyre Cypress Cucumber Specs.
-3. Add Azure Backend
+3. Add Azure Backend .
