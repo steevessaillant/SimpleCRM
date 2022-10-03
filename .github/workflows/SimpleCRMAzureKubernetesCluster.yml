@@ -35,7 +35,7 @@ jobs:
           scope: resourcegroup
           subscriptionId: '${{ env.SUBSCRIPTIONID }}'
           resourceGroupName: '${{ env.RESOURCEGROUPNAME }}'
-          template: ./ServiceDependencies\local\appInsights1.arm.json
+          template: ./ServiceDependencies/local/appInsights1.arm.json
           parameters: >-
             applicationInsightsName="${{ env.EXISTINGCLUSTERNAME }}"
             clusterId="${{ env.EXISTINGCLUSTERID }}" appInsightsLocation="${{
