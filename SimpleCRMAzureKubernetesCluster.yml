@@ -1,6 +1,7 @@
 name: Build and Deploy to AKS
 on:
   workflow_dispatch:
+  branches: [ "dev" ]
 
 env:
   RESOURCEGROUPNAME:  '${{ secrets.RESOURCEGROUPNAME:  }}'
