@@ -28,18 +28,18 @@ jobs:
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
-      - name: Create Application Insights
-        uses: azure/arm-deploy@v1
-        id: deploy
-        with:
-          scope: resourcegroup
-          subscriptionId: '${{ env.SUBSCRIPTIONID }}'
-          resourceGroupName: '${{ env.RESOURCEGROUPNAME }}'
-          template: ./CRMRestApiV2/Properties/ServiceDependencies/local/appInsights1.arm.json
-          #parameters: >-
-          #  applicationInsightsName="${{ env.EXISTINGCLUSTERNAME }}"
-          #  clusterId="${{ env.EXISTINGCLUSTERID }}" appInsightsLocation="${{
-          #  env.APPINSIGHTSLOCATION }}"
+      #- name: Create Application Insights
+      #  uses: azure/arm-deploy@v1
+      #  id: deploy
+      #  with:
+      #    scope: resourcegroup
+      #    subscriptionId: '${{ env.SUBSCRIPTIONID }}'
+      #    resourceGroupName: '${{ env.RESOURCEGROUPNAME }}'
+      #    template: ./CRMRestApiV2/Properties/ServiceDependencies/local/appInsights1.arm.json
+      #    #parameters: >-
+      #    #  applicationInsightsName="${{ env.EXISTINGCLUSTERNAME }}"
+      #    #  clusterId="${{ env.EXISTINGCLUSTERID }}" appInsightsLocation="${{
+      #    #  env.APPINSIGHTSLOCATION }}"
       - name: Create ACR
         id: createACR
         run: >
