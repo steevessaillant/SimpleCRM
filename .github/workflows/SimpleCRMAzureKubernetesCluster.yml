@@ -1,4 +1,4 @@
-name: Build and Deploy to Azure Kubernetes
+name: Build and Deploy to Azure Kubernetes.
 on:
   push:
     branches: 
