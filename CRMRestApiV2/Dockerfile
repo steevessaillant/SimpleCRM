@@ -11,12 +11,12 @@ COPY ["CRMRepository/CRMRepository.csproj", "CRMRepository/"]
 RUN dotnet restore "CRMRestApiV2/CRMRestApiV2.csproj"
 COPY . .
 WORKDIR "/src/CRMRestApiV2"
-RUN dotnet build "CRMRestApiV2.csproj" -c Release -o /app/build
+RUN dotnet build "CRMRestApiV2.csproj" -c Release -o /CRMRestApiV2/build
 
 FROM build AS publish
-RUN dotnet publish "CRMRestApiV2.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "CRMRestApiV2.csproj" -c Release -o /CRMRestApiV2/publish /p:UseAppHost=false
 
 FROM base AS final
-WORKDIR /
-COPY --from=publish /app/publish .
+WORKDIR /CRMRestApiV2
+COPY --from=publish /CRMRestApiV2/publish .
 ENTRYPOINT ["dotnet", "CRMRestApiV2.dll"]
