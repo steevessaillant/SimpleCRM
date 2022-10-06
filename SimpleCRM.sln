@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMTests", "CRMTests\CRMTes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80CF18F3-A941-4A27-8E12-5D003F049C4F}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		Customer.json = Customer.json
+		Dockerfile = Dockerfile
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		README.md = README.md
 		SimpleCRMAzureKubernetesCluster.yml = SimpleCRMAzureKubernetesCluster.yml

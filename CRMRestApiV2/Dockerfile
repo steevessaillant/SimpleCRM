@@ -17,6 +17,6 @@ FROM build AS publish
 RUN dotnet publish "CRMRestApiV2.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
-WORKDIR /app
+WORKDIR /
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CRMRestApiV2.dll"]

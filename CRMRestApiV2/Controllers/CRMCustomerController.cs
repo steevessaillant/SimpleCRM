@@ -78,7 +78,7 @@ namespace CRMRestApiV2.Controllers
         /// Delete customer
         /// </summary>
         /// <param name="Ids"></param> 
-        [HttpDelete("{Ids}")]
+        [HttpDelete("deleterange/{Ids}")]
         public HttpStatusCode DeleteRange(string? Ids)
         {
             try
