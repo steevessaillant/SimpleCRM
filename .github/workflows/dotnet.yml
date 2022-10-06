@@ -87,9 +87,9 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build docker image
-      run: docker build -f ./CRMRestApiV2/Dockerfile .
+      run: docker build -f ./CRMRestApiV2/Dockerfile . -t steevessaillantalithya/crmrestapiv2:latest
     - name: Push to DockerHub
-      run: docker push steevessaillantalithya/crmrestapiv2:dev
+      run: docker push steevessaillantalithya/crmrestapiv2:latest
 
       
        
