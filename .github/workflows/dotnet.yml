@@ -30,10 +30,19 @@ jobs:
       with:
         dotnet-version: '6.0'
         include-prerelease: True
-    - name: Install Azurite fake Azure Storage
+    - name: Install Azurite
+      id: azuright
+      uses: potatoqualitee/azuright@v1.1
+      with:
+          self-signed-cert: true
+
+    - name: Test Azurite installation
+      shell: pwsh
       run: |
-        npm install -g azurite
-        azurite --silent --location ./azurite --debug ./azurite/debug.log
+          Import-Module Az.Storage
+          $connstring = "${{ steps.azuright.outputs.connstring }}"
+          $blob = New-Object Azure.Storage.Blobs.BlobContainerClient($connstring, "sample-container")
+          $blob.CreateIfNotExists()
 
     - name: Build
       run: dotnet build SimpleCRM.sln
