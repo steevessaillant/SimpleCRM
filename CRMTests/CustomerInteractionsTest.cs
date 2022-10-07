@@ -10,7 +10,7 @@ using System.Net;
 using Xbehave;
 using Xunit;
 
-namespace SimpleCRM
+namespace CRMTests
 {
     [ExcludeFromCodeCoverage]
     public class CustomerInteractionsTest
@@ -21,7 +21,7 @@ namespace SimpleCRM
         #region functional api acceptance tests
 
         [Scenario]
-        public void PostCustomerToCRM(CRMCustomerController controller,Customer customer, Mock<IRepository<Customer>> customerRepoMock)
+        public void PostCustomerToCRM(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
         {
 
             "Given we have a new customer"
@@ -36,7 +36,7 @@ namespace SimpleCRM
                 });
 
             "When this customer is added"
-                .x( () =>
+                .x(() =>
                 {
                     controller.Post(customer);
                 });
@@ -66,7 +66,7 @@ namespace SimpleCRM
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller.Repository = customerRepoMock.Object;
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
-                    
+
                 });
 
             "When this customer is deleted"
@@ -84,8 +84,8 @@ namespace SimpleCRM
                 .x(() =>
                 {
                     var actualCustomer = controller.Repository.Get(customer);
-                    
-                    actualCustomer 
+
+                    actualCustomer
                     .Should()
                     .Be(customer);
 
@@ -135,7 +135,7 @@ namespace SimpleCRM
         }
 
         [Scenario]
-        public void DeleteCustomerByIdFromCRM(CRMCustomerController controller, String Id, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
+        public void DeleteCustomerByIdFromCRM(CRMCustomerController controller, string Id, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
         {
 
             "Given we have an existing customer"
@@ -188,9 +188,9 @@ namespace SimpleCRM
                     controller.Repository = customerRepoMock.Object;
                     customer = new Customer { Id = "JD2", FirstName = "Jane", LastName = "Doe" };
                     customerRepoMock.Setup(x => x.Get(customer))
-                    .Throws<ArgumentOutOfRangeException>(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
+                    .Throws(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
                     customerRepoMock.Setup(x => x.Delete(customer))
-                    .Throws<ArgumentOutOfRangeException>(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
+                    .Throws(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
 
                     controller = this.controller;
                 });
@@ -211,7 +211,7 @@ namespace SimpleCRM
 
         }
 
-        
+
         #endregion
 
     }
