@@ -38,8 +38,6 @@ jobs:
     - name: Install Azurite
       id: azuright
       uses: potatoqualitee/azuright@v1.1
-      with:
-          self-signed-cert: true
 
     - name: Test Azutite installation
       shell: pwsh
