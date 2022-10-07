@@ -1,56 +1,37 @@
-﻿using System;
+﻿using Azure;
+using Azure.Data.Tables;
+using Microsoft.WindowsAzure.Storage.Blob.Protocol;
+using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using TableStorage.Abstractions.TableEntityConverters;
+using TableEntity = Azure.Data.Tables.TableEntity;
 
 namespace CRMRepository.Entities
 {
-    public class Customer : IEquatable<Customer>
+    [DataContract]
+    public class Customer
     {
+        /// <summary>
+        /// Id of the customer
+        /// </summary>
         [ExcludeFromCodeCoverage]
+        [DataMember]
         public string Id { get; set; }
+
         [ExcludeFromCodeCoverage]
+        [DataMember]
         public string FirstName { get; set; }
         [ExcludeFromCodeCoverage]
+        [DataMember]
         public string LastName { get; set; }
 
-        [ExcludeFromCodeCoverage]
-        public override bool Equals(object obj)
+        public TableEntity ToAzureTableEntity(string partitionKey = "Default")
         {
-            return Equals(obj as Customer);
+            return this.ToTableEntity(partitionKey,this.Id,null);
         }
-
-        [ExcludeFromCodeCoverage]
-        public bool Equals(Customer other)
-        {
-            return other != null &&
-                   Id == other.Id &&
-                   FirstName == other.FirstName &&
-                   LastName == other.LastName;
-        }
-
-        [ExcludeFromCodeCoverage]
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-
-            throw new DivideByZeroException("Cannot divide by 0");
-        }
-
-        public override string ToString()
-        {
-            return $"{{ Id:{Id} FirstName:{FirstName} LastName:{LastName}}}";
-        }
-
-        [ExcludeFromCodeCoverage]
-        public static bool operator ==(Customer left, Customer right)
-        {
-            return EqualityComparer<Customer>.Default.Equals(left, right);
-        }
-
-        [ExcludeFromCodeCoverage]
-        public static bool operator !=(Customer left, Customer right)
-        {
-            return !(left == right);
-        }
+        
     }
 }

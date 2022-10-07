@@ -6,6 +6,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using Xbehave;
 using Xunit;
 
@@ -18,6 +19,7 @@ namespace SimpleCRM
 
 
         #region functional api acceptance tests
+
         [Scenario]
         public void PostCustomerToCRM(CRMCustomerController controller,Customer customer, Mock<IRepository<Customer>> customerRepoMock)
         {
@@ -28,9 +30,8 @@ namespace SimpleCRM
                     controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
-                    customerRepoMock.Setup(x => x.Add(customer));
+                    customerRepoMock.Setup(x => x.AddOrUpdate(customer));
                     customerRepoMock.Setup(x => x.FetchAll()).Returns(new List<Customer> { customer });
-                    customerRepoMock.Setup(x => x.Save());
                     controller.Repository = customerRepoMock.Object;
                 });
 
@@ -49,8 +50,7 @@ namespace SimpleCRM
                     .Find(x => x.Id == customer.Id)
                     .Should().Be(customer);
 
-                    customerRepoMock.Verify(x => x.Add(customer), Times.Once);
-                    customerRepoMock.Verify(x => x.Save(), Times.Once);
+                    customerRepoMock.Verify(x => x.AddOrUpdate(customer), Times.Once);
                 });
 
         }
@@ -72,10 +72,9 @@ namespace SimpleCRM
             "When this customer is deleted"
                 .x(() =>
                 {
-                    customerRepoMock.Setup(x => x.Add(customer));
+                    customerRepoMock.Setup(x => x.AddOrUpdate(customer));
                     customerRepoMock.Setup(x => x.Get(customer)).Returns(customer);
                     customerRepoMock.Setup(x => x.Delete(customer));
-                    customerRepoMock.Setup(x => x.Save());
                     controller = this.controller;
                     controller.Delete(customer);
                 });
@@ -91,15 +90,95 @@ namespace SimpleCRM
                     .Be(customer);
 
 
-                    customerRepoMock.Verify(x => x.Delete(customer), Times.Once);
-                    customerRepoMock.Verify(x => x.Save(), Times.Once);
+                    customerRepoMock.Verify(x => x.Get(customer), Times.Once);
                 });
 
         }
 
         [Scenario]
-        public void DeleteCustomerFromCRMFailsWhenNotFound(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock,ArgumentOutOfRangeException exception)
+        public void GetAllCustomerFromCRM(CRMCustomerController controller, Customer john, Customer jane, Mock<IRepository<Customer>> customerRepoMock)
         {
+
+            "Given we all these customer"
+                .x(() =>
+                {
+                    controller = this.controller;
+                    customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller.Repository = customerRepoMock.Object;
+                    john = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+                    jane = new Customer { Id = "JD2", FirstName = "Jane", LastName = "Doe" };
+
+                });
+
+            "When these customers are added"
+                .x(() =>
+                {
+                    customerRepoMock.Setup(x => x.AddOrUpdateRange(new List<Customer> { john, jane }));
+                    customerRepoMock.Setup(x => x.FetchAll()).Returns(new List<Customer> { john, jane });
+                    controller = this.controller;
+                });
+
+
+            "Then these same customer are returned"
+                .x(() =>
+                {
+                    var actualCustomers = controller.Repository.FetchAll();
+
+                    actualCustomers
+                    .Should()
+                    .Contain(new List<Customer> { john, jane });
+
+
+                    customerRepoMock.Verify(x => x.FetchAll(), Times.Once);
+                });
+
+        }
+
+        [Scenario]
+        public void DeleteCustomerByIdFromCRM(CRMCustomerController controller, String Id, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
+        {
+
+            "Given we have an existing customer"
+                .x(() =>
+                {
+                    controller = this.controller;
+                    customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller.Repository = customerRepoMock.Object;
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+
+                });
+
+            "When this customer is deleted"
+                .x(() =>
+                {
+                    customerRepoMock.Setup(x => x.AddOrUpdate(customer));
+                    customerRepoMock.Setup(x => x.GetById(Id)).Returns(customer);
+                    customerRepoMock.Setup(x => x.Delete(customer));
+                    controller = this.controller;
+                    controller.Delete(customer);
+                });
+
+
+            "Then the customer is deleted"
+                .x(() =>
+                {
+                    var actualCustomer = controller.Repository.Get(customer);
+
+                    actualCustomer
+                    .Should()
+                    .Be(null);
+
+
+                    customerRepoMock.Verify(x => x.Get(customer), Times.Once);
+                });
+
+        }
+
+        [Scenario]
+        public void DeleteCustomerFromCRMFailsWhenNotFound(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, ArgumentOutOfRangeException exception)
+        {
+            HttpStatusCode expected = HttpStatusCode.NotFound;
+            HttpStatusCode actual = HttpStatusCode.Unused;
 
             "Given we have non-existing customer"
                 .x(() =>
@@ -119,14 +198,7 @@ namespace SimpleCRM
             "When this customer is deleted"
                 .x(() =>
                 {
-                    try
-                    {
-                        controller.Delete(customer);
-                    }
-                    catch(ArgumentOutOfRangeException ex)
-                    {
-                        exception = ex;
-                    }
+                    actual = controller.Delete(customer);
 
                 });
 
@@ -134,12 +206,12 @@ namespace SimpleCRM
             "Then the non-existing customer cannot deleted"
                 .x(() =>
                 {
-                    exception.ParamName
-                    .Should()
-                    .Be("The Customer: " + customer.ToString() + " was not found");
+                    expected.Should().Be(actual);
                 });
 
         }
+
+        
         #endregion
 
     }

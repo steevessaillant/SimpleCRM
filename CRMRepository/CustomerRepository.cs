@@ -3,68 +3,84 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CRMRepository
 {
-    public class CustomerRepository : IRepository<Customer>, IPersistableFile
+    public class CustomerRepository : IRepository<Customer>
     {
-        private readonly List<Customer> tempDataStore = new();
+        private readonly List<Customer> customerList = null;
 
-        public string Path => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Customers.json";
 
         public CustomerRepository()
         {
-            tempDataStore.ImportCustomersFromTextFile(this.Path);
+            customerList = AzureTableClient.GetAllFromTable();
         }
-        public void Add(Customer entity)
+       
+        public  void AddOrUpdate(Customer entity)
         {
-            if(!tempDataStore.Exists(x => x.Id == entity.Id))
-            {
-                tempDataStore.Add(entity);
-            }
+            var action = AzureTableClient.AddOrUpdateToTable(entity);
+            AzureTableClient.SaveToTableAsync(new List<Customer> { entity },
+                new List<Azure.Data.Tables.TableTransactionAction> { action });
         }
+
+        public void AddOrUpdateRange(List<Customer> entities)
+        {
+            entities.ForEach(entity => AddOrUpdate(entity));
+        }
+
 
         public void Clear()
         {
-            tempDataStore.Clear();
-            this.Save();
+            var actions  = AzureTableClient.DeleteRangeFromTableAsync(customerList);
+            AzureTableClient.SaveToTableAsync(customerList, actions);
         }
 
         //for now exclude becuase it is not implemented
-        public void Delete(Customer entity)
+        public bool Delete(Customer entity)
         {
-            tempDataStore.Remove(entity);
-            this.Save();
+            if (entity == null)
+            {
+                return false;
+            }
+            var action = AzureTableClient.DeleteFromTable(entity);
+            AzureTableClient.SaveToTableAsync(new List<Customer> { entity }, new List<Azure.Data.Tables.TableTransactionAction> { action });
+            return this.customerList.Remove(entity);
+        }
+
+        public void DeleteRange(List<Customer> entities)
+        {
+            entities.ForEach(entity => Delete(entity));
         }
 
         public List<Customer> FetchAll()
         {
-            return tempDataStore;
+            return AzureTableClient.GetAllFromTable();
         }
 
         public Customer Get(Customer entity)
         {
-            if(tempDataStore.Exists(x => x.Id == entity.Id))
+            if (customerList.Exists(x => x.Id == entity.Id ))
             {
-                return entity;
+                return customerList.Find(x => x.Id == entity.Id);
             }
+          
             return null;
         }
+
 
         public Customer GetById(string Id)
         {
-            if (tempDataStore.Exists(x => x.Id == Id))
+            if (customerList.Exists(x => x.Id == Id))
             {
-                return tempDataStore.Find(x => x.Id == Id);
+                return customerList.Find(x => x.Id == Id);
             }
-            return null;
+            else
+            {
+                return AzureTableClient.GetById(Id);
+            }
         }
 
-        public void Save()
-        {
-            tempDataStore
-                .ExportToTextFile<Customer>(this.Path);
-        }
 
         public void Update(Customer entity)
         {

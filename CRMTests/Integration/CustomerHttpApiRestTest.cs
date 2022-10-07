@@ -20,18 +20,17 @@ namespace CRMTests.Integration
         //[Fact]
         //public async void CustomerPostEndpointPingShouldRespondAlive()
         //{
-            
 
         //    using var process = new Process();
         //    string exePath = "/home/runner/work/SimpleCRM/SimpleCRM/CRMRestApiV2/bin/Debug/net6.0/CRMRestApiV2.exe";
-            
+
         //    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         //    {
         //        exePath = "C:\\Users\\SteevesSaillant\\source\\repos\\XUnit_CSharp_Example\\CRMRestApiV2\\bin\\Debug\\net6.0\\CRMRestApiV2.exe";
-        //    }else
+        //    }
+        //    else
         //    {
-        //        Assert.True(true);
-        //        return;
+                
         //        //pass on github action for now.
         //        string command = "cd ../../../;chmod -R 777 /home/runner/work/SimpleCRM/SimpleCRM/CRMRestApiV2/bin/Debug/net6.0";
         //        string result = "";
@@ -56,7 +55,7 @@ namespace CRMTests.Integration
         //    process.Start();
 
 
-        //    client.BaseAddress = new Uri("http://localhost:5000");
+        //    client.BaseAddress = new Uri("http://localhost:5222");
         //    var response = await client.GetAsync("/api/CRMCustomer/");
         //    Assert.True(response.StatusCode.Equals(HttpStatusCode.OK));
         //    process.Kill();

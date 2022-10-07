@@ -4,121 +4,196 @@ using CRMRestApiV2.Controllers;
 using FluentAssertions;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
+using System.Linq;
+using System.Net;
 using Xbehave;
-using Xunit;
 
 namespace SimpleCRM
 {
     [ExcludeFromCodeCoverage]
     public class CustomerInteractionsIntegrationsTest
     {
-        private readonly CRMCustomerController controller = new CRMCustomerController(null);
 
         #region functional api acceptance tests
         [Scenario]
-        public void PostCustomersJohnAndJaneToCRM(CRMCustomerController controller,Customer John,Customer Jane, CustomerRepository customerRepo)
+        [Example("JD1", "John", "Doe")]
+        [Example("JD2", "Jane", "Doe")]
+        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName, CRMCustomerController controller, CustomerRepository customerRepo)
         {
-
-            controller = this.controller;            
-
+            controller = new CRMCustomerController(null);
+            Customer actual = null;
+            Customer expected = new() { Id = id, FirstName = firstName, LastName = lastName };
             "Given we have a these new customers to add to the CRM"
                 .x(() =>
                 {
-                    John = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
-                    Jane = new Customer { Id = "JD2", FirstName = "Jane", LastName = "Doe" };
-                    
+                    actual = new() { Id = id, FirstName = firstName, LastName = lastName };
                 });
 
             "When these customers are posted"
-                .x( () =>
+                .x(() =>
                 {
-                    controller.Post(John);
-                    controller.Post(Jane);
+                    controller.Post(actual);
                 });
 
 
             "Then these customer are added and saved"
                 .x(() =>
                 {
-                    controller.Get()
-                    .Should()
-                    .Contain(John);
 
-                    controller.Get()
-                    .Should()
-                    .Contain(Jane); ;
+                    var stored = controller.Get(actual.Id);
+
+                    actual.Should().BeEquivalentTo(expected);
+
+                })
+                .Teardown(() =>
+                 {
+                     controller.DeleteById(actual.Id);
+                     controller = null;
+                 });
+
+        }
+
+        [Scenario]
+        public void GetAllCustomersFromCRM(CRMCustomerController controller, CustomerRepository customerRepo)
+        {
+            controller = new CRMCustomerController(null);
+            List<Customer> expected = new()
+            {
+                new() { Id = "JD1", FirstName = "John", LastName = "Doe" },
+                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" }
+            };
+
+            List<Customer> actual = null;
+
+
+            "Given we have a these new customers to add to the CRM"
+                     .x(() =>
+                     {
+                         actual = new()
+                            {
+                                new() { Id = "JD1", FirstName = "John", LastName = "Doe" },
+                                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" }
+                            };
+                     });
+
+            "When these customers are posted"
+                .x(() =>
+                {
+                    controller.Post(actual[0]);
+                    controller.Post(actual[1]);
                 });
+        
 
-            //cleanup
-            controller.Delete(John);
-            controller.Delete(Jane);
+
+            "Then these customer are added and saved"
+                .x(() =>
+                {
+
+                    actual.Should().BeEquivalentTo(expected);
+
+                })
+                .Teardown(() =>
+                {
+                    controller.DeleteRange("JD1,JD2");
+                    controller = null;
+                });
 
         }
 
         [Scenario]
         public void GetCustomersJohnFromCRM(CRMCustomerController controller, Customer John, CustomerRepository customerRepo)
         {
-
-            controller = this.controller;
+            Customer actual = null;
+            Customer expected = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+            controller = new(null);
 
             "Given we have John Doe a new customer that has been added to the CRM"
                 .x(() =>
                 {
-                    John = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
-                    controller.Post(John);
+                    controller.Post(expected);
                 });
 
             "When the customer John Doe is requested"
                 .x(() =>
                 {
-                    controller.Get(John.Id);
+                    actual = controller.Get(expected.Id);
                 });
 
 
             "Then the customer John Doe is returned"
                 .x(() =>
                 {
-                    controller.Get()
-                    .Should()
-                    .Contain(John);
+                    actual.Should().BeEquivalentTo(expected);
+
+                }).Teardown(() =>
+                {
+                    controller.Delete(actual);
+                    controller = null;
+                });
+           
+        }
+
+        [Scenario]
+        public void TryDeleteNonExistingCustomersFromCRMShouldReturnHTTPNOTFOUND(CRMCustomerController controller, string nonExistingId ,CustomerRepository customerRepo)
+        {
+            HttpStatusCode actual = HttpStatusCode.Unused;
+            HttpStatusCode expected = HttpStatusCode.NotFound;
+
+            nonExistingId = "NOTHERE";
+            controller = new(null);
+
+            "When the non exiting customer BadId is requested to be deleted"
+                .x(() =>
+                {
+                    actual = controller.DeleteById(nonExistingId);
+                });
+           
+
+            "Then the customer John Doe is returned"
+                .x(() =>
+                {
+                    actual.Should().Be(expected);
+
+                }).Teardown(() =>
+                {
+                    controller = null;
                 });
 
-            //cleanup
-            controller.Delete(John);
-
         }
+
         #endregion
 
         #region technical data infrastucture tests
 
-        private readonly string dataFile = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Customers.json";
-
-        [Fact]
-        public void MemoryToFileIOShouldPersist()
+        [Scenario]
+        public void TryDeleteNullCustomersFromCRMShouldReturnHTTPNOTFOUND(CRMCustomerController controller, string nonExistingIds, CustomerRepository customerRepo)
         {
-            var customerRepo = this.controller.Repository;
-            List<Customer> tempDataStore = new();
-            tempDataStore.ExportToTextFile(customerRepo.Path);
+            HttpStatusCode actual = HttpStatusCode.Unused;
+            HttpStatusCode expected = HttpStatusCode.BadRequest;
 
-            File.Exists(customerRepo.Path).Should().BeTrue();
+            nonExistingIds = null;
+            controller = new(null);
+
+            "When the non exiting customer BadId is requested to be deleted"
+                .x(() =>
+                {
+                    actual = controller.DeleteRange(nonExistingIds);
+                });
+
+
+            "Then the customer John Doe is returned"
+                .x(() =>
+                {
+                    actual.Should().Be(expected);
+
+                }).Teardown(() =>
+                {
+                    controller = null;
+                });
 
         }
 
-        [Fact]
-        public void ImportFromTextFileShouldReturnNotNUllEmptyListList()
-        {
-            var customerRepo = this.controller.Repository;
-            Customer testCustomer = new() { Id = "TEST", FirstName = "Tester", LastName = "Testing" };
-            List<Customer> actualDataStore = new() { testCustomer };
-            actualDataStore.ExportToTextFile(customerRepo.Path);
-            actualDataStore.ImportCustomersFromTextFile(customerRepo.Path);
-            actualDataStore.Should().Contain(testCustomer);
-            actualDataStore.Should().BeAssignableTo<List<Customer>>();
-            //clean up
-            customerRepo.Clear();
-            actualDataStore.ExportToTextFile<Customer>(customerRepo.Path);
-        }
+
         #endregion
     }
 }
