@@ -12,10 +12,11 @@ namespace CRMRepository
 {
     public static class AzureTableClient
     {
-        private static readonly string azureTableUrl = "https://simplecrmfilestore.table.core.windows.net/Customers";
+        private static readonly string azureTableUrl = "http://127.0.0.1:10002/devstoreaccount1";
         private static readonly TableClient tableClient = new(new Uri(azureTableUrl),
-        "Customers", new TableSharedKeyCredential("simplecrmfilestore", "x2WRxcLvZ2K6WFwOb4OUPiJqvI2RBKm6rd7OuMfxz3OBRtASQ/KsTm2rVHxE8apwp2Zfs9s+RnNy+AStIysb/w=="));
+        "Customers", new TableSharedKeyCredential("devstoreaccount1", "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=="));
 
+        
             
         internal static void SaveToTableAsync(List<Customer> customers, List<TableTransactionAction> tableTransactionActionList)
         {

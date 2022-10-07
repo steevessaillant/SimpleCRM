@@ -30,6 +30,11 @@ jobs:
       with:
         dotnet-version: '6.0'
         include-prerelease: True
+    - name: Install Azurite fake Azure Storage
+      run: |
+        npm install -g azurite
+        azurite --silent --location ./azurite --debug ./azurite/debug.log
+
     - name: Build
       run: dotnet build SimpleCRM.sln
     - name: Run Test and Test Report 
