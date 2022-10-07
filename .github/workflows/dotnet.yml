@@ -30,10 +30,6 @@ jobs:
       with:
         dotnet-version: '6.0'
         include-prerelease: True
-    - name: Install and cache PowerShell Modules
-      uses: potatoqualitee/psmodulecache@v4
-      with:
-        modules-to-cache: Az.Storage
 
     - name: Install Azurite
       id: azuright

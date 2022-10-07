@@ -16,12 +16,11 @@ namespace CRMRepository
         private const string TableName = "Customers";
 
        
-        private static readonly string azureTableUrl = "http://127.0.0.1:10002/devstoreaccount1/Customers";
-        private TableClient tableClient = null;
+       
+        private readonly TableClient tableClient = new(ConnectionString, TableName);
 
         public AzureTableClient()
         {
-            this.tableClient = new TableClient(ConnectionString, TableName);
             tableClient.CreateIfNotExists();
         }
 
