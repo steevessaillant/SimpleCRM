@@ -39,14 +39,6 @@ jobs:
       id: azuright
       uses: potatoqualitee/azuright@v1.1
 
-    - name: Test Azutite installation
-      shell: pwsh
-      run: |
-          Import-Module Az.Storage
-          $connstring = "${{ steps.azuright.outputs.connstring }}"
-          $table = New-Object Azure.Data.Tables.TableClient($connstring, "Customers")
-          $table.CreateIfNotExists()
-
     - name: Build
       run: dotnet build SimpleCRM.sln
     - name: Run Test and Test Report 
