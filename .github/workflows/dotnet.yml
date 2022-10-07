@@ -36,14 +36,6 @@ jobs:
       with:
           self-signed-cert: true
 
-    - name: Test Azurite installation
-      shell: pwsh
-      run: |
-          Import-Module Az.Storage
-          $connstring = "${{ steps.azuright.outputs.connstring }}"
-          $blob = New-Object Azure.Storage.Blobs.BlobContainerClient($connstring, "sample-container")
-          $blob.CreateIfNotExists()
-
     - name: Build
       run: dotnet build SimpleCRM.sln
     - name: Run Test and Test Report 
