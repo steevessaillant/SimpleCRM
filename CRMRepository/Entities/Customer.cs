@@ -14,6 +14,8 @@ namespace CRMRepository.Entities
     [DataContract]
     public class Customer
     {
+        private int _age;
+
         /// <summary>
         /// Id of the customer
         /// </summary>
@@ -27,6 +29,25 @@ namespace CRMRepository.Entities
         [ExcludeFromCodeCoverage]
         [DataMember]
         public string LastName { get; set; }
+        [DataMember(IsRequired = true)]
+        public int Age
+        {
+
+            get => _age;
+            set
+            {
+                {
+                    if (value < 18)
+                    {
+                        throw new ArgumentException("Age must be 18 or older");
+                    }
+                    else
+                    {
+                        _age = value;
+                    }
+                }
+            }
+        }
 
         public TableEntity ToAzureTableEntity(string partitionKey = "Default")
         {

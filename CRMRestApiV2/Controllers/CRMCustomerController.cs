@@ -12,25 +12,26 @@ namespace CRMRestApiV2.Controllers
     [ApiController]
     public class CRMCustomerController : ControllerBase
     {
-        /// <summary>
-        /// IRepository Interface
-        /// </summary>
-        private IRepository<Customer> repository = new CustomerRepository();
 
-        private readonly ILogger<CRMCustomerController> _logger;
-      
         /// <summary>
         /// Customer repository
         /// </summary>
-        public IRepository<Customer> Repository { get => repository; set => repository = value; }
+        public IRepository<Customer>? Repository { get; set; } = null;
+
+        /// <summary>
+        /// Logger
+        /// </summary>
+        public ILogger<CRMCustomerController> Logger { get; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="logger"></param>
-        public CRMCustomerController(ILogger<CRMCustomerController> logger)
+        /// <param name="repository"></param>
+        public CRMCustomerController(ILogger<CRMCustomerController> logger, IRepository<Customer>? repository = null)
         {
-            _logger = logger;
+            Logger = logger;
+            this.Repository = repository ?? new CustomerRepository();
 
         }
 

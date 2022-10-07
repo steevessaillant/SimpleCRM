@@ -15,24 +15,23 @@ namespace CRMTests
     [ExcludeFromCodeCoverage]
     public class CustomerInteractionsTest
     {
-        private readonly CRMCustomerController controller = new(null);
 
 
-        #region functional api acceptance tests
+
+        #region functional api acceptance tests (CRUD)
 
         [Scenario]
-        public void PostCustomerToCRM(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
+        public void AddCustomerToRepository(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
         {
 
             "Given we have a new customer"
                 .x(() =>
                 {
-                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
                     customerRepoMock.Setup(x => x.AddOrUpdate(customer));
-                    customerRepoMock.Setup(x => x.FetchAll()).Returns(new List<Customer> { customer });
-                    controller.Repository = customerRepoMock.Object;
+                    customerRepoMock.Setup(x => x.GetById(customer.Id)).Returns(customer);
                 });
 
             "When this customer is added"
@@ -46,11 +45,12 @@ namespace CRMTests
                 .x(() =>
                 {
                     customerRepoMock.Object
-                    .FetchAll()
-                    .Find(x => x.Id == customer.Id)
+                    .GetById(customer.Id)
                     .Should().Be(customer);
 
                     customerRepoMock.Verify(x => x.AddOrUpdate(customer), Times.Once);
+                    customerRepoMock.Verify(x => x.GetById(customer.Id), Times.Once);
+
                 });
 
         }
@@ -62,9 +62,8 @@ namespace CRMTests
             "Given we have an existing customer"
                 .x(() =>
                 {
-                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
-                    controller.Repository = customerRepoMock.Object;
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
 
                 });
@@ -75,7 +74,6 @@ namespace CRMTests
                     customerRepoMock.Setup(x => x.AddOrUpdate(customer));
                     customerRepoMock.Setup(x => x.Get(customer)).Returns(customer);
                     customerRepoMock.Setup(x => x.Delete(customer));
-                    controller = this.controller;
                     controller.Delete(customer);
                 });
 
@@ -99,12 +97,11 @@ namespace CRMTests
         public void GetAllCustomerFromCRM(CRMCustomerController controller, Customer john, Customer jane, Mock<IRepository<Customer>> customerRepoMock)
         {
 
-            "Given we all these customer"
+            "Given we have these customer"
                 .x(() =>
                 {
-                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
-                    controller.Repository = customerRepoMock.Object;
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
                     john = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
                     jane = new Customer { Id = "JD2", FirstName = "Jane", LastName = "Doe" };
 
@@ -115,7 +112,6 @@ namespace CRMTests
                 {
                     customerRepoMock.Setup(x => x.AddOrUpdateRange(new List<Customer> { john, jane }));
                     customerRepoMock.Setup(x => x.FetchAll()).Returns(new List<Customer> { john, jane });
-                    controller = this.controller;
                 });
 
 
@@ -141,9 +137,8 @@ namespace CRMTests
             "Given we have an existing customer"
                 .x(() =>
                 {
-                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
-                    controller.Repository = customerRepoMock.Object;
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
 
                 });
@@ -154,7 +149,6 @@ namespace CRMTests
                     customerRepoMock.Setup(x => x.AddOrUpdate(customer));
                     customerRepoMock.Setup(x => x.GetById(Id)).Returns(customer);
                     customerRepoMock.Setup(x => x.Delete(customer));
-                    controller = this.controller;
                     controller.Delete(customer);
                 });
 
@@ -183,19 +177,16 @@ namespace CRMTests
             "Given we have non-existing customer"
                 .x(() =>
                 {
-                    controller = this.controller;
                     customerRepoMock = new Mock<IRepository<Customer>>();
-                    controller.Repository = customerRepoMock.Object;
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
                     customer = new Customer { Id = "JD2", FirstName = "Jane", LastName = "Doe" };
                     customerRepoMock.Setup(x => x.Get(customer))
                     .Throws(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
                     customerRepoMock.Setup(x => x.Delete(customer))
                     .Throws(() => new ArgumentOutOfRangeException("The Customer: " + customer.ToString() + " was not found"));
-
-                    controller = this.controller;
                 });
 
-            "When this customer is deleted"
+            "When this customer is attempted to be deleted"
                 .x(() =>
                 {
                     actual = controller.Delete(customer);
@@ -203,10 +194,35 @@ namespace CRMTests
                 });
 
 
-            "Then the non-existing customer cannot deleted"
+            "Then the non-existing customer cannot be deleted"
                 .x(() =>
                 {
                     expected.Should().Be(actual);
+                });
+
+        }
+
+        #endregion
+        #region functional tests for business rule Customer Age must be 10 yrs old or more
+    
+
+        [Scenario]
+        public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
+        {
+
+            "When we have a new customer that is 17 yrs of age,it cannot be instanciated thus not added"
+                .x(() =>
+                {
+                    try
+                    {
+                        customerRepoMock = new Mock<IRepository<Customer>>();
+                        controller = new CRMCustomerController(null, customerRepoMock.Object);
+                        customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 };
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ex.Message.Should().Be("Age must be 18 or older");
+                    }
                 });
 
         }

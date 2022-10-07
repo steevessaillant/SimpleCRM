@@ -16,17 +16,17 @@ namespace CRMTests.Integration
 
         #region functional api acceptance tests
         [Scenario]
-        [Example("JD1", "John", "Doe")]
-        [Example("JD2", "Jane", "Doe")]
-        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName, CRMCustomerController controller, CustomerRepository customerRepo)
+        [Example("JD1", "John", "Doe",21)]
+        [Example("JD2", "Jane", "Doe",20)]
+        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName,int age, CRMCustomerController controller, CustomerRepository customerRepo)
         {
             controller = new CRMCustomerController(null);
             Customer actual = null;
-            Customer expected = new() { Id = id, FirstName = firstName, LastName = lastName };
+            Customer expected = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
             "Given we have a these new customers to add to the CRM"
                 .x(() =>
                 {
-                    actual = new() { Id = id, FirstName = firstName, LastName = lastName };
+                    actual = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
                 });
 
             "When these customers are posted"
@@ -59,8 +59,8 @@ namespace CRMTests.Integration
             controller = new CRMCustomerController(null);
             List<Customer> expected = new()
             {
-                new() { Id = "JD1", FirstName = "John", LastName = "Doe" },
-                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" }
+                new() { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 21 },
+                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" , Age = 20}
             };
 
             List<Customer> actual = null;
@@ -71,8 +71,8 @@ namespace CRMTests.Integration
                      {
                          actual = new()
                             {
-                                new() { Id = "JD1", FirstName = "John", LastName = "Doe" },
-                                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" }
+                                 new() { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 21 },
+                                 new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" , Age = 20}
                             };
                      });
 
@@ -104,7 +104,7 @@ namespace CRMTests.Integration
         public void GetCustomersJohnFromCRM(CRMCustomerController controller, Customer John, CustomerRepository customerRepo)
         {
             Customer actual = null;
-            Customer expected = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+            Customer expected = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" , Age = 21};
             controller = new(null);
 
             "Given we have John Doe a new customer that has been added to the CRM"
