@@ -44,8 +44,8 @@ jobs:
       run: |
           Import-Module Az.Storage
           $connstring = "${{ steps.azuright.outputs.connstring }}"
-          $blob = New-Object Azure.Storage.Blobs.BlobContainerClient($connstring, "sample-container")
-          $blob.CreateIfNotExists()
+          $table = New-Object Azure.Storage.Tables.TableClient($connstring, "Customers")
+          $table.CreateIfNotExists()
 
     - name: Build
       run: dotnet build SimpleCRM.sln
