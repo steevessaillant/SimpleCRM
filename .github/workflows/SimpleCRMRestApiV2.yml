@@ -73,18 +73,7 @@ jobs:
     - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: '{
-          "clientId": "dff9af11-e232-408d-b87a-1d75de97bcbf",
-          "clientSecret": "je_8Q~UuITj~nT_vj1hZVciNRSrrUpdVPCYTydxY",
-          "subscriptionId": "8d512b56-1f3e-4976-a2d6-23d19fa62963",
-          "tenantId": "8d0d81ba-ed03-4c6f-9248-a3b3967ca35c",
-          "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
-          "resourceManagerEndpointUrl": "https://management.azure.com/",
-          "activeDirectoryGraphResourceId": "https://graph.windows.net/",
-          "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
-          "galleryEndpointUrl": "https://gallery.azure.com/",
-          "managementEndpointUrl": "https://management.core.windows.net/"
-        }'
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - name: Import API into Azure API Management
       run: az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group "${{ env.AZURE_APIM_RESOURCEGROUP }}" --service-name "${{ env.AZURE_APIM_SERVICENAME }}" --api-id "${{ env.AZURE_APIM_API_ID }}" --service-url "${{ env.AZURE_APIM_APPSERVICEURL }}" --specification-path "${{ env.API_IMPORT_SPECIFICATION_PATH }}" --specification-format OpenApi --subscription-required false
     - name: logout
