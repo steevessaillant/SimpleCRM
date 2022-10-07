@@ -44,7 +44,7 @@ jobs:
       run: |
           Import-Module Az.Storage
           $connstring = "${{ steps.azuright.outputs.connstring }}"
-          $table = New-Object Azure.Storage.Tables.TableClient($connstring, "Customers")
+          $table = New-Object Azure.Data.Tables.TableClient($connstring, "Customers")
           $table.CreateIfNotExists()
 
     - name: Build
