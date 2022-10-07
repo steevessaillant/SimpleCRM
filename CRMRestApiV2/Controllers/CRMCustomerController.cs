@@ -1,6 +1,7 @@
 ﻿using CRMRepository;
 using CRMRepository.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Namotion.Reflection;
 using System.Net;
 
 namespace CRMRestApiV2.Controllers
@@ -43,6 +44,10 @@ namespace CRMRestApiV2.Controllers
         [HttpGet("{Id}")]
         public Customer Get(string Id)
         {
+            if (Repository == null)
+            {
+                throw new Exception("Repository is null");
+            }
             return Repository.GetById(Id);
         }
         /// <summary>
@@ -52,6 +57,10 @@ namespace CRMRestApiV2.Controllers
         [HttpPost]
         public void Post(Customer customer)
         {
+            if (Repository == null)
+            {
+                throw new Exception("Repository is null");
+            }
             this.Repository.AddOrUpdate(customer);
         }
 
@@ -62,7 +71,7 @@ namespace CRMRestApiV2.Controllers
         [HttpDelete]
         public HttpStatusCode Delete(Customer customer)
         {
-            return DeleteFromRepository(null, customer);
+            return DeleteFromRepository(customer.Id);
         }
 
         /// <summary>
@@ -70,7 +79,7 @@ namespace CRMRestApiV2.Controllers
         /// </summary>
         /// <param name="Id"></param>       
         [HttpDelete("{Id}")]
-        public HttpStatusCode DeleteById(string? Id)
+        public HttpStatusCode DeleteById(string Id)
         {
             return DeleteFromRepository(Id);
         }
@@ -82,6 +91,10 @@ namespace CRMRestApiV2.Controllers
         [HttpDelete("deleterange/{Ids}")]
         public HttpStatusCode DeleteRange(string? Ids)
         {
+            if (Repository == null)
+            {
+                throw new Exception("Repository is null");
+            }
             try
             {
                 if (Ids == null)
@@ -104,29 +117,31 @@ namespace CRMRestApiV2.Controllers
             return HttpStatusCode.OK;
         }
 
-        private HttpStatusCode DeleteFromRepository(string? Id = null,Customer? customer = null)
+        private HttpStatusCode DeleteFromRepository(string Id)
         {
-            string? id = Id;
-            if (customer != null)
+            if (Repository == null)
             {
-                id = customer.Id;
+                throw new Exception("Repository is null");
             }
-            if (id != null)
+            try
             {
-                customer = Repository.GetById(id);
-                if (Repository.Delete(customer))
+                if (Id == null)
                 {
-                    return HttpStatusCode.OK;
+                    return HttpStatusCode.BadRequest;
                 }
-                else
+                var entity = Repository.GetById(Id);
+                if (!Repository.Delete(entity))
                 {
-                    return HttpStatusCode.NotFound;
-                }
+                    {
+                        return HttpStatusCode.NotFound;
+                    }
+                };
             }
-            else
+            catch
             {
-                return HttpStatusCode.BadRequest;
+                return HttpStatusCode.InternalServerError;
             }
+            return HttpStatusCode.OK;
         }
 
     }
