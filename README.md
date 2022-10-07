@@ -56,4 +56,4 @@ When we have a new customer that is 17 yrs of age, it cannot be instanciated thu
 TODO : 
 1. Add real CRM business logic (other that REST CRUD stuff)
 2. Add a React NodeJS UI and theyre Cypress Cucumber Specs.
-3. Add Azure Backend .
+
