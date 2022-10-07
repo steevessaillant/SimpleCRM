@@ -15,7 +15,7 @@ namespace CRMRestApiV2.Controllers
         /// <summary>
         /// IRepository Interface
         /// </summary>
-        private IRepository<Customer> repository = new CustomerRepository();
+        private IRepository<Customer>? repository = null;
 
         private readonly ILogger<CRMCustomerController> _logger;
       
@@ -28,9 +28,11 @@ namespace CRMRestApiV2.Controllers
         /// Constructor
         /// </summary>
         /// <param name="logger"></param>
-        public CRMCustomerController(ILogger<CRMCustomerController> logger)
+        /// <param name="repository"></param>
+        public CRMCustomerController(ILogger<CRMCustomerController> logger, IRepository<Customer>? repository = null)
         {
             _logger = logger;
+            this.Repository = repository ?? new CustomerRepository();
 
         }
 

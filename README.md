@@ -43,6 +43,11 @@ Given we have non-existing customer
 When this customer is attempted to be deleted
 Then the non-existing customer cannot be deleted
 
+Given we have a new customer that is 17 yrs of age, it cannot be instanciated thus not added
+| Id    | First Name | Last Name | Age |
+| JD1   | John       | Doe       | 17  |
+
+
 
 
 
