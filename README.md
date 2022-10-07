@@ -43,7 +43,7 @@ Given we have non-existing customer
 When this customer is attempted to be deleted
 Then the non-existing customer cannot be deleted
 
-Given we have a new customer that is 17 yrs of age, it cannot be instanciated thus not added
+When we have a new customer that is 17 yrs of age, it cannot be instanciated thus not added
 | Id    | First Name | Last Name | Age |
 | JD1   | John       | Doe       | 17  |
 
@@ -56,4 +56,4 @@ Given we have a new customer that is 17 yrs of age, it cannot be instanciated th
 TODO : 
 1. Add real CRM business logic (other that REST CRUD stuff)
 2. Add a React NodeJS UI and theyre Cypress Cucumber Specs.
-3. Add Azure Backend .
+

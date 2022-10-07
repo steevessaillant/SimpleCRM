@@ -210,7 +210,7 @@ namespace CRMTests
         public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
         {
 
-            "Given we have a new customer that is 17 yrs of age,it cannot be instanciated thus not added"
+            "When we have a new customer that is 17 yrs of age,it cannot be instanciated thus not added"
                 .x(() =>
                 {
                     try
