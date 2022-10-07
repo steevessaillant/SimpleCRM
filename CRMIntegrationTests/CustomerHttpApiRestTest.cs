@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using Xunit;
 
-namespace CRMTests.Integration
+namespace CRMIntegrationTests
 {
     [ExcludeFromCodeCoverage]
     public class CustomerHttpApiRestTest
@@ -30,7 +30,7 @@ namespace CRMTests.Integration
         //    }
         //    else
         //    {
-                
+
         //        //pass on github action for now.
         //        string command = "cd ../../../;chmod -R 777 /home/runner/work/SimpleCRM/SimpleCRM/CRMRestApiV2/bin/Debug/net6.0";
         //        string result = "";

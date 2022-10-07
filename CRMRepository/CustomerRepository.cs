@@ -1,9 +1,6 @@
 ﻿using CRMRepository.Entities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CRMRepository
 {
@@ -14,13 +11,18 @@ namespace CRMRepository
 
         public CustomerRepository()
         {
-            customerList = AzureTableClient.GetAllFromTable();
+            customerList = new AzureTableClient().GetAllFromTable();
         }
        
         public  void AddOrUpdate(Customer entity)
         {
-            var action = AzureTableClient.AddOrUpdateToTable(entity);
-            AzureTableClient.SaveToTableAsync(new List<Customer> { entity },
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            var azureTableClient = new AzureTableClient();
+            var action = azureTableClient.AddOrUpdateToTable(entity);
+            azureTableClient.SaveToTableAsync(new List<Customer> { entity },
                 new List<Azure.Data.Tables.TableTransactionAction> { action });
         }
 
@@ -32,8 +34,9 @@ namespace CRMRepository
 
         public void Clear()
         {
-            var actions  = AzureTableClient.DeleteRangeFromTableAsync(customerList);
-            AzureTableClient.SaveToTableAsync(customerList, actions);
+            var azureTableClient = new AzureTableClient();
+            var actions  = azureTableClient.DeleteRangeFromTableAsync(customerList);
+            azureTableClient.SaveToTableAsync(customerList, actions);
         }
 
         //for now exclude becuase it is not implemented
@@ -43,8 +46,9 @@ namespace CRMRepository
             {
                 return false;
             }
-            var action = AzureTableClient.DeleteFromTable(entity);
-            AzureTableClient.SaveToTableAsync(new List<Customer> { entity }, new List<Azure.Data.Tables.TableTransactionAction> { action });
+            var azureTableClient = new AzureTableClient();
+            var action = azureTableClient.DeleteFromTable(entity);
+            azureTableClient.SaveToTableAsync(new List<Customer> { entity }, new List<Azure.Data.Tables.TableTransactionAction> { action });
             return this.customerList.Remove(entity);
         }
 
@@ -55,7 +59,7 @@ namespace CRMRepository
 
         public List<Customer> FetchAll()
         {
-            return AzureTableClient.GetAllFromTable();
+            return new AzureTableClient().GetAllFromTable();
         }
 
         public Customer Get(Customer entity)
@@ -77,7 +81,7 @@ namespace CRMRepository
             }
             else
             {
-                return AzureTableClient.GetById(Id);
+                return new AzureTableClient().GetById(Id);
             }
         }
 

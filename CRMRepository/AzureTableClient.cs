@@ -10,14 +10,22 @@ using TableStorage.Abstractions.TableEntityConverters;
 
 namespace CRMRepository
 {
-    public static class AzureTableClient
+    public class AzureTableClient
     {
-        private static readonly string azureTableUrl = "https://simplecrmfilestore.table.core.windows.net/Customers";
-        private static readonly TableClient tableClient = new(new Uri(azureTableUrl),
-        "Customers", new TableSharedKeyCredential("simplecrmfilestore", "x2WRxcLvZ2K6WFwOb4OUPiJqvI2RBKm6rd7OuMfxz3OBRtASQ/KsTm2rVHxE8apwp2Zfs9s+RnNy+AStIysb/w=="));
+        private const string ConnectionString = "UseDevelopmentStorage=true";
+        private const string TableName = "Customers";
 
-            
-        internal static void SaveToTableAsync(List<Customer> customers, List<TableTransactionAction> tableTransactionActionList)
+       
+        private static readonly string azureTableUrl = "http://127.0.0.1:10002/devstoreaccount1/Customers";
+        private TableClient tableClient = null;
+
+        public AzureTableClient()
+        {
+            this.tableClient = new TableClient(ConnectionString, TableName);
+            tableClient.CreateIfNotExists();
+        }
+
+        internal void SaveToTableAsync(List<Customer> customers, List<TableTransactionAction> tableTransactionActionList)
         {
             if (customers == null)
             {
@@ -40,7 +48,7 @@ namespace CRMRepository
            
         }
 
-        internal static List<Customer> GetAllFromTable()
+        internal  List<Customer> GetAllFromTable()
         {
             var customers = new List<Customer>();
     
@@ -58,7 +66,7 @@ namespace CRMRepository
 
         }
 
-        internal static Customer GetById(string Id)
+        internal Customer GetById(string Id)
         {
             var customers = new List<Customer>();
 
@@ -73,14 +81,14 @@ namespace CRMRepository
 
         }
 
-        internal static List<TableTransactionAction> DeleteRangeFromTableAsync(List<Customer> customers)
+        internal List<TableTransactionAction> DeleteRangeFromTableAsync(List<Customer> customers)
         {
             List<TableTransactionAction> transactionActions = new();
             transactionActions.AddRange(customers.Select(x => new TableTransactionAction(TableTransactionActionType.Delete, x.ToAzureTableEntity())));
             return transactionActions;
         }
 
-        internal static TableTransactionAction DeleteFromTable(Customer customer)
+        internal TableTransactionAction DeleteFromTable(Customer customer)
         {
             if (customer is null)
             {
@@ -91,7 +99,7 @@ namespace CRMRepository
 
         }
 
-        internal static TableTransactionAction AddOrUpdateToTable(Customer customer)
+        internal TableTransactionAction AddOrUpdateToTable(Customer customer)
         {
             if (customer is null)
             {

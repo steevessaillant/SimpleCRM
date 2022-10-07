@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net;
 using Xbehave;
 
-namespace SimpleCRM
+namespace CRMTests.Integration
 {
     [ExcludeFromCodeCoverage]
     public class CustomerInteractionsIntegrationsTest
@@ -82,7 +82,7 @@ namespace SimpleCRM
                     controller.Post(actual[0]);
                     controller.Post(actual[1]);
                 });
-        
+
 
 
             "Then these customer are added and saved"
@@ -130,11 +130,11 @@ namespace SimpleCRM
                     controller.Delete(actual);
                     controller = null;
                 });
-           
+
         }
 
         [Scenario]
-        public void TryDeleteNonExistingCustomersFromCRMShouldReturnHTTPNOTFOUND(CRMCustomerController controller, string nonExistingId ,CustomerRepository customerRepo)
+        public void TryDeleteNonExistingCustomersFromCRMShouldReturnHTTPNOTFOUND(CRMCustomerController controller, string nonExistingId, CustomerRepository customerRepo)
         {
             HttpStatusCode actual = HttpStatusCode.Unused;
             HttpStatusCode expected = HttpStatusCode.NotFound;
@@ -147,7 +147,7 @@ namespace SimpleCRM
                 {
                     actual = controller.DeleteById(nonExistingId);
                 });
-           
+
 
             "Then the customer John Doe is returned"
                 .x(() =>
