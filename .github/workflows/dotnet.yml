@@ -45,12 +45,21 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
    
-    - name: Process trx reports to obtaint summary
+    - name: Process trx reports to obtain summary on (pull-requests)
       if: always()
       uses: im-open/process-dotnet-test-results@v2.1.3
       with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          
+    
+    - name: Test Report (Summary)
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: DotNET Tests
+        path: "**/CRMTests/TestResults/*.trx"                            
+        reporter: dotnet-trx
+        fail-on-error: true
+        
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
       with:
