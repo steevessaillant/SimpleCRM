@@ -36,7 +36,7 @@ jobs:
       uses: potatoqualitee/azuright@v1.1
 
     - name: Build
-      run: dotnet build SimpleCRM.sln
+      run: dotnet build SimpleCRM.sln --configuration Release --no-restore
     - name: Test
       run: dotnet test --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
