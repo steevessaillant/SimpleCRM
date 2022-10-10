@@ -5,6 +5,8 @@ This is BDD / TDD double loop with full build pipeline (GitHUbActions)
 
 ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-68%25-yellow?style=flat)
 
+[![.NET](https://github.com/steevessaillant/SimpleCRM/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/steevessaillant/SimpleCRM/actions/workflows/dotnet.yml)
+
 Test String for PR.
 
 The work on this is in progress, some files need to be ignore by git , I need to adrees this issue ASAP.
