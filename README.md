@@ -3,8 +3,7 @@ BDD/TDD implementation with XUnit (GWT plugin)
 
 This is BDD / TDD double loop with full build pipeline (GitHUbActions)
 
-[![codecov](https://codecov.io/gh/steevessaillant/SimpleCRM/branch/main/graph/badge.svg?token=W8ZU6MV7D2)](https://codecov.io/gh/steevessaillant/SimpleCRM)
-![](https://raw.githubusercontent.com/steevessaillant/SimpleCRM/main/badge-simple-crm-main.svg)
+![Code Coverage](https://img.shields.io/badge/Code%20Coverage-68%25-yellow?style=flat)
 
 Test String for PR.
 
@@ -56,4 +55,7 @@ When we have a new customer that is 17 yrs of age, it cannot be instanciated thu
 TODO : 
 1. Add real CRM business logic (other that REST CRUD stuff) -- inprogress 1 unit test done (Customer MustBeAdult rule)
 2. Add a React NodeJS UI and theyre Cypress Cucumber Specs.
+
+
+
 
