@@ -57,8 +57,431 @@ jobs:
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request'
       with:
-        recreate: true
-        path: code-coverage-results.md
+         github-repo: steevessaillant/SimpleCRM
+         project-name: simple-crm
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
+    - name: Login to DockerHub
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Produce the coverage report
+      uses: insightsengineering/coverage-action@v2
+      with:
+          # Path to the Cobertura XML report.
+          path: ./.coverage/**/coverage.cobertura.xml
+          # Minimum total coverage, if you want to the
+          # workflow to enforce it as a standard.
+          # This has no effect if the `fail` arg is set to `false`.
+          threshold: 80.123
+          # Fail the workflow if the minimum code coverage
+          # reuquirements are not satisfied. (Steeves: put back to true after)
+          fail: false
+          # Publish the rendered output as a PR comment
+          publish: true
+          # Create a coverage diff report.
+          diff: true
+          # Branch to diff against.
+          # Compare the current coverage to the coverage
+          # determined on this branch.
+          diff-branch: main
+          # This is where the coverage reports for the
+          # `diff-branch` are stored.
+          # Branch is created if it doesn't already exist'.
+          diff-storage: _xml_coverage_reports  
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: CoverageReport # Artifact name        
+        path: ./.coverage # Directory containing files to upload
+    - name: Upload results to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        directory: ./.coverage/ # optional
+        flags: unittests # optional
+        name: codecov.io # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
+    #- name: Add Coverage PR Comment
+    #  uses: marocchino/sticky-pull-request-comment@v2
+    #  if: github.event_name == 'pull_request'
+    #  with:
+    #     recreate: true
+    #     path: code-coverage-results.md
     - name: Login to DockerHub
       uses: docker/login-action@v2
       with:
