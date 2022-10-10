@@ -32,12 +32,6 @@ namespace CRMRepository
         }
 
 
-        public void Clear()
-        {
-            var azureTableClient = new AzureTableClient();
-            var actions  = azureTableClient.DeleteRangeFromTableAsync(customerList);
-            azureTableClient.SaveToTableAsync(customerList, actions);
-        }
 
         //for now exclude becuase it is not implemented
         public bool Delete(Customer entity)
@@ -84,7 +78,6 @@ namespace CRMRepository
                 return new AzureTableClient().GetById(Id);
             }
         }
-
 
         public void Update(Customer entity)
         {
