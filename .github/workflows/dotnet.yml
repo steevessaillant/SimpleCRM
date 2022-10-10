@@ -44,7 +44,14 @@ jobs:
     # Add coverlet.collector nuget package to test project - 'dotnet add <xx.cspoj> package coverlet
     - name: Test
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
-      
+     # Using the trx-parser action
+    - name: Parse Trx files
+      uses: NasAmin/trx-parser@v0.1
+      id: trx-parser
+      with:
+          TRX_PATH: ${{ github.workspace }}/TestResults #This should be the path to your TRX files
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
       with:
