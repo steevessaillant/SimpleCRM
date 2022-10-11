@@ -147,7 +147,7 @@ namespace CRMRestApiV2.Controllers
         /// <summary>
         /// Gets all the Customers
         /// </summary>
-        /// <returns>List<Customer></returns>
+        /// <returns>List[Customer]</returns>
         [HttpGet()]
         public List<Customer> GetAll()
         {
