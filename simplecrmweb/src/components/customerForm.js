@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-function CustomerForm() {
+function CustomerForm(props) {
 
     return (
         <div>
@@ -22,7 +22,7 @@ function CustomerForm() {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Control data-cy="age" placeholder="Age" type='number' min={18} defaultValue={18} />
+                        <Form.Control data-cy="age" placeholder="Age" type='number' min={props.minimumAge} defaultValue={props.minimumAge} />
                     </Col>
                     <Col>
                         <Form.Control value="Submit" type='submit' />
