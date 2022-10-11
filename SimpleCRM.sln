@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMRestApiV2", "CRMRestApiV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMIntegrationTests", "CRMIntegrationTests\CRMIntegrationTests.csproj", "{FBBF42B3-CF80-4070-AE99-46C75EE837C3}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "simplecrmweb", "SimpleCRMWeb\simplecrmweb.esproj", "{45BFC716-71DF-4E17-8672-009EB697F343}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "simplecrmweb", "simplecrmweb\simplecrmweb.esproj", "{45BFC716-71DF-4E17-8672-009EB697F343}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
