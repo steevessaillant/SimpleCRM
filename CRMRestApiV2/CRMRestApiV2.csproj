@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JsonSubTypes" Version="1.8.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.17.0" />
+    <PackageReference Include="Polly" Version="7.2.3" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="TableStorage.Abstractions.TableEntityConverters" Version="2.0.1" />
     <PackageReference Include="coverlet.collector" Version="3.1.2">
@@ -20,6 +24,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CRMRepository\CRMRepository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="swagger.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>swagger.json</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="swagger.json">
+      <Generator>OpenApiCodeGenerator</Generator>
+      <LastGenOutput>swagger.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>

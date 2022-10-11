@@ -144,5 +144,18 @@ namespace CRMRestApiV2.Controllers
             return HttpStatusCode.OK;
         }
 
+        /// <summary>
+        /// Gets all the Customers
+        /// </summary>
+        /// <returns>List<Customer></returns>
+        [HttpGet()]
+        public List<Customer> GetAll()
+        {
+            if(Repository != null)
+            {
+                return Repository.FetchAll();
+            }
+            return new List<Customer>();
+        }
     }
 }

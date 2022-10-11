@@ -57,11 +57,7 @@ namespace CRMTests.Integration
         public void GetAllCustomersFromCRM(CRMCustomerController controller, CustomerRepository customerRepo)
         {
             controller = new CRMCustomerController(null);
-            List<Customer> expected = new()
-            {
-                new() { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 21 },
-                new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" , Age = 20}
-            };
+            List<Customer> expected = null;
 
             List<Customer> actual = null;
 
@@ -81,6 +77,7 @@ namespace CRMTests.Integration
                 {
                     controller.Post(actual[0]);
                     controller.Post(actual[1]);
+                    expected = controller.GetAll();
                 });
 
 
