@@ -11,6 +11,9 @@ using TableEntity = Azure.Data.Tables.TableEntity;
 
 namespace CRMRepository.Entities
 {
+    /// <summary>
+    /// Represents a Customer Account
+    /// </summary>
     [DataContract]
     public class Customer
     {

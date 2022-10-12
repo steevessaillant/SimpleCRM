@@ -8,13 +8,20 @@ namespace CRMRepository
     {
         private readonly List<Customer> customerList = null;
 
-
+        /// <summary>
+        /// Instanciate a Customer datasource
+        /// </summary>
         public CustomerRepository()
         {
             customerList = new AzureTableClient().GetAllFromTable();
         }
-       
-        public  void AddOrUpdate(Customer entity)
+
+        /// <summary>
+        /// Add Or Updatea Customer
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public void AddOrUpdate(Customer entity)
         {
             if (entity == null)
             {
@@ -26,6 +33,10 @@ namespace CRMRepository
                 new List<Azure.Data.Tables.TableTransactionAction> { action });
         }
 
+        /// <summary>
+        /// Add Or Update multiple Customers
+        /// </summary>
+        /// <param name="entities"></param>
         public void AddOrUpdateRange(List<Customer> entities)
         {
             entities.ForEach(entity => AddOrUpdate(entity));
@@ -33,7 +44,11 @@ namespace CRMRepository
 
 
 
-        //for now exclude becuase it is not implemented
+        /// <summary>
+        /// Delete a Customer
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool Delete(Customer entity)
         {
             if (entity == null)
@@ -46,16 +61,29 @@ namespace CRMRepository
             return this.customerList.Remove(entity);
         }
 
+        /// <summary>
+        /// Delete multiple customers
+        /// </summary>
+        /// <param name="entities"></param>
         public void DeleteRange(List<Customer> entities)
         {
             entities.ForEach(entity => Delete(entity));
         }
 
+        /// <summary>
+        /// Get all Customers in datastore
+        /// </summary>
+        /// <returns></returns>
         public List<Customer> FetchAll()
         {
             return new AzureTableClient().GetAllFromTable();
         }
 
+        /// <summary>
+        /// Gets a single customer
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public Customer Get(Customer entity)
         {
             if (customerList.Exists(x => x.Id == entity.Id ))
@@ -66,7 +94,11 @@ namespace CRMRepository
             return null;
         }
 
-
+        /// <summary>
+        /// Gets a single customer by its Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public Customer GetById(string Id)
         {
             if (customerList.Exists(x => x.Id == Id))
@@ -79,6 +111,11 @@ namespace CRMRepository
             }
         }
 
+        /// <summary>
+        /// Maybe TODO
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <exception cref="NotImplementedException"></exception>
         public void Update(Customer entity)
         {
             throw new NotImplementedException();

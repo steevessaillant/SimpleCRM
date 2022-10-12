@@ -3,6 +3,7 @@ using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
@@ -14,11 +15,29 @@ namespace CRMTests.Integration
     public class CustomerInteractionsIntegrationsTest
     {
 
+
         #region functional api acceptance tests
+
+        /// <summary>
+        /// Clear the datasource before each Scenario 
+        /// </summary>
+        [Background]
+        public static void Setup()
+        {
+            var customerRepo = new CustomerRepository();
+            var actualData = customerRepo.FetchAll().ToList();
+            
+            if(actualData != null)
+            {
+                customerRepo.DeleteRange(actualData);
+            }
+        }
+        
+        
         [Scenario]
         [Example("JD1", "John", "Doe",21)]
         [Example("JD2", "Jane", "Doe",20)]
-        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName,int age, CRMCustomerController controller, CustomerRepository customerRepo)
+        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName,int age, CRMCustomerController controller)
         {
             controller = new CRMCustomerController(null);
             Customer actual = null;
@@ -54,12 +73,51 @@ namespace CRMTests.Integration
         }
 
         [Scenario]
-        public void GetAllCustomersFromCRM(CRMCustomerController controller, CustomerRepository customerRepo)
+        [Example("JD1", "John", "Doe", 21)]
+        public void PostCustomersJohnShouldUpdateJohn(string id, string firstName, string lastName, int age, CRMCustomerController controller)
         {
             controller = new CRMCustomerController(null);
-            List<Customer> expected = null;
+            Customer actual = null;
+            "Given we have a this existing customer that is already added to the CRM"
+                .x(() =>
+                {
+                    actual = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
+                    controller.Post(actual);
+                });
 
+            "When these customers are posted"
+                .x(() =>
+                {
+                    actual.Age = 22;
+                    controller.Post(actual);
+                });
+
+
+            "Then these customer are added and saved"
+                .x(() =>
+                {
+
+                    var expected = controller.Get(actual.Id);
+
+                    actual.Should().BeEquivalentTo(expected);
+
+                })
+                .Teardown(() =>
+                {
+                    controller.DeleteById(actual.Id);
+                    controller = null;
+                });
+
+        }
+
+        [Scenario]
+        public void GetAllCustomersFromCRM(CRMCustomerController controller)
+        {
+            
+            List<Customer> expected = null;
             List<Customer> actual = null;
+            
+            controller = new CRMCustomerController(null);
 
 
             "Given we have a these new customers to add to the CRM"

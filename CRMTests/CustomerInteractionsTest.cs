@@ -207,7 +207,7 @@ namespace CRMTests
     
 
         [Scenario]
-        public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock)
+        public void CustomerMustBeAnAdult(Customer customer)
         {
 
             "When we have a new customer that is 17 yrs of age,it cannot be instanciated thus not added"
@@ -215,8 +215,6 @@ namespace CRMTests
                 {
                     try
                     {
-                        customerRepoMock = new Mock<IRepository<Customer>>();
-                        controller = new CRMCustomerController(null, customerRepoMock.Object);
                         customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 };
                     }
                     catch (ArgumentException ex)
