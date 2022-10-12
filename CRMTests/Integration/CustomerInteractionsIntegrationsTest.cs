@@ -78,14 +78,14 @@ namespace CRMTests.Integration
         {
             controller = new CRMCustomerController(null);
             Customer actual = null;
-            "Given we have a this existing customer that is already added to the CRM"
+            "Given we have a this existing customer that is already added to the CRM with age 21"
                 .x(() =>
                 {
                     actual = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
                     controller.Post(actual);
                 });
 
-            "When these customers are posted"
+            "When this customer is posted with age 22"
                 .x(() =>
                 {
                     actual.Age = 22;
@@ -93,7 +93,7 @@ namespace CRMTests.Integration
                 });
 
 
-            "Then these customer are added and saved"
+            "Then this customer is just updated and saved"
                 .x(() =>
                 {
 
