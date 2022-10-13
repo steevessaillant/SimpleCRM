@@ -21,14 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="swagger.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>swagger.json</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="swagger.json">
       <Generator>OpenApiCodeGenerator</Generator>
       <LastGenOutput>swagger.cs</LastGenOutput>
