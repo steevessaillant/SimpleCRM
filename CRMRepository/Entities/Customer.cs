@@ -1,9 +1,5 @@
-﻿using Azure;
-using Azure.Data.Tables;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
-using Microsoft.WindowsAzure.Storage.Table;
+﻿
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using TableStorage.Abstractions.TableEntityConverters;
@@ -17,40 +13,22 @@ namespace CRMRepository.Entities
     [DataContract]
     public class Customer
     {
-        private int _age;
-
+     
         /// <summary>
         /// Id of the customer
         /// </summary>
         [ExcludeFromCodeCoverage]
         [DataMember]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [ExcludeFromCodeCoverage]
         [DataMember]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         [ExcludeFromCodeCoverage]
         [DataMember]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         [DataMember(IsRequired = true)]
-        public int Age
-        {
-
-            get => _age;
-            set
-            {
-                {
-                    if (value < 18)
-                    {
-                        throw new ArgumentException("Age must be 18 or older");
-                    }
-                    else
-                    {
-                        _age = value;
-                    }
-                }
-            }
-        }
+        public int Age { get; set; }
 
         public TableEntity ToAzureTableEntity(string partitionKey = "Default")
         {

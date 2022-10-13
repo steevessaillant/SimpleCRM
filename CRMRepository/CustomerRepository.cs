@@ -1,12 +1,14 @@
 ﻿using CRMRepository.Entities;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace CRMRepository
 {
     public class CustomerRepository : IRepository<Customer>
     {
-        private readonly List<Customer> customerList = null;
+        private readonly List<Customer>? customerList = null;
 
         /// <summary>
         /// Instanciate a Customer datasource
@@ -17,11 +19,11 @@ namespace CRMRepository
         }
 
         /// <summary>
-        /// Add Or Updatea Customer
+        /// Add Or Update a Customer
         /// </summary>
         /// <param name="entity"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void AddOrUpdate(Customer entity)
+        public async Task AddOrUpdateAsync(Customer entity)
         {
             if (entity == null)
             {
@@ -29,7 +31,7 @@ namespace CRMRepository
             }
             var azureTableClient = new AzureTableClient();
             var action = azureTableClient.AddOrUpdateToTable(entity);
-            azureTableClient.SaveToTableAsync(new List<Customer> { entity },
+            await azureTableClient.SaveToTableAsync(new List<Customer> { entity },
                 new List<Azure.Data.Tables.TableTransactionAction> { action });
         }
 
@@ -37,9 +39,10 @@ namespace CRMRepository
         /// Add Or Update multiple Customers
         /// </summary>
         /// <param name="entities"></param>
-        public void AddOrUpdateRange(List<Customer> entities)
+        public async Task AddOrUpdateRangeAsync(List<Customer> entities)
         {
-            entities.ForEach(entity => AddOrUpdate(entity));
+            entities.ForEach(async entity => await Task.FromResult(AddOrUpdateAsync(entity)));
+            await Task.CompletedTask;
         }
 
 
@@ -49,34 +52,40 @@ namespace CRMRepository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public bool Delete(Customer entity)
+        public async Task<bool> DeleteAsync(Customer entity)
         {
+            if (this.customerList == null)
+            {
+                return await Task.FromResult(false);
+            }
             if (entity == null)
             {
-                return false;
+                return await Task.FromResult(false);
             }
             var azureTableClient = new AzureTableClient();
             var action = azureTableClient.DeleteFromTable(entity);
-            azureTableClient.SaveToTableAsync(new List<Customer> { entity }, new List<Azure.Data.Tables.TableTransactionAction> { action });
-            return this.customerList.Remove(entity);
+            await azureTableClient.SaveToTableAsync(new List<Customer> { entity }, new List<Azure.Data.Tables.TableTransactionAction> { action });
+            
+            return await Task.FromResult(this.customerList.Remove(entity));
         }
 
         /// <summary>
         /// Delete multiple customers
         /// </summary>
         /// <param name="entities"></param>
-        public void DeleteRange(List<Customer> entities)
+        public async Task DeleteRangeAsync(List<Customer> entities)
         {
-            entities.ForEach(entity => Delete(entity));
+            entities.ForEach(async entity => await DeleteAsync(entity));
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Get all Customers in datastore
         /// </summary>
         /// <returns></returns>
-        public List<Customer> FetchAll()
+        public async Task<List<Customer>?> FetchAllAsync()
         {
-            return new AzureTableClient().GetAllFromTable();
+            return await Task.FromResult(new AzureTableClient().GetAllFromTable());
         }
 
         /// <summary>
@@ -84,14 +93,20 @@ namespace CRMRepository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public Customer Get(Customer entity)
+        public async Task<Customer?> GetAsync(Customer entity)
         {
+            if (this.customerList == null)
+            {
+                return null;
+            }
+
             if (customerList.Exists(x => x.Id == entity.Id ))
             {
-                return customerList.Find(x => x.Id == entity.Id);
+                return await Task.FromResult(customerList.Find(x => x.Id == entity.Id));
             }
-          
+
             return null;
+          
         }
 
         /// <summary>
@@ -99,11 +114,15 @@ namespace CRMRepository
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public Customer GetById(string Id)
+        public async Task<Customer?> GetByIdAsync(string Id)
         {
+            if (this.customerList == null)
+            {
+                return null;
+            }
             if (customerList.Exists(x => x.Id == Id))
             {
-                return customerList.Find(x => x.Id == Id);
+                return await Task.FromResult(customerList.Find(x => x.Id == Id));
             }
             else
             {
@@ -111,14 +130,5 @@ namespace CRMRepository
             }
         }
 
-        /// <summary>
-        /// Maybe TODO
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Update(Customer entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

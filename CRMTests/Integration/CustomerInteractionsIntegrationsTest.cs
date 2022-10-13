@@ -2,6 +2,9 @@ using CRMRepository;
 using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
@@ -22,22 +25,22 @@ namespace CRMTests.Integration
         /// Clear the datasource before each Scenario 
         /// </summary>
         [Background]
-        public static void Setup()
+        public async static void Setup()
         {
             var customerRepo = new CustomerRepository();
-            var actualData = customerRepo.FetchAll().ToList();
-            
-            if(actualData != null)
+            var actualData = await customerRepo.FetchAllAsync();
+
+            if (actualData.ToList() != null)
             {
-                customerRepo.DeleteRange(actualData);
+                await customerRepo.DeleteRangeAsync(actualData);
             }
         }
-        
-        
+
+
         [Scenario]
-        [Example("JD1", "John", "Doe",21)]
-        [Example("JD2", "Jane", "Doe",20)]
-        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName,int age, CRMCustomerController controller)
+        [Example("JD1", "John", "Doe", 21)]
+        [Example("JD2", "Jane", "Doe", 20)]
+        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName, int age, CRMCustomerController controller)
         {
             controller = new CRMCustomerController(null);
             Customer actual = null;
@@ -49,24 +52,24 @@ namespace CRMTests.Integration
                 });
 
             "When these customers are posted"
-                .x(() =>
+                .x(async () =>
                 {
-                    controller.Post(actual);
+                    await controller.PostAsync(actual);
                 });
 
 
             "Then these customer are added and saved"
-                .x(() =>
+                .x(async () =>
                 {
 
-                    var stored = controller.Get(actual.Id);
+                    var stored = await controller.GetAsync(actual.Id);
 
                     actual.Should().BeEquivalentTo(expected);
 
                 })
-                .Teardown(() =>
+                .Teardown(async () =>
                  {
-                     controller.DeleteById(actual.Id);
+                     await controller.DeleteByIdAsync(actual.Id);
                      controller = null;
                  });
 
@@ -79,44 +82,45 @@ namespace CRMTests.Integration
             controller = new CRMCustomerController(null);
             Customer actual = null;
             "Given we have a this existing customer that is already added to the CRM with age 21"
-                .x(() =>
+                .x(async () =>
                 {
                     actual = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
-                    controller.Post(actual);
+                    await controller.PostAsync(actual);
                 });
 
             "When this customer is posted with age 22"
-                .x(() =>
+                .x(async () =>
                 {
                     actual.Age = 22;
-                    controller.Post(actual);
+                    await controller.PostAsync(actual);
                 });
 
 
             "Then this customer is just updated and saved"
-                .x(() =>
+                .x(async () =>
                 {
 
-                    var expected = controller.Get(actual.Id);
+                    var expected = await controller.GetAsync(actual.Id);
 
                     actual.Should().BeEquivalentTo(expected);
 
                 })
-                .Teardown(() =>
+                .Teardown(async () =>
                 {
-                    controller.DeleteById(actual.Id);
+                    await controller.DeleteByIdAsync(actual.Id);
                     controller = null;
                 });
+
 
         }
 
         [Scenario]
         public void GetAllCustomersFromCRM(CRMCustomerController controller)
         {
-            
+
             List<Customer> expected = null;
             List<Customer> actual = null;
-            
+
             controller = new CRMCustomerController(null);
 
 
@@ -131,11 +135,11 @@ namespace CRMTests.Integration
                      });
 
             "When these customers are posted"
-                .x(() =>
+                .x(async () =>
                 {
-                    controller.Post(actual[0]);
-                    controller.Post(actual[1]);
-                    expected = controller.GetAll();
+                    await controller.PostAsync(actual[0]);
+                    await controller.PostAsync(actual[1]);
+                    expected = await controller.GetAllAsync();
                 });
 
 
@@ -147,9 +151,9 @@ namespace CRMTests.Integration
                     actual.Should().BeEquivalentTo(expected);
 
                 })
-                .Teardown(() =>
+                .Teardown(async () =>
                 {
-                    controller.DeleteRange("JD1,JD2");
+                    await controller.DeleteRangeAsync("JD1,JD2");
                     controller = null;
                 });
 
@@ -159,19 +163,19 @@ namespace CRMTests.Integration
         public void GetCustomersJohnFromCRM(CRMCustomerController controller, Customer John, CustomerRepository customerRepo)
         {
             Customer actual = null;
-            Customer expected = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" , Age = 21};
+            Customer expected = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 21 };
             controller = new(null);
 
             "Given we have John Doe a new customer that has been added to the CRM"
-                .x(() =>
+                .x(async () =>
                 {
-                    controller.Post(expected);
+                    await controller.PostAsync(expected);
                 });
 
             "When the customer John Doe is requested"
-                .x(() =>
+                .x(async () =>
                 {
-                    actual = controller.Get(expected.Id);
+                    actual = await controller.GetAsync(expected.Id);
                 });
 
 
@@ -180,9 +184,9 @@ namespace CRMTests.Integration
                 {
                     actual.Should().BeEquivalentTo(expected);
 
-                }).Teardown(() =>
+                }).Teardown(async () =>
                 {
-                    controller.Delete(actual);
+                    await controller.DeleteAsync(actual);
                     controller = null;
                 });
 
@@ -198,9 +202,9 @@ namespace CRMTests.Integration
             controller = new(null);
 
             "When the non exiting customer BadId is requested to be deleted"
-                .x(() =>
+                .x(async () =>
                 {
-                    actual = controller.DeleteById(nonExistingId);
+                    actual = await controller.DeleteByIdAsync(nonExistingId);
                 });
 
 
@@ -216,6 +220,39 @@ namespace CRMTests.Integration
 
         }
 
+        [Scenario]
+        public void PostANonAdultCustomerMustReturnError(CRMCustomerController controller, Customer actual, ValidationException validationException)
+        {
+
+            controller = new(null);
+
+            "Given we have John Doe a new customer that is 0 years of age"
+                .x(() =>
+                {
+                    actual = new() { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 0 }; ;
+                });
+
+            "When the customer John Doe is posted"
+                .x(async () =>
+                {
+                    try
+                    {
+                        await controller.PostAsync(new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 });
+                    }
+                    catch (ValidationException ex)
+                    {
+                        validationException = ex;
+                    }
+                });
+            "Then the validation fails and returns the following message"
+                .x(() =>
+                {
+                    validationException.Message.Should().Be("Age must be 18 or older");
+                });
+
+        }
+
+
         #endregion
 
         #region technical data infrastucture tests
@@ -230,9 +267,9 @@ namespace CRMTests.Integration
             controller = new(null);
 
             "When the non exiting customer BadId is requested to be deleted"
-                .x(() =>
+                .x(async () =>
                 {
-                    actual = controller.DeleteRange(nonExistingIds);
+                    actual = await controller.DeleteRangeAsync(nonExistingIds);
                 });
 
 

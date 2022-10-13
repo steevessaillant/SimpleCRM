@@ -1,5 +1,7 @@
 ﻿using CRMRepository;
 using CRMRepository.Entities;
+using CRMRepository.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Namotion.Reflection;
 using System.Net;
@@ -42,26 +44,46 @@ namespace CRMRestApiV2.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet("{Id}")]
-        public Customer Get(string Id)
+        public async Task<Customer?> GetAsync(string Id)
         {
             if (Repository == null)
             {
-                throw new Exception("Repository is null");
+                await Task.FromException(new NullReferenceException("Repository is null"));
+                return null;
             }
-            return Repository.GetById(Id);
+
+            var customer = await Repository.GetByIdAsync(Id);
+            return customer;
         }
         /// <summary>
         /// Post customer
         /// </summary>
         /// <param name="customer"></param>
         [HttpPost]
-        public void Post(Customer customer)
+        public async Task PostAsync(Customer customer)
         {
-            if (Repository == null)
+            var validator = new CustomerValidator();
+            var validationResult = await validator.ValidateAsync(customer);
+            if (!validationResult.IsValid)
             {
-                throw new Exception("Repository is null");
+                await Task.FromException(new ValidationException(validationResult.Errors[0].ErrorMessage));
             }
-            this.Repository.AddOrUpdate(customer);
+            try
+            {
+                if (Repository == null)
+                {
+                    await Task.FromException(new NullReferenceException("Repository is null"));
+                    return;
+                }
+                await this.Repository.AddOrUpdateAsync(customer);
+            }
+            catch (ArgumentException ex)
+            {
+                {
+                    Logger.LogError(ex, "Error in PostAsync: " + ex.Message);
+                    await Task.FromException(ex);
+                }
+            }
         }
 
         /// <summary>
@@ -69,19 +91,19 @@ namespace CRMRestApiV2.Controllers
         /// </summary>
         /// <param name="customer"></param>
         [HttpDelete]
-        public HttpStatusCode Delete(Customer customer)
+        public async Task<HttpStatusCode> DeleteAsync(Customer customer)
         {
-            return DeleteFromRepository(customer.Id);
+            return await DeleteFromRepositoryAsync(customer.Id);
         }
 
         /// <summary>
-        /// Delete customer
+        /// Delete customer by Id
         /// </summary>
         /// <param name="Id"></param>       
         [HttpDelete("{Id}")]
-        public HttpStatusCode DeleteById(string Id)
+        public async Task<HttpStatusCode> DeleteByIdAsync(string Id)
         {
-            return DeleteFromRepository(Id);
+            return await DeleteFromRepositoryAsync(Id);
         }
 
         /// <summary>
@@ -89,7 +111,7 @@ namespace CRMRestApiV2.Controllers
         /// </summary>
         /// <param name="Ids"></param> 
         [HttpDelete("deleterange/{Ids}")]
-        public HttpStatusCode DeleteRange(string? Ids)
+        public async Task<HttpStatusCode> DeleteRangeAsync(string? Ids)
         {
             if (Repository == null)
             {
@@ -105,10 +127,14 @@ namespace CRMRestApiV2.Controllers
                 var entities = new List<Customer>();
                 foreach (var id in ids)
                 {
-                    entities.Add(Repository.GetById(id));
+                    var entity = await Repository.GetByIdAsync(id);
+                    if (entity != null)
+                    {
+                        entities.Add(entity);
+                    }
                 }
 
-                Repository.DeleteRange(entities);
+                await Repository.DeleteRangeAsync(entities);
             }
             catch
             {
@@ -117,11 +143,12 @@ namespace CRMRestApiV2.Controllers
             return HttpStatusCode.OK;
         }
 
-        private HttpStatusCode DeleteFromRepository(string Id)
+        private async Task<HttpStatusCode> DeleteFromRepositoryAsync(string Id)
         {
             if (Repository == null)
             {
-                throw new Exception("Repository is null");
+                await Task.FromException(new NullReferenceException("Repository is null"));
+                return HttpStatusCode.InternalServerError;
             }
             try
             {
@@ -129,13 +156,15 @@ namespace CRMRestApiV2.Controllers
                 {
                     return HttpStatusCode.BadRequest;
                 }
-                var entity = Repository.GetById(Id);
-                if (!Repository.Delete(entity))
+                var entity = await Repository.GetByIdAsync(Id);
+                if (entity != null)
                 {
-                    {
-                        return HttpStatusCode.NotFound;
-                    }
-                };
+                    await Repository.DeleteAsync(entity);
+                }
+                else
+                {
+                    return HttpStatusCode.NotFound;
+                }
             }
             catch
             {
@@ -149,13 +178,22 @@ namespace CRMRestApiV2.Controllers
         /// </summary>
         /// <returns>List[Customer]</returns>
         [HttpGet()]
-        public List<Customer> GetAll()
+        public async Task<List<Customer>?> GetAllAsync()
         {
-            if(Repository != null)
+            if (Repository == null)
             {
-                return Repository.FetchAll();
+                await Task.FromException(new NullReferenceException("Repository is null"));
+                return null;
             }
-            return new List<Customer>();
+            try
+            {
+                return await Repository.FetchAllAsync();
+            }
+            catch
+            {
+                throw;
+            }
+
         }
     }
 }

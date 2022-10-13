@@ -16,12 +16,15 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
+        //temporary
+        app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger(x => x.SerializeAsV2 = true);
             app.UseSwaggerUI();
+            
         }
 
         app.UseAuthorization();
