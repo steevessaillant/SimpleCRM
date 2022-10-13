@@ -93,6 +93,10 @@ namespace CRMRestApiV2.Controllers
         [HttpDelete]
         public async Task<HttpStatusCode> DeleteAsync(Customer customer)
         {
+            if (customer.Id == null)
+            {
+                return HttpStatusCode.BadRequest;
+            }
             return await DeleteFromRepositoryAsync(customer.Id);
         }
 

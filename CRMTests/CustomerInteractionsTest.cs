@@ -171,7 +171,7 @@ namespace CRMTests
         }
 
         [Scenario]
-        public async void DeleteCustomerFromCRMFailsWhenNotFound(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, ArgumentOutOfRangeException exception)
+        public void DeleteCustomerFromCRMFailsWhenNotFound(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, ArgumentOutOfRangeException exception)
         {
             HttpStatusCode expected = HttpStatusCode.NotFound;
             HttpStatusCode actual = HttpStatusCode.Unused;

@@ -98,7 +98,7 @@ namespace CRMRepository
         {
             if (customer is null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(customer));
             }
 
             return new TableTransactionAction(TableTransactionActionType.Delete, customer.ToAzureTableEntity());
