@@ -235,7 +235,7 @@ namespace CRMTests
                         });
 
 
-            "Then the customer is not added to the CRM"
+            "Then the customer is not added to the CRM and an error message is returned as : [Age must be 18 or older]"
                 .x(() =>
                 {
                     customerRepoMock.Verify(x => x.AddOrUpdateAsync(customer), Times.Never);
