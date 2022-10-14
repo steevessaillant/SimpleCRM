@@ -3,15 +3,15 @@ using CRMRepository.Entities;
 using CRMRepository.Validators;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
+using FluentValidation;
+using FluentValidation.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using Xbehave;
-using Xunit;
 
 namespace CRMTests
 {
@@ -40,7 +40,7 @@ namespace CRMTests
             "When this customer is added"
                 .x(async () =>
                 {
-                   await controller.PostAsync(customer);
+                    await controller.PostAsync(customer);
                 });
 
 
@@ -52,9 +52,9 @@ namespace CRMTests
 
                     customerRepoMock.Verify(x => x.AddOrUpdateAsync(customer), Times.Once);
                     customerRepoMock.Verify(x => x.GetByIdAsync(customer.Id), Times.Once);
-                    
+
                 });
-            
+
         }
 
         [Scenario]
@@ -78,7 +78,7 @@ namespace CRMTests
                     customerRepoMock.Setup(x => x.DeleteAsync(customer));
                     await controller.DeleteAsync(customer);
                 });
-            
+
 
             "Then the customer is deleted"
                 .x(async () =>
@@ -120,7 +120,7 @@ namespace CRMTests
             "Then these same customer are returned"
                 .x(() =>
                 {
-                    var actualCustomers =  controller.Repository.FetchAllAsync();
+                    var actualCustomers = controller.Repository.FetchAllAsync();
 
                     actualCustomers.Result
                     .Should()
@@ -206,24 +206,42 @@ namespace CRMTests
 
         #endregion
         #region functional tests for business rule Customer Age must be 18 yrs old or more
-    
+
 
         [Scenario]
-        public void CustomerMustBeAnAdult(Customer customer)
+        public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, ValidationFailure validationFailure, Task task)
         {
-
-            "When we have a new customer that is 17 yrs of age,it cannot be instanciated thus not added"
+            "Given we have a new customer that is 17 yrs of age"
                 .x(() =>
                 {
+                    customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 };
-                    var validator = new CustomerValidator();
-                    validator.Validate(customer).Should().NotBe(ValidationResult.Success);
+                    customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
+
                 });
+            
+             "When it is attempted to be added to the CRM"
+                        .x(async () =>
+                        {
+                            try {
+                                await controller.PostAsync(customer);
+                            }
+                            catch (ValidationException ex)
+                            {
+                                validationFailure = new ValidationFailure("Age", ex.Message);
+                            }
+                           
+                        });
 
+
+            "Then the customer is not added to the CRM"
+                .x(() =>
+                {
+                    customerRepoMock.Verify(x => x.AddOrUpdateAsync(customer), Times.Never);
+                    validationFailure.ErrorMessage.Should().Contain("Age must be 18 or older");
+                });
         }
-
-
         #endregion
-
     }
 }

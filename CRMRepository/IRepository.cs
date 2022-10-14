@@ -1,4 +1,5 @@
 ﻿using CRMRepository.Entities;
+using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace CRMRepository
         Task<TEntity?> GetByIdAsync(string Id);
         Task DeleteRangeAsync(List<Customer> customerSubList);
         Task AddOrUpdateRangeAsync(List<Customer> customerSubList);
+        Task<ValidationResult> ValidateEntity(Customer entity);
     }
 }

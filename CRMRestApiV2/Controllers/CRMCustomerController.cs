@@ -2,6 +2,7 @@
 using CRMRepository.Entities;
 using CRMRepository.Validators;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Namotion.Reflection;
 using System.Net;
@@ -66,7 +67,7 @@ namespace CRMRestApiV2.Controllers
             var validationResult = await validator.ValidateAsync(customer);
             if (!validationResult.IsValid)
             {
-                await Task.FromException(new ValidationException(validationResult.Errors[0].ErrorMessage));
+                throw new ValidationException(validationResult.Errors);
             }
             try
             {
