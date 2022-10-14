@@ -247,7 +247,7 @@ namespace CRMTests.Integration
             "Then the validation fails and returns the following message"
                 .x(() =>
                 {
-                    validationException.Message.Should().Be("Age must be 18 or older");
+                    validationException.Errors.First().ErrorMessage.Should().Be("Age must be 18 or older");
                 });
 
         }

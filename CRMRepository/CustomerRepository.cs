@@ -1,4 +1,6 @@
 ﻿using CRMRepository.Entities;
+using CRMRepository.Validators;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -29,6 +31,7 @@ namespace CRMRepository
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+            
             var azureTableClient = new AzureTableClient();
             var action = azureTableClient.AddOrUpdateToTable(entity);
             await azureTableClient.SaveToTableAsync(new List<Customer> { entity },
@@ -129,6 +132,12 @@ namespace CRMRepository
                 return new AzureTableClient().GetById(Id);
             }
         }
+        
+        public async Task<ValidationResult> ValidateEntity(Customer entity)
+        {
+            return await new CustomerValidator().ValidateAsync(entity);
+        }
+
 
     }
 }
