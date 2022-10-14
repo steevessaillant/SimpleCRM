@@ -239,6 +239,8 @@ namespace CRMTests
                 .x(() =>
                 {
                     customerRepoMock.Verify(x => x.AddOrUpdateAsync(customer), Times.Never);
+                    validationFailure.Should().NotBeNull();
+                    validationFailure.ErrorMessage.Should().Contain("Age must be 18 or older");
                 });
         }
         #endregion
