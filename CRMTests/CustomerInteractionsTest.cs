@@ -206,18 +206,29 @@ namespace CRMTests
 
         #endregion
         #region functional tests for business rule Customer Age must be 18 yrs old or more
-    
+
 
         [Scenario]
-        public void CustomerMustBeAnAdult(Customer customer)
-        {
-
-            "When we have a new customer that is 17 yrs of age,it cannot be instanciated thus not added"
+        public void CustomerMustBeAnAdult(Customer customer, CustomerValidator validator, FluentValidation.Results.ValidationResult validationResult)
+        { 
+            "Given we have a new customer that is 17 yrs of age"
                 .x(() =>
                 {
                     customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 };
-                    var validator = new CustomerValidator();
-                    validator.Validate(customer).Should().NotBe(ValidationResult.Success);
+                });
+
+            
+            "When it is attempted to be added to the CRM"
+                .x(() =>
+                {
+                    
+                    validator = new CustomerValidator();
+                    validationResult = validator.Validate(customer);
+                });
+            "Then the customer is not added to the CRM"
+                .x(() =>
+                {
+                    validationResult.IsValid.Should().BeFalse();
                 });
 
         }
