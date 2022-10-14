@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMRestApiV2", "CRMRestApiV2\CRMRestApiV2.csproj", "{3FEC91D4-C3D7-4F80-9D4D-A9937D305425}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMIntegrationTests", "CRMIntegrationTests\CRMIntegrationTests.csproj", "{FBBF42B3-CF80-4070-AE99-46C75EE837C3}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "simplecrmweb", "simplecrmweb\simplecrmweb.esproj", "{45BFC716-71DF-4E17-8672-009EB697F343}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,11 @@ Global
 		{3FEC91D4-C3D7-4F80-9D4D-A9937D305425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FEC91D4-C3D7-4F80-9D4D-A9937D305425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FEC91D4-C3D7-4F80-9D4D-A9937D305425}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBBF42B3-CF80-4070-AE99-46C75EE837C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBBF42B3-CF80-4070-AE99-46C75EE837C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBBF42B3-CF80-4070-AE99-46C75EE837C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBBF42B3-CF80-4070-AE99-46C75EE837C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45BFC716-71DF-4E17-8672-009EB697F343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45BFC716-71DF-4E17-8672-009EB697F343}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{45BFC716-71DF-4E17-8672-009EB697F343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45BFC716-71DF-4E17-8672-009EB697F343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45BFC716-71DF-4E17-8672-009EB697F343}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

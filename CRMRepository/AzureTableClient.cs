@@ -12,7 +12,7 @@ namespace CRMRepository
 {
     public class AzureTableClient
     {
-        private const string ConnectionString = "UseDevelopmentStorage=true";
+        private const string ConnectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;\r\nAccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;\r\nBlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;\r\nQueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;\r\nTableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
         private const string TableName = "Customers";
 
        
@@ -21,10 +21,17 @@ namespace CRMRepository
 
         public AzureTableClient()
         {
-            tableClient.CreateIfNotExists();
+            try
+            {
+                tableClient.CreateIfNotExists();
+            }
+            catch
+            {
+                throw new ApplicationException("Unable to connect to Azure Storage");
+            }
         }
 
-        internal void SaveToTableAsync(List<Customer> customers, List<TableTransactionAction> tableTransactionActionList)
+        internal async Task SaveToTableAsync(List<Customer> customers, List<TableTransactionAction> tableTransactionActionList)
         {
             if (customers == null)
             {
@@ -42,19 +49,19 @@ namespace CRMRepository
             {
                 return;
             }
-
-            tableClient.SubmitTransaction(tableTransactionActionList);
+            
+            await tableClient.SubmitTransactionAsync(tableTransactionActionList);
            
         }
 
-        internal  List<Customer> GetAllFromTable()
+        internal  List<Customer>? GetAllFromTable()
         {
             var customers = new List<Customer>();
     
             var tableEntities = tableClient.Query<TableEntity>();
             if(tableEntities == null)
             {
-                return customers;
+                return null;
             }
 
             foreach (var entity in tableEntities.ToList())
@@ -65,7 +72,7 @@ namespace CRMRepository
 
         }
 
-        internal Customer GetById(string Id)
+        internal Customer? GetById(string Id)
         {
             var customers = new List<Customer>();
 
@@ -91,7 +98,7 @@ namespace CRMRepository
         {
             if (customer is null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(customer));
             }
 
             return new TableTransactionAction(TableTransactionActionType.Delete, customer.ToAzureTableEntity());

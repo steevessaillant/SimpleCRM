@@ -1,17 +1,17 @@
 ﻿using CRMRepository.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CRMRepository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        List<TEntity> FetchAll();
-        void AddOrUpdate(TEntity entity);
-        bool Delete(TEntity entity);
-        TEntity Get(TEntity entity);
-        void Update(TEntity entity);
-        TEntity GetById(string Id);
-        void DeleteRange(List<Customer> customerSubList);
-        void AddOrUpdateRange(List<Customer> customerSubList);
+        Task<List<TEntity>?> FetchAllAsync();
+        Task AddOrUpdateAsync(TEntity entity);
+        Task<bool> DeleteAsync(TEntity entity);
+        Task<TEntity?> GetAsync(TEntity entity);
+        Task<TEntity?> GetByIdAsync(string Id);
+        Task DeleteRangeAsync(List<Customer> customerSubList);
+        Task AddOrUpdateRangeAsync(List<Customer> customerSubList);
     }
 }
