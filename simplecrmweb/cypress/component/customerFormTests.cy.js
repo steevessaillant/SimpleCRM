@@ -11,19 +11,24 @@ describe('ComponentName.cy.js', () => {
     mount(
       <CustomerForm minimumAge={18} />
     )
-    cy.get('div').contains('Add a new customer')
+    cy.get('div').contains('Add new customer')
     cy.get(age).should('have.value', '18')
   })
 
   it("Customer form should post data with default values (smoke test)", () => {
     mount(
-      <CustomerForm minimumAge={18}/>
+      <CustomerForm minimumAge={18} />
     )
     .then(() => {
       cy.get(id).type("CyTestId")
       cy.get(firstName).type("CyTestFName")
       cy.get(lastName).type("CyTestLName")
-      //cy.get(age).
+      cy.get(age).clear()
+      cy.get(age).type(44)
+      cy.get("form")
+        .submit()
+    
+      
     })
    
     

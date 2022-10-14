@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
-    "react-bootstrap": "^2.5.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -37,18 +37,17 @@
   "devDependencies": {
     "@badeball/cypress-configuration": "^4.2.0",
     "@badeball/cypress-cucumber-preprocessor": "^13.0.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+    "@cypress/react18": "^1.1.0",
     "@testing-library/cypress": "^8.0.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "cypress": "^10.9.0",
     "cypress-selectors": "^1.0.2",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-cypress": "^2.12.1",
-    "jest-editor-support": "^30.2.0",
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@cypress/react18": "^1.1.0"
-    
+    "jest-editor-support": "^30.2.0"
   },
   "testFiles": "**/*.{feature,*.test.js}",
   "stepDefinitions": [
