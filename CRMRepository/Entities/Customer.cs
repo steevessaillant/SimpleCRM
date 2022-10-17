@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using TableStorage.Abstractions.TableEntityConverters;
@@ -18,13 +17,23 @@ namespace CRMRepository.Entities
         /// Id of the customer
         /// </summary>
         [DataMember(IsRequired = true)]
+        [NotNull]
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public string Id { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         [DataMember(IsRequired = true)]
+        [NotNull]
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public string FirstName { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         [DataMember(IsRequired = true)]
+        [NotNull]
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public string LastName { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         [DataMember(IsRequired = true)]
+        [NotNull]
         public DateTimeOffset DateOfBirth { get; set; }
         
 

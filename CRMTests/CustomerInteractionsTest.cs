@@ -205,11 +205,11 @@ namespace CRMTests
         }
 
         #endregion
-        #region functional tests for business rule Customer Age must be 18 yrs old or more
+        #region functional tests for the Customer business rules
 
 
         [Scenario]
-        public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, ValidationFailure validationFailure, Task task)
+        public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, ValidationFailure validationFailure)
         {
             "Given we have a new customer that is 17 yrs of age"
                 .x(() =>
@@ -244,14 +244,14 @@ namespace CRMTests
         }
 
         [Scenario]
-        public void CustomerFieldsAreAllRequired(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, List<ValidationFailure> validationFailures, Task task)
+        public void CustomerFieldsAreAllRequired(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, List<ValidationFailure> validationFailures)
         {
             "Given we have a new customer with ommited required fields"
                 .x(() =>
                 {
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller = new CRMCustomerController(null, customerRepoMock.Object);
-                    customer = new Customer { DateOfBirth = DateTime.Now.AddYears(-19) };
+                    customer = new Customer { Id = string.Empty, FirstName = string.Empty, LastName = string.Empty };
                     customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
                     validationFailures = new List<ValidationFailure>();
                 });

@@ -1,9 +1,12 @@
+using Castle.Core.Resource;
 using CRMRepository;
 using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,8 +21,6 @@ namespace CRMTests.Integration
     public class CustomerInteractionsIntegrationsTest
     {
 
-
-        #region functional api acceptance tests
 
         /// <summary>
         /// Clear the datasource before each Scenario 
@@ -220,6 +221,7 @@ namespace CRMTests.Integration
 
         }
 
+        # region functional tests for the Customer business rules
         [Scenario]
         public void PostANonAdultCustomerMustReturnError(CRMCustomerController controller, Customer actual, ValidationException validationException)
         {
@@ -248,6 +250,40 @@ namespace CRMTests.Integration
                 .x(() =>
                 {
                     validationException.Errors.First().ErrorMessage.Should().Be("Age must be 18 or older");
+                });
+
+        }
+
+        [Scenario]
+        public void PostAnAdultCustomerButOtherRequiredFieldsAreEmptyMustReturnErrors(CRMCustomerController controller, Customer actual, List<ValidationFailure> validationFailures)
+        {
+
+            controller = new(null);
+
+            "Given we have John Doe a new customer that is 18 years of age"
+                .x(() =>
+                {
+                    actual = new() { Id = string.Empty, FirstName = string.Empty, LastName = string.Empty, DateOfBirth = DateTime.Now.AddYears(-18) }; ;
+                    validationFailures = new List<ValidationFailure>();
+                });
+
+            "When the customer John Doe is posted"
+                .x(async () =>
+                {
+                    try
+                    {
+                        await controller.PostAsync(actual);
+                    }
+                    catch (ValidationException ex)
+                    {
+                        ex.Errors.ToList().ForEach(x => validationFailures.Add(new ValidationFailure(x.PropertyName, x.ErrorMessage)));
+                    }
+
+                });
+            "Then the validation fails and returns the following message"
+                .x(() =>
+                {
+                    validationFailures.ToList().ForEach(failure => failure.ErrorMessage.Contains("is required").Should().BeTrue());
                 });
 
         }
