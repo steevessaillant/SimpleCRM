@@ -1,9 +1,12 @@
+using Castle.Core.Resource;
 using CRMRepository;
 using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,8 +21,6 @@ namespace CRMTests.Integration
     public class CustomerInteractionsIntegrationsTest
     {
 
-
-        #region functional api acceptance tests
 
         /// <summary>
         /// Clear the datasource before each Scenario 
@@ -38,17 +39,17 @@ namespace CRMTests.Integration
 
 
         [Scenario]
-        [Example("JD1", "John", "Doe", 21)]
-        [Example("JD2", "Jane", "Doe", 20)]
-        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName, int age, CRMCustomerController controller)
+        [Example("JD1", "John", "Doe", "2000-01-01")]
+        [Example("JD2", "Jane", "Doe", "1999-02-02")]
+        public void PostCustomersJohnAndJaneToCRM(string id, string firstName, string lastName, string dateOfBirth, CRMCustomerController controller)
         {
             controller = new CRMCustomerController(null);
             Customer actual = null;
-            Customer expected = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
+            Customer expected = new() { Id = id, FirstName = firstName, LastName = lastName, DateOfBirth = DateTime.Parse(dateOfBirth) };
             "Given we have a these new customers to add to the CRM"
                 .x(() =>
                 {
-                    actual = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
+                    actual = new() { Id = id, FirstName = firstName, LastName = lastName, DateOfBirth = DateTime.Parse(dateOfBirth) };
                 });
 
             "When these customers are posted"
@@ -76,22 +77,22 @@ namespace CRMTests.Integration
         }
 
         [Scenario]
-        [Example("JD1", "John", "Doe", 21)]
-        public void PostCustomersJohnShouldUpdateJohn(string id, string firstName, string lastName, int age, CRMCustomerController controller)
+        [Example("JD1", "John", "Doe", "2000-01-01")]
+        public void PostCustomersJohnShouldUpdateJohn(string id, string firstName, string lastName, string dateOfBirth, CRMCustomerController controller)
         {
             controller = new CRMCustomerController(null);
             Customer actual = null;
-            "Given we have a this existing customer that is already added to the CRM with age 21"
+            "Given we have a this existing customer that is already added to the CRM with age 2"
                 .x(async () =>
                 {
-                    actual = new() { Id = id, FirstName = firstName, LastName = lastName, Age = age };
+                    actual = new() { Id = id, FirstName = firstName, LastName = lastName, DateOfBirth = DateTime.Parse(dateOfBirth) };
                     await controller.PostAsync(actual);
                 });
 
             "When this customer is posted with age 22"
                 .x(async () =>
                 {
-                    actual.Age = 22;
+                    actual.DateOfBirth = DateTime.Parse("1999-01-01");
                     await controller.PostAsync(actual);
                 });
 
@@ -129,8 +130,8 @@ namespace CRMTests.Integration
                      {
                          actual = new()
                             {
-                                 new() { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 21 },
-                                 new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" , Age = 20}
+                                 new() { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Parse("2000-01-01") },
+                                 new()  { Id = "JD2", FirstName = "Jane", LastName = "Doe" , DateOfBirth = DateTime.Parse("1999-02-02") }
                             };
                      });
 
@@ -163,7 +164,7 @@ namespace CRMTests.Integration
         public void GetCustomersJohnFromCRM(CRMCustomerController controller, Customer John, CustomerRepository customerRepo)
         {
             Customer actual = null;
-            Customer expected = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 21 };
+            Customer expected = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Parse("2000-01-01") };
             controller = new(null);
 
             "Given we have John Doe a new customer that has been added to the CRM"
@@ -220,6 +221,7 @@ namespace CRMTests.Integration
 
         }
 
+        # region functional tests for the Customer business rules
         [Scenario]
         public void PostANonAdultCustomerMustReturnError(CRMCustomerController controller, Customer actual, ValidationException validationException)
         {
@@ -229,7 +231,7 @@ namespace CRMTests.Integration
             "Given we have John Doe a new customer that is 0 years of age"
                 .x(() =>
                 {
-                    actual = new() { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 0 }; ;
+                    actual = new() { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Now }; ;
                 });
 
             "When the customer John Doe is posted"
@@ -237,7 +239,7 @@ namespace CRMTests.Integration
                 {
                     try
                     {
-                        await controller.PostAsync(new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 });
+                        await controller.PostAsync(new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Now});
                     }
                     catch (ValidationException ex)
                     {
@@ -248,6 +250,40 @@ namespace CRMTests.Integration
                 .x(() =>
                 {
                     validationException.Errors.First().ErrorMessage.Should().Be("Age must be 18 or older");
+                });
+
+        }
+
+        [Scenario]
+        public void PostAnAdultCustomerButOtherRequiredFieldsAreEmptyMustReturnErrors(CRMCustomerController controller, Customer actual, List<ValidationFailure> validationFailures)
+        {
+
+            controller = new(null);
+
+            "Given we have John Doe a new customer that is 18 years of age"
+                .x(() =>
+                {
+                    actual = new() { Id = string.Empty, FirstName = string.Empty, LastName = string.Empty, DateOfBirth = DateTime.Now.AddYears(-18) }; ;
+                    validationFailures = new List<ValidationFailure>();
+                });
+
+            "When the customer John Doe is posted"
+                .x(async () =>
+                {
+                    try
+                    {
+                        await controller.PostAsync(actual);
+                    }
+                    catch (ValidationException ex)
+                    {
+                        ex.Errors.ToList().ForEach(x => validationFailures.Add(new ValidationFailure(x.PropertyName, x.ErrorMessage)));
+                    }
+
+                });
+            "Then the validation fails and returns the following message"
+                .x(() =>
+                {
+                    validationFailures.ToList().ForEach(failure => failure.ErrorMessage.Contains("is required").Should().BeTrue());
                 });
 
         }
@@ -285,6 +321,7 @@ namespace CRMTests.Integration
 
         }
 
+       
 
         #endregion
     }

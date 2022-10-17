@@ -9,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Xbehave;
@@ -32,8 +33,7 @@ namespace CRMTests
                 {
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller = new CRMCustomerController(null, customerRepoMock.Object);
-                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 18 };
-                    customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Parse("2000-01-01") };
                     customerRepoMock.Setup(x => x.GetByIdAsync(customer.Id)).Returns(Task.FromResult(customer));
                 });
 
@@ -66,7 +66,7 @@ namespace CRMTests
                 {
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller = new CRMCustomerController(null, customerRepoMock.Object);
-                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Parse("2000-01-01") };
 
                 });
 
@@ -205,18 +205,18 @@ namespace CRMTests
         }
 
         #endregion
-        #region functional tests for business rule Customer Age must be 18 yrs old or more
+        #region functional tests for the Customer business rules
 
 
         [Scenario]
-        public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, ValidationFailure validationFailure, Task task)
+        public void CustomerMustBeAnAdult(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, ValidationFailure validationFailure)
         {
             "Given we have a new customer that is 17 yrs of age"
                 .x(() =>
                 {
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller = new CRMCustomerController(null, customerRepoMock.Object);
-                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 };
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Now.AddYears(-17) };
                     customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
 
                 });
@@ -229,7 +229,7 @@ namespace CRMTests
                             }
                             catch (ValidationException ex)
                             {
-                                validationFailure = new ValidationFailure("Age", ex.Message);
+                                validationFailure = new ValidationFailure("DateOfBirth", ex.Message);
                             }
                            
                         });
@@ -242,6 +242,44 @@ namespace CRMTests
                     validationFailure.ErrorMessage.Should().Contain("Age must be 18 or older");
                 });
         }
+
+        [Scenario]
+        public void CustomerFieldsAreAllRequired(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, List<ValidationFailure> validationFailures)
+        {
+            "Given we have a new customer with ommited required fields"
+                .x(() =>
+                {
+                    customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
+                    customer = new Customer { Id = string.Empty, FirstName = string.Empty, LastName = string.Empty };
+                    customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
+                    validationFailures = new List<ValidationFailure>();
+                });
+
+            "When it is attempted to be added to the CRM"
+                       .x(async () =>
+                       {
+                           try
+                           {
+                               await controller.PostAsync(customer);
+                           }
+                           catch (ValidationException ex)
+                           {
+                               ex.Errors.ToList().ForEach(x => validationFailures.Add(new ValidationFailure(x.PropertyName, x.ErrorMessage)));                          
+                           }
+
+                       });
+
+
+            "Then the customer is not added to the CRM and the following error messages are returned as : [FirstName is required, LastName is required, DateOfBirth is required]"
+                .x(() =>
+                {
+                    customerRepoMock.Verify(x => x.AddOrUpdateAsync(customer), Times.Never);
+                    validationFailures.ToList().ForEach(failure => failure.ErrorMessage.Contains("is required").Should().BeTrue());
+                });
+        }
+
+
         #endregion
     }
 }

@@ -4,7 +4,7 @@ function CustomerForm(props) {
   const [Id, setId] = useState("");
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
-  const [Age, setAge] = useState(props.minimumAge);
+  const [DateOfBirth, setAge] = useState(props.minimumAge);
   const [message, setMessage] = useState("");
 
   let handleSubmit = async (e) => {
@@ -24,7 +24,7 @@ function CustomerForm(props) {
           id:Id,
           firstName: FirstName,
           lastName: LastName,
-          age: Age
+          age: DateOfBirth
         }),
       });
 
@@ -64,8 +64,8 @@ function CustomerForm(props) {
         />
         <input data-cy="age"
           type="number"
-          value={Age}
-          placeholder="Age"
+          value={DateOfBirth}
+          placeholder="DateOfBirth"
           onChange={(e) => setAge(e.target.value)}
         />
 
