@@ -45,7 +45,7 @@ When this customer is attempted to be deleted
 Then the non-existing customer cannot be deleted
 
 When we have a new customer that is 17 yrs of age, it cannot be instanciated thus not added
-| Id    | First Name | Last Name | Age |
+| Id    | First Name | Last Name | DateOfBirth |
 | JD1   | John       | Doe       | 17  |
 
 

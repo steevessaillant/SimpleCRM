@@ -32,8 +32,7 @@ namespace CRMTests
                 {
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller = new CRMCustomerController(null, customerRepoMock.Object);
-                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 18 };
-                    customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Parse("2000-01-01") };
                     customerRepoMock.Setup(x => x.GetByIdAsync(customer.Id)).Returns(Task.FromResult(customer));
                 });
 
@@ -66,7 +65,7 @@ namespace CRMTests
                 {
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller = new CRMCustomerController(null, customerRepoMock.Object);
-                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe" };
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Parse("2000-01-01") };
 
                 });
 
@@ -216,7 +215,7 @@ namespace CRMTests
                 {
                     customerRepoMock = new Mock<IRepository<Customer>>();
                     controller = new CRMCustomerController(null, customerRepoMock.Object);
-                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", Age = 17 };
+                    customer = new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Now.AddYears(-17) };
                     customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
 
                 });
@@ -229,7 +228,7 @@ namespace CRMTests
                             }
                             catch (ValidationException ex)
                             {
-                                validationFailure = new ValidationFailure("Age", ex.Message);
+                                validationFailure = new ValidationFailure("DateOfBirth", ex.Message);
                             }
                            
                         });

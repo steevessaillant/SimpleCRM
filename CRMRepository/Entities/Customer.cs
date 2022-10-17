@@ -13,7 +13,7 @@ namespace CRMRepository.Entities
     [DataContract]
     public class Customer
     {
-     
+
         /// <summary>
         /// Id of the customer
         /// </summary>
@@ -28,12 +28,13 @@ namespace CRMRepository.Entities
         [DataMember]
         public string? LastName { get; set; }
         [DataMember(IsRequired = true)]
-        public int Age { get; set; }
+        public DateTimeOffset DateOfBirth { get; set; }
+        
 
         public TableEntity ToAzureTableEntity(string partitionKey = "Default")
         {
-            return this.ToTableEntity(partitionKey,this.Id,null);
+            return this.ToTableEntity(partitionKey, this.Id, null);
         }
-        
+
     }
 }
