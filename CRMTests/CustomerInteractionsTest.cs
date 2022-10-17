@@ -9,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Xbehave;
@@ -241,6 +242,44 @@ namespace CRMTests
                     validationFailure.ErrorMessage.Should().Contain("Age must be 18 or older");
                 });
         }
+
+        [Scenario]
+        public void CustomerFieldsAreAllRequired(CRMCustomerController controller, Customer customer, Mock<IRepository<Customer>> customerRepoMock, CustomerValidator validator, List<ValidationFailure> validationFailures, Task task)
+        {
+            "Given we have a new customer with ommited required fields"
+                .x(() =>
+                {
+                    customerRepoMock = new Mock<IRepository<Customer>>();
+                    controller = new CRMCustomerController(null, customerRepoMock.Object);
+                    customer = new Customer { DateOfBirth = DateTime.Now.AddYears(-19) };
+                    customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
+                    validationFailures = new List<ValidationFailure>();
+                });
+
+            "When it is attempted to be added to the CRM"
+                       .x(async () =>
+                       {
+                           try
+                           {
+                               await controller.PostAsync(customer);
+                           }
+                           catch (ValidationException ex)
+                           {
+                               ex.Errors.ToList().ForEach(x => validationFailures.Add(new ValidationFailure(x.PropertyName, x.ErrorMessage)));                          
+                           }
+
+                       });
+
+
+            "Then the customer is not added to the CRM and the following error messages are returned as : [FirstName is required, LastName is required, DateOfBirth is required]"
+                .x(() =>
+                {
+                    customerRepoMock.Verify(x => x.AddOrUpdateAsync(customer), Times.Never);
+                    validationFailures.ToList().ForEach(failure => failure.ErrorMessage.Contains("is required").Should().BeTrue());
+                });
+        }
+
+
         #endregion
     }
 }

@@ -17,16 +17,13 @@ namespace CRMRepository.Entities
         /// <summary>
         /// Id of the customer
         /// </summary>
-        [ExcludeFromCodeCoverage]
-        [DataMember]
-        public string? Id { get; set; }
+        [DataMember(IsRequired = true)]
+        public string Id { get; set; }
 
-        [ExcludeFromCodeCoverage]
-        [DataMember]
-        public string? FirstName { get; set; }
-        [ExcludeFromCodeCoverage]
-        [DataMember]
-        public string? LastName { get; set; }
+        [DataMember(IsRequired = true)]
+        public string FirstName { get; set; }
+        [DataMember(IsRequired = true)]
+        public string LastName { get; set; }
         [DataMember(IsRequired = true)]
         public DateTimeOffset DateOfBirth { get; set; }
         

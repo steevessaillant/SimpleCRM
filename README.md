@@ -19,6 +19,7 @@ For CRUD Update is Missing for now.
 
 The scenarios in this project are:
 
+CRUD Scenarios
 Given we have a these new customers to add to the CRM
 | Id    | First Name | Last Name | 
 | JD1   | John       | Doe       |
@@ -44,9 +45,22 @@ Given we have non-existing customer
 When this customer is attempted to be deleted
 Then the non-existing customer cannot be deleted
 
-When we have a new customer that is 17 yrs of age, it cannot be instanciated thus not added
-| Id    | First Name | Last Name | DateOfBirth |
-| JD1   | John       | Doe       | 17  |
+Business Rules Scenarios
+
+Given we have a new customer that is 17 yrs of age
+| Id    | First Name | Last Name | DateOfBirth						   |
+| JD1   | John       | Doe       | DateTime.Now.AddYears(-17)          |
+When it is attempted to be added to the CRM
+Then the customer is not added to the CRM and an error message is returned as : [Age must be 18 or older]
+
+Given we have a new customer with ommited required fields
+| Id    | First Name | Last Name | DateOfBirth						   |
+|       |            |           | DateTime.Now.AddYears(-17)          |
+When it is attempted to be added to the CRM
+Then the customer is not added to the CRM and the following error messages are returned as : [FirstName is required, LastName is required, DateOfBirth is required]"
+
+##DateTime.Now.AddYears(-17)  means thats the customer is 17 yrs of age from Now.
+
 
 
 
@@ -55,7 +69,7 @@ When we have a new customer that is 17 yrs of age, it cannot be instanciated thu
 
 
 TODO : 
-1. Add real CRM business logic (other that REST CRUD stuff) -- inprogress 1 unit test done (Customer MustBeAdult rule)
+
 2. Add a React NodeJS UI and theyre Cypress Cucumber Specs.
 
 
