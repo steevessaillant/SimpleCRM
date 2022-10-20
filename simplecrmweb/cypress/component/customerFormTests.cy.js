@@ -1,14 +1,15 @@
 import React from 'react'
 import { mount } from '@cypress/react18'
 import CustomerForm from '../../src/components/customerForm'
-import dateFormat, { masks } from "dateformat";
-const now = new Date();
+
 
 describe('CustomerForm', () => {
     const id = '[data-cy=id]'
     const firstName = '[data-cy=firstName]'
     const lastName = '[data-cy=lastName]'
-    const dob = '[data-cy=dob]'
+    const dateOfBirth = '[name=dateOfBirth]'
+    const form = '[data-cy=form]'
+    const submit = '[data-cy=submit]'
     const message = '[data-cy=message]'
 
     beforeEach(() => {
@@ -26,7 +27,7 @@ describe('CustomerForm', () => {
         cy.get('div').contains('Add new customer')
     })
 
-    it("should post data with default values (smoke test)", () => {
+    it("should post data with valid values (smoke test)", () => {
 
         mount(
             <CustomerForm />
@@ -35,10 +36,10 @@ describe('CustomerForm', () => {
                 cy.get(id).type("CyTestId")
                     .get(firstName).type("CyTestFName")
                     .get(lastName).type("CyTestLName")
-                    .get(dob).clear()
-                    .get(dob).type('2000-01-01')
-                    .get("form")
-                    .submit()
+                    .get(dateOfBirth).clear()
+                    .get('.react-datepicker__day.react-datepicker__day--009').click()
+                    .get(form)
+                    .get(submit).click()
                     .then(() => {
                         cy.wait('@postedCustomer').then((interception) => {
                             expect(interception.response.statusCode).to.eq(200)
@@ -46,7 +47,7 @@ describe('CustomerForm', () => {
                     })
             })
 
-    })
+     })
 
     it("should not post data with empty fields", () => {
 
@@ -54,8 +55,8 @@ describe('CustomerForm', () => {
             <CustomerForm />
         )
             .then(() => {
-                cy.get("form")
-                    .submit()
+                cy.get(form)
+                    .get(submit).click()
                     .then((e) => {
                         cy.get(message).contains('Please fix the errors in the form')
                     })
@@ -63,25 +64,4 @@ describe('CustomerForm', () => {
 
     })
 
-    //TODO : installer momentjs pour validerr les dates
-    // it("should not post data if the customer is not 18 years old", () => {
-
-    //     var now = dateFormat(now, "isoDate");
-    //     mount(
-    //         <CustomerForm />
-    //     )
-    //         .then(() => {
-    //             cy.get(id).type("CyTestId")
-    //                 .get(firstName).type("CyTestFName")
-    //                 .get(lastName).type("CyTestLName")
-    //                 .get(dob).clear()
-    //                 .get(dob).type(now)
-    //                 .get("form")
-    //                 .submit()
-    //                 .then((e) => {
-    //                     cy.get(message).contains('Please fix the errors in the form')
-    //                 })
-    //         })
-
-    // })
 })
