@@ -1,21 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import CustomerForm from './components/customerForm';
+import {CustomerForm} from './components/CustomerForm.tsx';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+    <div>
+      <header>
+        <div>
+         <CustomerForm />
+        </div>
       </header>
-      <div>
-       <CustomerForm />
     </div>
-    </div>
-   
+
   );
 }
 
