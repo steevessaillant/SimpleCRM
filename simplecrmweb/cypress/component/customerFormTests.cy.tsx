@@ -16,7 +16,7 @@ describe('CustomerForm', () => {
     const alphaNumericOnlyErrorMessage = 'must be alpha-numeric';
     const alphaOnlyErrorMessage = 'must be alpha';
     const mustBeAnAdultErrorMessage = 'Must be 18 years of age';
-    const requiredErrorMessage = 'required';
+    const requiredErrorMessage = 'Required';
 
 
     beforeEach(() => {
@@ -59,9 +59,8 @@ describe('CustomerForm', () => {
                     .get(dateOfBirth)
                     .clear()
                     .type(moment().subtract(19, 'year').format('YYYY-MM-DD'))
-
-                cy.get(form)
-                    .submit()
+                    .get("[data-cy='submit']")
+                    .click()
                     .then(() => {
                         cy.wait('@postedCustomer').then((interception) => {
                             if (interception.response !== undefined)
@@ -79,34 +78,39 @@ describe('CustomerForm', () => {
         )
             .then(() => {
                 cy.get(form)
-                    .submit()
+                    .get("[data-cy='submit']")
+                    .click()
                     .then(() => {
-                        cy.get('[id=hasErrors]').then((text) => {
-                            //     expect(text.text()).to.equal("true")});
-                        })
+                        cy.get('[data-cy="errorForId"]').contains(requiredErrorMessage);
+                        cy.get('[data-cy="errorForFirstName"]').contains(requiredErrorMessage);
+                        cy.get('[data-cy="errorForLastName"]').contains(requiredErrorMessage);
+                        cy.get('[data-cy="errorForDateOfBirth"]').contains(requiredErrorMessage);
                     })
 
             })
+    })
 
-        it("should not post data with a customer agednunder 18", () => {
+    it("should not post data with a customer agednunder 18 and invalid strings for names", () => {
 
-            mount(
-                <CustomerForm />
-            )
-                .then(() => {
-                    cy.get(id).type("CyTestId")
-                        .get(firstName).type("CyTestFName")
-                        .get(lastName).type("CyTestLName")
-                        .get(dateOfBirth)
-                        .clear()
-                        .type(moment().format('YYYY-MM-DD'))
-                        .get(form)
-                        .submit()
-                        .then(() => {
-                            cy.get('[data-cy="errorForDateOfBirth"]').contains(alphaNumericOnlyErrorMessage);
-                        })
-                })
+        mount(
+            <CustomerForm />
+        )
+            .then(() => {
+                cy.get(id).type("_")
+                    .get(firstName).type("1")
+                    .get(lastName).type("1")
+                    .get(dateOfBirth)
+                    .clear()
+                    .type(moment().format('YYYY-MM-DD'))
+                    .get("[data-cy='submit']")
+                    .click()
+                    .then(() => {
+                        cy.get('[data-cy="errorForId"]').contains(alphaNumericOnlyErrorMessage);
+                        cy.get('[data-cy="errorForFirstName"]').contains(alphaOnlyErrorMessage);
+                        cy.get('[data-cy="errorForLastName"]').contains(alphaOnlyErrorMessage);
+                        cy.get('[data-cy="errorForDateOfBirth"]').contains(mustBeAnAdultErrorMessage);
+                    })
+            })
 
-        })
     })
 })
