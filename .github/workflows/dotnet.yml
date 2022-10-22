@@ -68,6 +68,7 @@ jobs:
         install: true
         # to run component tests we need to use "component: true"
         component: true
+        browser: chrome
     - name: Cypress Component Test Artifacts (inital temporary configuration)
           # after the test run completes
           # store videos and any screenshots
