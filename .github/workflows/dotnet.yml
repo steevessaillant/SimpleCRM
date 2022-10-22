@@ -63,7 +63,9 @@ jobs:
     - name: Run Component tests 🧪
       uses: cypress-io/github-action@v4
       with:
-        install: true
+        working-directory: ./simplecrmweb
+        # we have already installed everything
+        install: false
         # to run component tests we need to use "component: true"
         component: true
         
