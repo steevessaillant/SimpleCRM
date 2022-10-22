@@ -30,8 +30,7 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
-    <ApplicationInsightsResourceId>/subscriptions/8d512b56-1f3e-4976-a2d6-23d19fa62963/resourceGroups/simplecrmkubernetescluster-rg/providers/microsoft.insights/components/simplecrmkubernetescluster</ApplicationInsightsResourceId>
-    <UserSecretsId>f2c87f18-8d09-4e26-a1fb-1f84ac27375b</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>77ca4b39-c80f-4138-9cea-3e94a2022bdb</UserSecretsId>
   </PropertyGroup>
 </Project>

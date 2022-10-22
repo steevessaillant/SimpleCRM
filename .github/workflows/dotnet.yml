@@ -1,4 +1,4 @@
-name: .NET
+﻿name: .NET
 
 on:
   push:
@@ -42,7 +42,7 @@ jobs:
       run: dotnet build --no-restore
       
     # Add coverlet.collector nuget package to test project - 'dotnet add <xx.cspoj> package coverlet
-    - name: Test
+    - name: Test 🧪
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
    
     - name: Process trx reports to obtain summary on (pull-requests)
@@ -59,6 +59,45 @@ jobs:
         path: "**/coverage/*.trx"                            
         reporter: dotnet-trx
         fail-on-error: true
+
+    - name: Run Component tests 🧪
+      uses: cypress-io/github-action@v4
+      with:
+        working-directory: ./simplecrmweb
+        # we have already installed everything
+        install: true
+        # to run component tests we need to use "component: true"
+        component: true
+        browser: chrome
+    - name: Cypress Component Test Artifacts (inital temporary configuration)
+          # after the test run completes
+          # store videos and any screenshots
+          # NOTE: screenshots will be generated only if E2E test failed
+          # thus we store screenshots only on failures
+          # Alternative: create and commit an empty cypress/screenshots folder
+          # to always have something to upload
+      uses: actions/upload-artifact@v2
+      #if: failure()
+      #with:
+      #      working-directory: ./simplecrmweb
+      #     name: cypress-screenshots
+      #     path: cypress/screenshots
+      # Test run video was always captured, so this action uses "always()" condition
+      if: always()
+      with:
+          name: cypress-videos
+          path: simplecrmweb/cypress/videos
+    
+    #- name: Start React web Single page application
+    #  run: |
+    #        cd simplecrmweb
+    #        npm install
+    #        npm start
+            
+    #- name: E2E on Chrome 🧪
+    #  uses: cypress-io/github-action@v4
+    #  with:
+    #       browser: chrome   
         
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
