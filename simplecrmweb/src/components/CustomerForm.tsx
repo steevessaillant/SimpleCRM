@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import moment from "moment";
-import $ from 'jquery'; 
 
 function validateId(value) {
   let error;
@@ -37,7 +36,7 @@ function validateLName(value) {
 
 function validateDateOfBirth(value) {
   let error: string;
-  const yearsAgo = moment().diff(value, 'years', true); //with presion = true like 1.01
+  const yearsAgo = moment().diff(value, 'years', true); //with precision = true like 17.95 would not be 18
   const minimumAge = 18;
 
   if (!value) {
@@ -62,16 +61,8 @@ function post(state: { id: string; firstName: string; lastName: string; dateOfBi
       dateOfBirth: state.dateOfBirth
     })
   })
-    .then(response => {
-      //if (response.ok === true) {
-      console.log(response)
-      //setMessage("Customer, " + this.state.firstName + " " + this.state.lastName + " born on " + this.state.dateOfBirth + " was posted successfully!")
-      //}
-    })
     .catch(error => {
-      // enter your logic for when there is an error (ex. error toast)
       console.log(error)
-      //setMessage(error);
     });
 }
 
@@ -87,28 +78,20 @@ export const CustomerForm = (props) =>  (
         dateOfBirth: '',
       }}
       onSubmit={(values) => {
-        debugger;
         if(values.id !== '' && values.firstName !== '' 
         && values.lastName !== '' && values.dateOfBirth !== ''){
           console.log('here there');
           post(values);
-        }else{
-          console.log('here here')
-        } 
+        }
       }}
     >
-       {({ errors, touched, validateField, validateForm })  => (
+       {()  => (
         <Form data-cy="form">
           <Field name="id" data-cy="id" validate={validateId} />
-          {errors.id && touched.firstName && <div>{errors.firstName}</div>}
           <Field name="firstName" data-cy="firstName" validate={validateFName} />
-          {errors.firstName && touched.firstName && <div>{errors.firstName}</div>}
           <Field name="lastName" data-cy="lastName" validate={validateLName} />
-          {errors.lastName && touched.lastName && <div>{errors.lastName}</div>}
           <Field type="date" name="dateOfBirth" data-cy="dateOfBirth" validate={validateDateOfBirth} />
-          {errors.dateOfBirth && touched.dateOfBirth && <div>{errors.dateOfBirth}</div>}
           <button type="submit" data-cy="submit">Create / Update Customer</button>
-          <div></div>
         </Form>
         
       )}
