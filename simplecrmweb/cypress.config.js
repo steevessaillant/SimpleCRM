@@ -32,7 +32,8 @@ module.exports = defineConfig({
       framework: "create-react-app",
       bundler: "webpack",
       videosFolder : 'cypress/videos',
-      video: true
+      video: true,
+      videoCompression: false
     },
   },
 });
