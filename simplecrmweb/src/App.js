@@ -1,4 +1,3 @@
-import './App.css';
 import { CustomerForm } from './components/CustomerForm.tsx';
 
 function App() {

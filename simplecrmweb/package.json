@@ -70,5 +70,15 @@
   },
   "resolutions": {
     "react-scripts/eslint-webpack-plugin": "2.3.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/react",
+      "@babel/env"
+    ],
+    "plugins": [
+      "@babel/proposal-class-properties",
+      "@babel/plugin-transform-runtime"
+    ]
   }
 }

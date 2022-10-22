@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import moment from "moment";
 import { FormLabel } from 'react-bootstrap';
@@ -81,12 +81,11 @@ export const CustomerForm = () =>  (
       onSubmit={(values) => {
         if(values.id !== '' && values.firstName !== '' 
         && values.lastName !== '' && values.dateOfBirth !== ''){
-          console.log('here there');
           post(values);
         }
       }}
     >
-       {({ errors, touched, validateField, validateForm }) => (
+       {({ validateField, validateForm }) => (
         <Form data-cy="form">
           <FormLabel>Id</FormLabel>
           <Field name="id" data-cy="id" validate={validateId} />
@@ -112,4 +111,3 @@ export const CustomerForm = () =>  (
   </div>
  
 );
-CustomerForm.displayName = "CustomerForm";

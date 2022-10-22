@@ -3,8 +3,13 @@ import { mount } from '@cypress/react18'
 // @ts-ignore:next-line
 import { CustomerForm } from '../../src/components/CustomerForm.tsx'
 import moment from "moment"
-import { getActiveElement } from 'formik'
 
+let fixtureData = { 
+    "id": "",
+"firstName": "",
+"lastName": "",
+"dateOfBirth": ""
+};
 
 describe('CustomerForm', () => {
     const id = '[data-cy=id]'
@@ -20,6 +25,10 @@ describe('CustomerForm', () => {
 
 
     beforeEach(() => {
+        cy.fixture('customer').then(function (data) {
+            fixtureData = data;
+          })
+
         cy.intercept('POST', 'http://localhost:5222/api/CRMCustomer', (request) => {
             const yearsAgo = moment().diff(request.body.dateOfBirth, 'years', true); //with presion = true like 1.01
             const minimumAge = 18;
@@ -44,21 +53,16 @@ describe('CustomerForm', () => {
         cy.get(submit).contains('Create / Update Customer')
     })
 
-    it("should post data with valid values (smoke test)", () => {
-        const now = new Date()
-        const nowString = now.toISOString().split('T')[0];
-        const yearsAgo = moment().diff(nowString, 'years', true); //with precision = true like 1.01
-        const minimumAge = 18;
+    it("should post data with valid values (smoke test)", () => {;
         mount(
             <CustomerForm />
         )
             .then(() => {
-                cy.get(id).type("CyTestId")
-                    .get(firstName).type("CyTestFName")
-                    .get(lastName).type("CyTestLName")
-                    .get(dateOfBirth)
-                    .clear()
-                    .type(moment().subtract(19, 'year').format('YYYY-MM-DD'))
+                
+                cy.get(id).type(fixtureData.id)
+                    .get(firstName).type(fixtureData.firstName)
+                    .get(lastName).type(fixtureData.lastName)
+                    .get(dateOfBirth).type(fixtureData.dateOfBirth)
                     .get("[data-cy='submit']")
                     .click()
                     .then(() => {
@@ -101,7 +105,7 @@ describe('CustomerForm', () => {
                     .get(lastName).type("1")
                     .get(dateOfBirth)
                     .clear()
-                    .type(moment().format('YYYY-MM-DD'))
+                    .type(moment().format('YYYY-MM-DD')) //this is dynamic and will last for ages, this is the actual today date at runtime
                     .get("[data-cy='submit']")
                     .click()
                     .then(() => {
