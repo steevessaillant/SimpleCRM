@@ -84,9 +84,8 @@ jobs:
       # Test run video was always captured, so this action uses "always()" condition
       if: always()
       with:
-          working-directory: ./simplecrmweb
           name: cypress-videos
-          path: cypress/videos
+          path: simplecrmweb/cypress/videos
      
            
         
