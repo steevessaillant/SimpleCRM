@@ -24,6 +24,7 @@ module.exports = defineConfig({
     specPattern: "**/*.feature",
     supportFile: false,
     setupNodeEvents,
+    retries: 1,
   },
 
   component: {
