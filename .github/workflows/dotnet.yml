@@ -42,7 +42,7 @@ jobs:
       run: dotnet build --no-restore
       
     # Add coverlet.collector nuget package to test project - 'dotnet add <xx.cspoj> package coverlet
-    - name: Test
+    - name: Test 🧪
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
    
     - name: Process trx reports to obtain summary on (pull-requests)
@@ -87,8 +87,17 @@ jobs:
       with:
           name: cypress-videos
           path: simplecrmweb/cypress/videos
-     
-           
+    
+    - name: Start React web Single page application
+      run: |
+            cd simplecrmweb
+            npm install
+            npm start
+            
+    - name: E2E on Chrome 🧪
+      uses: cypress-io/github-action@v4
+      with:
+           browser: chrome   
         
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
