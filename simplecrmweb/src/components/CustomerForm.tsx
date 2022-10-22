@@ -1,6 +1,7 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import moment from "moment";
+import $ from 'jquery'; 
 
 function validateId(value) {
   let error;
@@ -35,7 +36,7 @@ function validateLName(value) {
 }
 
 function validateDateOfBirth(value) {
-  let error;
+  let error: string;
   const yearsAgo = moment().diff(value, 'years', true); //with presion = true like 1.01
   const minimumAge = 18;
 
@@ -85,8 +86,15 @@ export const CustomerForm = (props) =>  (
         lastName: '',
         dateOfBirth: '',
       }}
-      onSubmit={values => {
-        post(values);
+      onSubmit={(values) => {
+        debugger;
+        if(values.id !== '' && values.firstName !== '' 
+        && values.lastName !== '' && values.dateOfBirth !== ''){
+          console.log('here there');
+          post(values);
+        }else{
+          console.log('here here')
+        } 
       }}
     >
        {({ errors, touched, validateField, validateForm })  => (

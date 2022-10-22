@@ -2,7 +2,9 @@
   "compilerOptions": {
     "baseUrl": "src/",
     "moduleResolution": "node",
-    "jsx": "react"
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src"
