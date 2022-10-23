@@ -59,7 +59,10 @@ jobs:
         path: "**/coverage/*.trx"                            
         reporter: dotnet-trx
         fail-on-error: true
-      
+ 
+    - name: Start REST microservice
+      run: dotnet run --no-build --project CRMRestApiV2/CRMRestApiV2.csproj --urls=http://localhost:5222
+    
     - name: npm install, build, and test (jest)
       run: |
         npm ci
