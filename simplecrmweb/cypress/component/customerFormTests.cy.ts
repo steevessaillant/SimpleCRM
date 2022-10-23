@@ -1,8 +1,8 @@
-import React from 'react'
 import { mount } from '@cypress/react18'
 // @ts-ignore:next-line
 import { CustomerForm } from '../../src/components/CustomerForm.tsx'
-import moment from "moment"
+import * as moment from "moment"
+import * as React from 'react';
 
 let fixtureData = { 
     "id": "",
