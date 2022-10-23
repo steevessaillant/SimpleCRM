@@ -49,7 +49,7 @@ function validateDateOfBirth(value: moment.MomentInput) {
 }
 
 function post(state: { id: string; firstName: string; lastName: string; dateOfBirth: string; }){
-  fetch("http://localhost:5222/api/CRMCustomer", {
+  fetch("http://localhost:5000/api/CRMCustomer", {
     method: 'POST',
     headers: {
       'accept': 'application/json',
