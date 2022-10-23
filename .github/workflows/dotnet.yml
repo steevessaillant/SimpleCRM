@@ -40,7 +40,7 @@ jobs:
            
     
     - name: Build and Start REST microservice
-      run: dotnet run  --project CRMRestApiV2/CRMRestApiV2.csproj --urls=http://localhost:5000 --urls=http://localhost:5000 --runtime linux-x64  --self-contained
+      run: dotnet run  --project CRMRestApiV2/CRMRestApiV2.csproj --urls=http://localhost:5000 --runtime linux-x64  --no-self-contained
     
     # Add coverlet.collector nuget package to test project - 'dotnet add <xx.cspoj> package coverlet
     - name: Test 🧪
