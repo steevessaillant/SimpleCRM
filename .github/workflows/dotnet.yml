@@ -60,11 +60,16 @@ jobs:
         reporter: dotnet-trx
         fail-on-error: true
       
-    - name: NPM install then run Jest unit tests
-      run: | 
-             npm install
-             npm test
-      working-directory: ./simplecrmweb
+    - name: npm install, build, and test (jest)
+      run: |
+        npm ci
+        npm test
+        npm run build --if-present
+        npm start & npx wait-on http://localhost:3000
+      working-directory: ./simplecrmweb     
+      env:
+        CI: true
+ 
       
     
     - name: Start React web Single page application
