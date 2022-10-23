@@ -30,7 +30,7 @@ describe('CustomerForm', () => {
           })
 
         cy.intercept('POST', 'http://localhost:5222/api/CRMCustomer', (request) => {
-            const yearsAgo = moment().diff(request.body.dateOfBirth, 'years', true); //with presion = true like 1.01
+            const yearsAgo = moment().diff(request.body.dateOfBirth, 'years', true); //with precision = true like 1.01
             const minimumAge = 18;
             let isOK = false
             yearsAgo < minimumAge ? isOK = false : isOK = true;

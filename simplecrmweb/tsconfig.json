@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": "src/",
-    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
     "jsx": "react",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "src"
-  ]
+    "allowJs": true,
+    "moduleResolution": "node",
+  }
 }

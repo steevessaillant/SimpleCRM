@@ -1,3 +1,4 @@
+import './App.css';
 import { CustomerForm } from './components/CustomerForm.tsx';
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
       <header>
         <h1>Main SPA Page</h1>
       </header>
-      <div style={{color: 'brown'}}>
+      <div style={{color: 'green'}}>
         <h2>Component 1</h2>
         <div><CustomerForm /></div>
       </div>
