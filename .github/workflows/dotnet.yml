@@ -2,9 +2,9 @@
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "dev-cypress-only" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "dev" ]
     types: [closed]
   workflow_dispatch:
     inputs:
