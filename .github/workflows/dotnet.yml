@@ -61,7 +61,7 @@ jobs:
         fail-on-error: true
  
     - name: Start REST microservice
-      run: dotnet exec ./CRMRestApiV2/bin/Debug/net6.0/CRMRestApiV2.dll
+      run: dotnet run  --project CRMRestApiV2/CRMRestApiV2.csproj --urls=http://localhost:5000 --urls=http://localhost:5000 --runtime ubuntu  --self-contained --nobuild
     
     - name: npm install, build, and test (jest)
       run: |
