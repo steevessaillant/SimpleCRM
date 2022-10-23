@@ -61,7 +61,7 @@ jobs:
         fail-on-error: true
       
     - name: Run Jest unit tests
-      run: npm test --if-present
+      run: npm test
       working-directory: ./simplecrmweb
       
     
