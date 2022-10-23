@@ -1,7 +1,7 @@
 import  {Given, Then, When, After}  from "@badeball/cypress-cucumber-preprocessor";
 
-let actualCustomer = null
-let expectedCustomer = null
+let actualCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; } = null
+let expectedCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; } = null
 let id = '[data-cy=id]'
 let firstName = '[data-cy=firstName]'
 let lastName = '[data-cy=lastName]'
@@ -10,8 +10,8 @@ let form = '[data-cy=form]'
 let submit = '[data-cy=submit]'
 let message = '[data-cy=message]'
 
-Given("I want to add a customer", (customers) => {
-  customers.hashes().forEach((row) => {
+Given("I want to add a customer", (customers: any) => {
+  customers.hashes().forEach((row: any) => {
     actualCustomer = row
   })
 })
@@ -31,9 +31,9 @@ When("I add the customer", () => {
     })
 })
 
-Then("the customer should be added as", (customers) => {
+Then("the customer should be added as", (customers: any) => {
   debugger;
-  customers.hashes().forEach((row) => {
+  customers.hashes().forEach((row: any) => {
     debugger;
     expectedCustomer = row
   });
@@ -45,7 +45,7 @@ Then("the customer should be added as", (customers) => {
 
 })
 
-Then("the customer should not be added and an error saying {string} is displayed", (errorMessage) => {
+Then("the customer should not be added and an error saying {string} is displayed", (errorMessage: string) => {
   cy.get('[data-cy="errorForDateOfBirth"]').contains(errorMessage);
 })
 

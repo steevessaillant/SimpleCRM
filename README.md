@@ -1,5 +1,5 @@
 # SimpleCRM
-BDD/TDD implementation with XUnit (GWT plugin)
+BDD/TDD implementation with XUnit (GWT plugin) NO Jest version 1.0.0 of web.
 
 This is BDD / TDD double loop with full build pipeline (GitHUbActions)
 
