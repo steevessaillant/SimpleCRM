@@ -80,6 +80,7 @@ jobs:
       with:
            output: report-markdown
            working-directory: ./simplecrmweb
+    - name: Jest coverage report upload to github
     - uses: marocchino/sticky-pull-request-comment@v2
       with:
         message: ${{ steps.coverage.outputs.report }}
