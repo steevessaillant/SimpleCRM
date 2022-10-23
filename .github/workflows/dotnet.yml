@@ -113,44 +113,17 @@ jobs:
             "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           }'  
         
-    - name: Run Component tests 🧪
+    
+    - name: Start React web Single page application
+      run: |
+            cd simplecrmweb
+            npm install
+            npm start
+            
+    - name: E2E on Chrome 🧪
       uses: cypress-io/github-action@v4
       with:
-        working-directory: ./simplecrmweb
-        # we have already installed everything
-        install: true
-        # to run component tests we need to use "component: true"
-        component: true
-        browser: chrome
-    - name: Cypress Component Test Artifacts (inital temporary configuration)
-          # after the test run completes
-          # store videos and any screenshots
-          # NOTE: screenshots will be generated only if E2E test failed
-          # thus we store screenshots only on failures
-          # Alternative: create and commit an empty cypress/screenshots folder
-          # to always have something to upload
-      uses: actions/upload-artifact@v2
-      #if: failure()
-      #with:
-      #      working-directory: ./simplecrmweb
-      #     name: cypress-screenshots
-      #     path: cypress/screenshots
-      # Test run video was always captured, so this action uses "always()" condition
-      if: always()
-      with:
-          name: cypress-videos
-          path: simplecrmweb/cypress/videos
-    
-    #- name: Start React web Single page application
-    #  run: |
-    #        cd simplecrmweb
-    #        npm install
-    #        npm start
-            
-    #- name: E2E on Chrome 🧪
-    #  uses: cypress-io/github-action@v4
-    #  with:
-    #       browser: chrome   
+           browser: chrome   
         
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
@@ -183,16 +156,4 @@ jobs:
     - name: Write to Job Summary
       run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
 
-    #- name: Login to DockerHub
-    #  uses: docker/login-action@v2
-    #  with:
-    #    username: ${{ secrets.DOCKER_USERNAME }}
-    #    password: ${{ secrets.DOCKER_PASSWORD }}
-    
-    #- name: Build docker image
-    #  run: docker build -f ./CRMRestApiV2/Dockerfile . -t steevessaillantalithya/crmrestapiv2:latest
-    #- name: Push to DockerHub
-    #  run: docker push steevessaillantalithya/crmrestapiv2:latest
-
-      
        

@@ -26,14 +26,4 @@ module.exports = defineConfig({
     setupNodeEvents,
     retries: 1,
   },
-
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
-      videosFolder : 'cypress/videos',
-      video: true,
-      videoCompression: false
-    },
-  },
 });

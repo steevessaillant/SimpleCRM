@@ -1,4 +1,7 @@
 # SimpleCRM
+
+This version (branch code) uses Jest Unit Test not cypress (DO NOT MERGE TO MAIN --> FORK INSTEAD)
+
 BDD/TDD implementation with XUnit (GWT plugin)
 
 This is BDD / TDD double loop with full build pipeline (GitHUbActions)
