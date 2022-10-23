@@ -75,15 +75,16 @@ jobs:
       working-directory: ./simplecrmweb
       
     - name: Jest coverage report
-    - uses: ArtiomTr/jest-coverage-report-action@v2
+      uses: ArtiomTr/jest-coverage-report-action@v2
       id: coverage
       with:
            output: report-markdown
            working-directory: ./simplecrmweb
     - name: Jest coverage report upload to github
-    - uses: marocchino/sticky-pull-request-comment@v2
+      uses: marocchino/sticky-pull-request-comment@v2
       with:
         message: ${{ steps.coverage.outputs.report }}
+        
     - name: Jest Tests (PASSED) results ✅
       if: ${{ success() }}
       run: |
