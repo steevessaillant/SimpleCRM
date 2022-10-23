@@ -59,60 +59,11 @@ jobs:
         path: "**/coverage/*.trx"                            
         reporter: dotnet-trx
         fail-on-error: true
-
-    - name: clean cache
-      run: npm cache clean --force
-    - name: npm install
-      run: npm install
-      working-directory: ./simplecrmweb
-    - name: npm ci
-      run: npm ci
-      working-directory: ./simplecrmweb
-    
       
     - name: Run Jest unit tests
       run: npm test --if-present
       working-directory: ./simplecrmweb
       
-    - name: Jest coverage report
-      uses: ArtiomTr/jest-coverage-report-action@v2
-      id: coverage
-      with:
-           output: report-markdown
-           working-directory: ./simplecrmweb
-    - name: Jest coverage report upload to github
-      uses: marocchino/sticky-pull-request-comment@v2
-      with:
-        message: ${{ steps.coverage.outputs.report }}
-        
-    - name: Jest Tests (PASSED) results ✅
-      if: ${{ success() }}
-      run: |
-          curl --request POST \
-          --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          --data '{
-            "context": "tests",
-            "state": "success",
-            "description": "Tests passed",
-            "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          }'
-
-    - name: Jest Tests (FAILED) 🚨
-      if: ${{ failure() }}
-      run: |
-          curl --request POST \
-          --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          --data '{
-            "context": "tests",
-            "state": "failure",
-            "description": "Tests failed",
-            "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          }'  
-        
     
     - name: Start React web Single page application
       run: |
@@ -156,4 +107,16 @@ jobs:
     - name: Write to Job Summary
       run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
 
+  coverage:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ArtiomTr/jest-coverage-report-action@v2
+              id: coverage
+              with:
+                  output: report-markdown
+            - uses: marocchino/sticky-pull-request-comment@v2
+              with:
+                  message: ${{ steps.coverage.outputs.report }}
        
+    
