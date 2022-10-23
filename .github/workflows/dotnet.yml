@@ -60,6 +60,10 @@ jobs:
         reporter: dotnet-trx
         fail-on-error: true
 
+    - name: Run Jest unit tests
+      run: npm test
+      working-directory: ./simplecrmweb
+        
     - name: Run Component tests 🧪
       uses: cypress-io/github-action@v4
       with:
