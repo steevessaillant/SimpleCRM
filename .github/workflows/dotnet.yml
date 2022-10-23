@@ -62,10 +62,11 @@ jobs:
 
     - name: clean cache
       run: npm cache clean --force
-    - name: install
-      run: npm ci
     - name: npm install
       run: npm install
+    - name: npm ci
+      run: npm ci
+    
       
     - name: Run Jest unit tests
       run: npm test --if-present
