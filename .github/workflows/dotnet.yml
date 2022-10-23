@@ -69,14 +69,7 @@ jobs:
       working-directory: ./simplecrmweb     
       env:
         CI: true
- 
-      
-    
-    - name: Start React web Single page application
-      run: |
-            cd simplecrmweb
-            npm start
-            
+        
     - name: E2E on Chrome 🧪
       uses: cypress-io/github-action@v4
       with:
