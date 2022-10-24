@@ -38,6 +38,7 @@ jobs:
     - name: Install Azurite
       id: azuright
       uses: potatoqualitee/azuright@v1.1
+      
     - name: dotnet publish
       run: dotnet publish CRMRestApiV2\CRMRestApiV2.csproj -c Release  -p:PublishSingleFile=true --self-contained true --runtime win-x64
     
