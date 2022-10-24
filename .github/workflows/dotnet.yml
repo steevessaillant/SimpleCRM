@@ -34,7 +34,7 @@ jobs:
     - run: dotnet build CRMRestApiV2\CRMRestApiV2.csproj --configuration Release
     
     - name : Dotnet XUnit test run 🧪
-      run: dotnet test CRMRestApiV2\CRMRestApiV2.csproj --configuration Release --no-build --verbosity ${{ github.event.inputs.logLevel }} --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
+      run: dotnet test CRMRestApiV2\CRMRestApiV2.csproj --configuration Release --no-build --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
      
     - name: Install Azurite
       id: azuright
