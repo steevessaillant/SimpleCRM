@@ -63,8 +63,7 @@ jobs:
       run: |
         npm ci
         npm test
-        npm run build --if-present
-        npm start & npx wait-on http://localhost:3000
+        #no build here for now not needed 
       working-directory: .\simplecrmweb     
       env:
         CI: true
