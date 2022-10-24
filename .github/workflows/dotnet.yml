@@ -34,7 +34,7 @@ jobs:
     - run: dotnet build CRMRestApiV2\CRMRestApiV2.csproj --configuration Release
     
     - name : Dotnet XUnit test run 🧪
-      run: dotnet test CRMRestApiV2\CRMRestApiV2.csproj --configuration Release --no-build --verbosity ${{ github.event.inputs.logLevel }}
+      run: dotnet test CRMRestApiV2\CRMRestApiV2.csproj --configuration Release --no-build --verbosity ${{ github.event.inputs.logLevel }} --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
      
     - name: Install Azurite
       id: azuright
@@ -43,10 +43,7 @@ jobs:
     - name: dotnet publish
       run: dotnet publish CRMRestApiV2\CRMRestApiV2.csproj -c Release  -p:PublishSingleFile=true --self-contained true --runtime win-x64
     
-    # Add coverlet.collector nuget package to test project - 'dotnet add <xx.cspoj> package coverlet
-    - name: Test 🧪
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
-   
+ 
     - name: Process trx reports to obtain summary on (pull-requests)
       if: always()
       uses: im-open/process-dotnet-test-results@v2.1.3
