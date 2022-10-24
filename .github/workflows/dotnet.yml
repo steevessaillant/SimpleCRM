@@ -33,7 +33,7 @@ jobs:
     - run: dotnet build CRMRestApiV2\CRMRestApiV2.csproj --configuration Release
     
     - name : Dotnet XUnit test run 🧪
-    - run: dotnet test CRMRestApiV2\CRMRestApiV2.csproj --configuration Release --no-build --verbosity ${{ github.event.inputs.logLevel }}
+      run: dotnet test CRMRestApiV2\CRMRestApiV2.csproj --configuration Release --no-build --verbosity ${{ github.event.inputs.logLevel }}
      
     - name: Install Azurite
       id: azuright
