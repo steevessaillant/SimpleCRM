@@ -31,7 +31,7 @@ jobs:
       with:
         dotnet-version: '6.0.x'
         dotnet-quality: 'preview'
-    - run: dotnet build CRMRestApiV2\CRMRestApiV2.csproj --no-restore --configuration Release
+    - run: dotnet build CRMRestApiV2\CRMRestApiV2.csproj --configuration Release
     
     
     - name: Install Azurite
