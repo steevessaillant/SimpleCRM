@@ -74,7 +74,7 @@ jobs:
       if: always()
       with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
-            result-file: .\simplecrmweb\results.json
+            result-file: .\simplecrmweb\result.json
       
 #sepearate here for jets coverage
   coverage:
