@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './App.css';
 import { CustomerForm } from './components/CustomerForm';
 
 function App() {

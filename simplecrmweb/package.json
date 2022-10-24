@@ -24,7 +24,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test --env=jsdom --watchAll=false --coverage",
+        "test": "jest --json --outputFile=result.json --testLocationInResults",
         "specs": "npx cypress open",
         "specsConsole": "npx cypress run --component --browser chrome",
         "eject": "react-scripts eject"
