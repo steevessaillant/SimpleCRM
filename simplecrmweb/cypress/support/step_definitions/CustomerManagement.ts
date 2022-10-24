@@ -2,13 +2,13 @@ import  {Given, Then, When, After}  from "@badeball/cypress-cucumber-preprocesso
 
 let actualCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; }
 let expectedCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; }
-let id = '[data-cy=id]'
-let firstName = '[data-cy=firstName]'
-let lastName = '[data-cy=lastName]'
+let id = '[data-testid=id]'
+let firstName = '[data-testid=firstName]'
+let lastName = '[data-testid=lastName]'
 let dateOfBirth = '[name=dateOfBirth]'
-let form = '[data-cy=form]'
-let submit = '[data-cy=submit]'
-let message = '[data-cy=message]'
+let form = '[data-testid=form]'
+let submit = '[data-testid=submit]'
+let message = '[data-testid=message]'
 
 Given("I want to add a customer", (customers: any) => {
   customers.hashes().forEach((row: any) => {
@@ -27,14 +27,15 @@ When("I add the customer", () => {
         .get(form)
         .get(submit)
         .click()
+        .then(() => {
+          debugger;
+        })
 
     })
 })
 
 Then("the customer should be added as", (customers: any) => {
-  debugger;
   customers.hashes().forEach((row: any) => {
-    debugger;
     expectedCustomer = row
   });
   cy.request({
@@ -46,7 +47,7 @@ Then("the customer should be added as", (customers: any) => {
 })
 
 Then("the customer should not be added and an error saying {string} is displayed", (errorMessage: string) => {
-  cy.get('[data-cy="errorForDateOfBirth"]').contains(errorMessage);
+  cy.get('[data-testid="errorForDateOfBirth"]').contains(errorMessage);
 })
 
 After(() =>{

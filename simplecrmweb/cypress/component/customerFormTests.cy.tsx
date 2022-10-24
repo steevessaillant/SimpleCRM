@@ -12,12 +12,12 @@ let fixtureData = {
 };
 
 describe('CustomerForm', () => {
-    const id = '[data-cy=id]'
-    const firstName = '[data-cy=firstName]'
-    const lastName = '[data-cy=lastName]'
+    const id = '[data-testid=id]'
+    const firstName = '[data-testid=firstName]'
+    const lastName = '[data-testid=lastName]'
     const dateOfBirth = '[name=dateOfBirth]'
-    const form = '[data-cy=form]'
-    const submit = '[data-cy=submit]'
+    const form = '[data-testid=form]'
+    const submit = '[data-testid=submit]'
     const alphaNumericOnlyErrorMessage = 'must be alpha-numeric';
     const alphaOnlyErrorMessage = 'must be alpha';
     const mustBeAnAdultErrorMessage = 'Must be 18 years of age';
@@ -63,7 +63,7 @@ describe('CustomerForm', () => {
                     .get(firstName).type(fixtureData.firstName)
                     .get(lastName).type(fixtureData.lastName)
                     .get(dateOfBirth).type(fixtureData.dateOfBirth)
-                    .get("[data-cy='submit']")
+                    .get("[data-testid='submit']")
                     .click()
                     .then(() => {
                         cy.wait('@postedCustomer').then((interception) => {
@@ -82,13 +82,13 @@ describe('CustomerForm', () => {
         )
             .then(() => {
                 cy.get(form)
-                    .get("[data-cy='submit']")
+                    .get("[data-testid='submit']")
                     .click()
                     .then(() => {
-                        cy.get('[data-cy="errorForId"]').contains(requiredErrorMessage);
-                        cy.get('[data-cy="errorForFirstName"]').contains(requiredErrorMessage);
-                        cy.get('[data-cy="errorForLastName"]').contains(requiredErrorMessage);
-                        cy.get('[data-cy="errorForDateOfBirth"]').contains(requiredErrorMessage);
+                        cy.get('[data-testid="errorForId"]').contains(requiredErrorMessage);
+                        cy.get('[data-testid="errorForFirstName"]').contains(requiredErrorMessage);
+                        cy.get('[data-testid="errorForLastName"]').contains(requiredErrorMessage);
+                        cy.get('[data-testid="errorForDateOfBirth"]').contains(requiredErrorMessage);
                     })
 
             })
@@ -106,13 +106,13 @@ describe('CustomerForm', () => {
                     .get(dateOfBirth)
                     .clear()
                     .type(moment().format('YYYY-MM-DD')) //this is dynamic and will last for ages, this is the actual today date at runtime
-                    .get("[data-cy='submit']")
+                    .get("[data-testid='submit']")
                     .click()
                     .then(() => {
-                        cy.get('[data-cy="errorForId"]').contains(alphaNumericOnlyErrorMessage);
-                        cy.get('[data-cy="errorForFirstName"]').contains(alphaOnlyErrorMessage);
-                        cy.get('[data-cy="errorForLastName"]').contains(alphaOnlyErrorMessage);
-                        cy.get('[data-cy="errorForDateOfBirth"]').contains(mustBeAnAdultErrorMessage);
+                        cy.get('[data-testid="errorForId"]').contains(alphaNumericOnlyErrorMessage);
+                        cy.get('[data-testid="errorForFirstName"]').contains(alphaOnlyErrorMessage);
+                        cy.get('[data-testid="errorForLastName"]').contains(alphaOnlyErrorMessage);
+                        cy.get('[data-testid="errorForDateOfBirth"]').contains(mustBeAnAdultErrorMessage);
                     })
             })
 
