@@ -68,7 +68,10 @@ jobs:
       working-directory: .\simplecrmweb     
       env:
         CI: true
-           
+      
+    - name: JEST Report
+      uses: RedaktionsNetzwerk-Deutschland/action-jest-reporter@v1.0.0
+
     
 #sepearate here for jets coverage
   coverage:
