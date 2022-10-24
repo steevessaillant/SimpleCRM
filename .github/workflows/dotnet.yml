@@ -61,7 +61,7 @@ jobs:
     
         
     - name: Start dotNet Customers Microservice 
-      run: CRMRestApiV2\bin\Release\net6.0\win-x64\publish\CRMRestApiV2.exe
+      run: CRMRestApiV2\bin\Release\net6.0\win-x64\publish\CRMRestApiV2.exe --url=http://127.0.0.1:5000
     
       
     - name: npm install, build, and test (jest)
