@@ -1,36 +1,41 @@
-const { defineConfig } = require("cypress");
-const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
-const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
-const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild");
+const { defineConfig } = require('cypress');
+const webpackPreprocessor = require('@cypress/webpack-preprocessor');
+const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-preprocessor');
 
 async function setupNodeEvents(on, config) {
-  // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
-  await preprocessor.addCucumberPreprocessorPlugin(on, config);
+  await addCucumberPreprocessorPlugin(on, config);
 
-  on(
-    "file:preprocessor",
-    createBundler({
-      plugins: [createEsbuildPlugin.default(config)],
-    })
-  );
+  const options = {
+    webpackOptions: {
+      module: {
+        rules: [
+          {
+            test: /\.feature$/,
+            use: [
+              {
+                loader: '@badeball/cypress-cucumber-preprocessor/webpack',
+                options: config,
+              },
+            ],
+          },
+        ],
+      },
+    },
 
-  // Make sure to return the config object as it might have been modified by the plugin.
+  };
+
+  on('file:preprocessor', webpackPreprocessor(options));
+
   return config;
 }
 
-module.exports = defineConfig({
-  e2e: {
-    baseUrl: "http://localhost:3000",
-    specPattern: "**/*.feature",
-    supportFile: false,
-    setupNodeEvents,
-    retries: 1,
-  },
-
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
+module.exports = {
+  default: defineConfig({
+    e2e: {
+      specPattern: '**/*.feature',
+      supportFile: false,
+      setupNodeEvents,
     },
-  },
-});
+  }),
+  setupNodeEvents,
+};
