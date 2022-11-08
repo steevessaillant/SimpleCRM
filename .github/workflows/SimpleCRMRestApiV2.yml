@@ -63,7 +63,7 @@ jobs:
     - name: Run All JMeter Tests In tests Folder 🧪
       uses: rbhadti94/apache-jmeter-action@v0.5.0
       with:
-         testFilePath: ${{ env.TEST_DIRECTORY }}/performance
+         testFilePath: CRMTests/performance
          outputReportsFolder: reports/
          args: "--loglevel INFO "
     
