@@ -29,9 +29,9 @@ namespace CRMRepository
             {
                 tableClient.CreateIfNotExists();
             }
-            catch
+            catch(RequestFailedException ex)
             {
-                throw new ApplicationException("Unable to connect to Azure Storage");
+                throw new ApplicationException("Unable to connect to Azure Storage, message from Azure:" + ex.Message);
             }
         }
 
