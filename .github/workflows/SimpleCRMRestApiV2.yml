@@ -57,8 +57,8 @@ jobs:
     - name: Run All JMeter Tests In tests Folder 🧪
       uses: rbhadti94/apache-jmeter-action@v0.5.0
       with:
-         testFilePath: CRMTests/performance/
-         outputReportsFolder: CRMTests/reports/
+         testFilePath: /home/runner/work/SimpleCRM/SimpleCRM/CRMTests/performance/
+         outputReportsFolder: /home/runner/work/SimpleCRM/SimpleCRM/CRMTests/reports/
          args: "--loglevel INFO "
     
     #TODO : fix
