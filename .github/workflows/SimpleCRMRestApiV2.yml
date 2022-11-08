@@ -53,13 +53,15 @@ jobs:
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
+    - name: Create JMeter report folder
+      run: mkdir $GITHUB_WORKSPACE/reports/
       # Use JMeter to run all tests in a folder
       # Modify the logging level and pass in some custom properties and config
     - name: Run All JMeter Tests In tests Folder 🧪
       uses: rbhadti94/apache-jmeter-action@v0.5.0
       with:
          testFilePath: ${{ env.TEST_DIRECTORY }}/performance
-         outputReportsFolder: ${GITHUB_WORKSPACE}/reports/
+         outputReportsFolder: reports/
          args: "--loglevel INFO "
     
     #TODO : fix
