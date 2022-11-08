@@ -1,8 +1,9 @@
-name: Build and deploy .NET Core application to Web App SimpleCRMRestApiV2 with API Management Service SimpleApiV2api-CRMRestApiV2
+﻿name: Build and deploy .NET Core application to Web App SimpleCRMRestApiV2 with API Management Service SimpleApiV2api-CRMRestApiV2
 on:
   push:
     branches:
-    - dev
+    - dev-jest
+    - main
   workflow_dispatch:
     inputs:
       logLevel:
@@ -51,6 +52,15 @@ jobs:
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
+      # Use JMeter to run all tests in a folder
+      # Modify the logging level and pass in some custom properties and config
+    - name: Run All JMeter Tests In tests Folder 🧪
+      uses: rbhadti94/apache-jmeter-action@v0.5.0
+      with:
+         testFilePath: CRMTests/performance/
+         outputReportsFolder: CRMTests/reports/
+         args: "--loglevel INFO "
+    
     #TODO : fix
     #- name: Generating XUnit Report
     #  uses: AutoModality/action-xunit-viewer@v1  
