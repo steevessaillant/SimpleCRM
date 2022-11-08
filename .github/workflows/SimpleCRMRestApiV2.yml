@@ -54,20 +54,20 @@ jobs:
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
-    - name: Run service
-      run: dotnet run --project ${{ env.PROJECT_FILE }} --no-build
-    - name: Create JMeter report folder
-      run: | 
-        mkdir reports
-        ls -la
-      # Use JMeter to run all tests in a folder
-      # Modify the logging level and pass in some custom properties and config
-    - name: Run All JMeter Tests In tests Folder 🧪
-      uses: rbhadti94/apache-jmeter-action@v0.5.0
-      with:
-         testFilePath: ./CRMTests/performance
-         outputReportsFolder: reports/
-         args: "--loglevel INFO "
+    #- name: Run service
+    #  run: dotnet run --project ${{ env.PROJECT_FILE }} --no-build
+    #- name: Create JMeter report folder
+    #  run: | 
+    #    mkdir reports
+    #    ls -la
+    #  # Use JMeter to run all tests in a folder
+    #  # Modify the logging level and pass in some custom properties and config
+    #- name: Run All JMeter Tests In tests Folder 🧪
+    #  uses: rbhadti94/apache-jmeter-action@v0.5.0
+    #  with:
+    #     testFilePath: ./CRMTests/performance
+    #     outputReportsFolder: reports/
+    #     args: "--loglevel INFO "
     
     #TODO : fix
     #- name: Generating XUnit Report
