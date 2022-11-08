@@ -59,7 +59,6 @@ jobs:
       with:
          testFilePath: /home/runner/work/SimpleCRM/SimpleCRM/CRMTests/performance/
          outputReportsFolder: reports/
-
          args: "--loglevel INFO "
     
     #TODO : fix
