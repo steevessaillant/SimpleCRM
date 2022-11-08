@@ -58,7 +58,8 @@ jobs:
       uses: rbhadti94/apache-jmeter-action@v0.5.0
       with:
          testFilePath: /home/runner/work/SimpleCRM/SimpleCRM/CRMTests/performance/
-         outputReportsFolder: /home/runner/work/SimpleCRM/SimpleCRM/CRMTests/reports/
+         outputReportsFolder: reports/
+
          args: "--loglevel INFO "
     
     #TODO : fix
