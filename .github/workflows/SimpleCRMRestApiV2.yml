@@ -31,7 +31,7 @@ env:
   CONFIGURATION: Debug
   DOTNET_CORE_VERSION: 6.0.x
   WORKING_DIRECTORY: CRMRestApiV2
-  TEST_DIRECTORY: ${GITHUB_WORKSPACE}/SimpleCRM/SimpleCRM/CRMTests
+  TEST_DIRECTORY: $GITHUB_WORKSPACE/SimpleCRM/SimpleCRM/CRMTests
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,7 +54,10 @@ jobs:
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
     - name: Create JMeter report folder
-      run: mkdir $GITHUB_WORKSPACE/reports/
+      run: | 
+        mkdir $GITHUB_WORKSPACE/reports/
+        cd $GITHUB_WORKSPACE
+        ls -la
       # Use JMeter to run all tests in a folder
       # Modify the logging level and pass in some custom properties and config
     - name: Run All JMeter Tests In tests Folder 🧪
