@@ -31,6 +31,7 @@ env:
   CONFIGURATION: Debug
   DOTNET_CORE_VERSION: 6.0.x
   WORKING_DIRECTORY: CRMRestApiV2
+  TEST_DIRECTORY: CRMTests
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -57,8 +58,8 @@ jobs:
     - name: Run All JMeter Tests In tests Folder 🧪
       uses: rbhadti94/apache-jmeter-action@v0.5.0
       with:
-         testFilePath: /home/runner/work/SimpleCRM/SimpleCRM/CRMTests/performance/
-         outputReportsFolder: reports/
+         testFilePath: ${{ env.TEST_DIRECTORY }}/performance
+         outputReportsFolder: ../reports/
          args: "--loglevel INFO "
     
     #TODO : fix
