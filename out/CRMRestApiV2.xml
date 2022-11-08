@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CRMRestApiV2</name>
+    </assembly>
+    <members>
+        <member name="T:CRMRestApiV2.Controllers.CRMCustomerController">
+            <summary>
+            CRMCustomerController form rest api/CRMCustomers
+            </summary>
+        </member>
+        <member name="P:CRMRestApiV2.Controllers.CRMCustomerController.Repository">
+            <summary>
+            Customer repository
+            </summary>
+        </member>
+        <member name="P:CRMRestApiV2.Controllers.CRMCustomerController.Logger">
+            <summary>
+            Logger
+            </summary>
+        </member>
+        <member name="M:CRMRestApiV2.Controllers.CRMCustomerController.#ctor(Microsoft.Extensions.Logging.ILogger{CRMRestApiV2.Controllers.CRMCustomerController},CRMRepository.IRepository{CRMRepository.Entities.Customer})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="repository"></param>
+        </member>
+        <member name="M:CRMRestApiV2.Controllers.CRMCustomerController.GetAsync(System.String)">
+            <summary>
+            Get customer by Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CRMRestApiV2.Controllers.CRMCustomerController.PostAsync(CRMRepository.Entities.Customer)">
+            <summary>
+            Post customer
+            </summary>
+            <param name="customer"></param>
+        </member>
+        <member name="M:CRMRestApiV2.Controllers.CRMCustomerController.DeleteAsync(CRMRepository.Entities.Customer)">
+            <summary>
+            Delete customer
+            </summary>
+            <param name="customer"></param>
+        </member>
+        <member name="M:CRMRestApiV2.Controllers.CRMCustomerController.DeleteByIdAsync(System.String)">
+            <summary>
+            Delete customer by Id
+            </summary>
+            <param name="Id"></param>       
+        </member>
+        <member name="M:CRMRestApiV2.Controllers.CRMCustomerController.DeleteRangeAsync(System.String)">
+            <summary>
+            Delete customer
+            </summary>
+            <param name="Ids"></param> 
+        </member>
+        <member name="M:CRMRestApiV2.Controllers.CRMCustomerController.GetAllAsync">
+            <summary>
+            Gets all the Customers
+            </summary>
+            <returns>List[Customer]</returns>
+        </member>
+    </members>
+</doc>

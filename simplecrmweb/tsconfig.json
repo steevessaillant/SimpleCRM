@@ -1,12 +1,24 @@
 {
   "compilerOptions": {
-    "baseUrl": "src/",
-    "moduleResolution": "node",
-    "jsx": "react",
+    "allowSyntheticDefaultImports": false,
+    "target": "ES5",
+    "module": "ES6",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "removeComments": true,
+    "strictNullChecks": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "lib": ["es2015", "es2016", "dom"],
+    "baseUrl": ".",
+    "types": ["node","cypress"]
+
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
