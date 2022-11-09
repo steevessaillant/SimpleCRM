@@ -1,22 +1,20 @@
 ﻿using Azure;
 using Azure.Data.Tables;
 using CRMRepository.Entities;
-using Microsoft.Extensions.Azure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TableStorage.Abstractions.TableEntityConverters;
 
 namespace CRMRepository
 {
+    /// <summary>
+    /// Azure Table Client for CRMRepository This client can use a mock like Azurite or the real Azure cloud
+    /// </summary>
     public class AzureTableClient
     {
         private const string ConnectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;\r\nAccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;\r\nBlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;\r\nQueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;\r\nTableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
         private const string TableName = "Customers";
 
-       
-       
+
+
         private readonly TableClient tableClient = new(ConnectionString, TableName);
 
         /// <summary>
@@ -29,7 +27,7 @@ namespace CRMRepository
             {
                 tableClient.CreateIfNotExists();
             }
-            catch(RequestFailedException ex)
+            catch (RequestFailedException ex)
             {
                 throw new ApplicationException("Unable to connect to Azure Storage, message from Azure:" + ex.Message);
             }
@@ -47,7 +45,7 @@ namespace CRMRepository
         {
             if (customers == null)
             {
-                throw new ArgumentNullException(nameof(customers)); 
+                throw new ArgumentNullException(nameof(customers));
             }
             if (tableTransactionActionList == null)
             {
@@ -61,21 +59,21 @@ namespace CRMRepository
             {
                 return;
             }
-            
+
             await tableClient.SubmitTransactionAsync(tableTransactionActionList);
-           
+
         }
 
         /// <summary>
         /// Get all Customers
         /// </summary>
         /// <returns></returns>
-        internal  List<Customer>? GetAllFromTable()
+        internal List<Customer>? GetAllFromTable()
         {
             var customers = new List<Customer>();
-    
+
             var tableEntities = tableClient.Query<TableEntity>();
-            if(tableEntities == null)
+            if (tableEntities == null)
             {
                 return null;
             }
@@ -146,6 +144,6 @@ namespace CRMRepository
 
             return new TableTransactionAction(TableTransactionActionType.UpsertMerge, customer.ToAzureTableEntity());
         }
-       
+
     }
 }

@@ -5,7 +5,7 @@ internal class Program
     [ExcludeFromCodeCoverage]
     private static void Main(string[] args)
     {
-        
+
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -24,7 +24,7 @@ internal class Program
         {
             app.UseSwagger(x => x.SerializeAsV2 = true);
             app.UseSwaggerUI();
-            
+
         }
 
         app.UseAuthorization();

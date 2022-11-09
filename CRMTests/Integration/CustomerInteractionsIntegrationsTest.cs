@@ -1,15 +1,12 @@
-using Castle.Core.Resource;
 using CRMRepository;
 using CRMRepository.Entities;
 using CRMRestApiV2.Controllers;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
@@ -28,6 +25,7 @@ namespace CRMTests.Integration
         [Background]
         public async static void Setup()
         {
+            
             var customerRepo = new CustomerRepository();
             var actualData = await customerRepo.FetchAllAsync();
 
@@ -37,7 +35,7 @@ namespace CRMTests.Integration
             }
         }
 
-
+        
         [Scenario]
         [Example("JD1", "John", "Doe", "2000-01-01")]
         [Example("JD2", "Jane", "Doe", "1999-02-02")]
@@ -239,7 +237,7 @@ namespace CRMTests.Integration
                 {
                     try
                     {
-                        await controller.PostAsync(new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Now});
+                        await controller.PostAsync(new Customer { Id = "JD1", FirstName = "John", LastName = "Doe", DateOfBirth = DateTime.Now });
                     }
                     catch (ValidationException ex)
                     {
@@ -321,7 +319,7 @@ namespace CRMTests.Integration
 
         }
 
-       
+
 
         #endregion
     }

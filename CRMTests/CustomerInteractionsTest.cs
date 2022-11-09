@@ -220,19 +220,20 @@ namespace CRMTests
                     customerRepoMock.Setup(x => x.AddOrUpdateAsync(customer));
 
                 });
-            
-             "When it is attempted to be added to the CRM"
-                        .x(async () =>
-                        {
-                            try {
-                                await controller.PostAsync(customer);
-                            }
-                            catch (ValidationException ex)
-                            {
-                                validationFailure = new ValidationFailure("DateOfBirth", ex.Message);
-                            }
-                           
-                        });
+
+            "When it is attempted to be added to the CRM"
+                       .x(async () =>
+                       {
+                           try
+                           {
+                               await controller.PostAsync(customer);
+                           }
+                           catch (ValidationException ex)
+                           {
+                               validationFailure = new ValidationFailure("DateOfBirth", ex.Message);
+                           }
+
+                       });
 
 
             "Then the customer is not added to the CRM and an error message is returned as : [Age must be 18 or older]"
@@ -265,7 +266,7 @@ namespace CRMTests
                            }
                            catch (ValidationException ex)
                            {
-                               ex.Errors.ToList().ForEach(x => validationFailures.Add(new ValidationFailure(x.PropertyName, x.ErrorMessage)));                          
+                               ex.Errors.ToList().ForEach(x => validationFailures.Add(new ValidationFailure(x.PropertyName, x.ErrorMessage)));
                            }
 
                        });
