@@ -53,21 +53,23 @@ jobs:
       run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
-    - name: Create JMeter report folder
-      run: | 
-        mkdir $GITHUB_WORKSPACE/reports/
-        cd $GITHUB_WORKSPACE
-        ls -la
-      # Use JMeter to run all tests in a folder
-      # Modify the logging level and pass in some custom properties and config
-    - name: Run All JMeter Tests In tests Folder 🧪
-      uses: rbhadti94/apache-jmeter-action@v0.5.0
-      with:
-         testFilePath: CRMTests/performance
-         outputReportsFolder: reports/
-         args: "--loglevel INFO "
+    #This part is here for now but you should bring it out and use it in a separate job
+    #that can run the service live may a docker file to run JMeter tests (black box testing mode)
+    #- name: Create JMeter report folder
+    #  run: | 
+    #    mkdir $GITHUB_WORKSPACE/reports/
+    #    cd $GITHUB_WORKSPACE
+    #    ls -la
+    #  # Use JMeter to run all tests in a folder
+    #  # Modify the logging level and pass in some custom properties and config
+    #- name: Run All JMeter Tests In tests Folder 🧪
+    #  uses: rbhadti94/apache-jmeter-action@v0.5.0
+    #  with:
+    #     testFilePath: CRMTests/performance
+    #     outputReportsFolder: reports/
+    #     args: "--loglevel INFO "
     
-    #TODO : fix
+    ##TODO : fix
     #- name: Generating XUnit Report
     #  uses: AutoModality/action-xunit-viewer@v1  
     #- name: Attach the report

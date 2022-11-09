@@ -35,7 +35,7 @@ namespace CRMRepository.Entities
         [DataMember(IsRequired = true)]
         [NotNull]
         public DateTimeOffset DateOfBirth { get; set; }
-        
+
 
         public TableEntity ToAzureTableEntity(string partitionKey = "Default")
         {

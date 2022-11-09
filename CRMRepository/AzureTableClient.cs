@@ -27,7 +27,7 @@ namespace CRMRepository
             }
             catch
             {
-                throw new ApplicationException("Unable to connect to Azure Storage");
+                throw new ApplicationException("Unable to connect to Azure Storage, if in dev mode please run in a pipeline or the commned prompt command : 'azurite'");
             }
         }
 
