@@ -3,8 +3,8 @@
 on:
   push:
     branches: [ "dev-cypress-only" ]
-  pull_request:
-    branches: [ "dev" ]
+    pull_request:
+    branches: [ "main" ]
     types: [closed]
   workflow_dispatch:
     inputs:
@@ -21,8 +21,7 @@ on:
 jobs:
   build:
   
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
     - name: Install .NET Core
@@ -41,7 +40,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       
-    # Add coverlet.collector nuget package to test project - 'dotnet add <xx.cspoj> package coverlet 
+    # Add coverlet.collector nuget package to test project - 'dotnet add <xx.cspoj> package coverlet
     - name: Test 🧪
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
    
@@ -59,6 +58,59 @@ jobs:
         path: "**/coverage/*.trx"                            
         reporter: dotnet-trx
         fail-on-error: true
+
+    - name: clean cache
+      run: npm cache clean --force
+    - name: npm install
+      run: npm install
+      working-directory: ./simplecrmweb
+    - name: npm ci
+      run: npm ci
+      working-directory: ./simplecrmweb
+    
+      
+    - name: Run Jest unit tests
+      run: npm test --if-present
+      working-directory: ./simplecrmweb
+      
+    - name: Jest coverage report
+      uses: ArtiomTr/jest-coverage-report-action@v2
+      id: coverage
+      with:
+           output: report-markdown
+           working-directory: ./simplecrmweb
+    - name: Jest coverage report upload to github
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        message: ${{ steps.coverage.outputs.report }}
+        
+    - name: Jest Tests (PASSED) results ✅
+      if: ${{ success() }}
+      run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "context": "tests",
+            "state": "success",
+            "description": "Tests passed",
+            "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'
+
+    - name: Jest Tests (FAILED) 🚨
+      if: ${{ failure() }}
+      run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "context": "tests",
+            "state": "failure",
+            "description": "Tests failed",
+            "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'  
         
     - name: Run Component tests 🧪
       uses: cypress-io/github-action@v4
@@ -85,61 +137,52 @@ jobs:
       # Test run video was always captured, so this action uses "always()" condition
       if: always()
       with:
-          name: cypress-videos
-          path: simplecrmweb/cypress/videos
-    
-    #- name: Start React web Single page application
-    #  run: |
-    #        cd simplecrmweb
-    #        npm install
-    #        npm start
-            
-    #- name: E2E on Chrome 🧪
-    #  uses: cypress-io/github-action@v4
-    #  with:
-    #       browser: chrome   
-        
-    - name: ReportGenerator
-      uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
-      with:
-        reports: 'coverage/*/coverage.cobertura.xml' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
-        targetdir: 'coveragereport' # REQUIRED # The directory where the generated report should be saved.
-        reporttypes: 'HtmlInline;Cobertura' # The output formats and scope (separated by semicolon)
-
-    - name: Upload coverage report artifact
-      uses: actions/upload-artifact@v2.2.3
-      with:
-        name: CoverageReport # Artifact name        
-        path: coveragereport # Directory containing files to upload  
-    
-    - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.3.0
-      with:
-        filename: coveragereport/Cobertura.xml
-        badge: true
-        format: 'markdown'
-        output: 'both'
-
-    - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request'
-      with:
-        recreate: true
-        path: code-coverage-results.md
-
-    - name: Write to Job Summary
-      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
-
-    #- name: Login to DockerHub
-    #  uses: docker/login-action@v2
-    #  with:
-    #    username: ${{ secrets.DOCKER_USERNAME }}
-    #    password: ${{ secrets.DOCKER_PASSWORD }}
-    
-    #- name: Build docker image
-    #  run: docker build -f ./CRMRestApiV2/Dockerfile . -t steevessaillantalithya/crmrestapiv2:latest
-    #- name: Push to DockerHub
-    #  run: docker push steevessaillantalithya/crmrestapiv2:latest
-
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            result-file: .\simplecrmweb\result.json
       
+#sepearate here for Jest coverage
+  coverage:
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ArtiomTr/jest-coverage-report-action@v2
+              id: coverage
+              with:
+                  output: report-markdown
+                  working-directory: ./simplecrmweb
+            - uses: marocchino/sticky-pull-request-comment@v2
+              with:
+                  message: ${{ steps.coverage.outputs.report }}
+            - name: ReportGenerator
+              uses: danielpalme/ReportGenerator-GitHub-Action@5.1.4
+              with:
+                reports: 'coverage/*/coverage.cobertura.xml' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
+                targetdir: 'coveragereport' # REQUIRED # The directory where the generated report should be saved.
+                reporttypes: 'HtmlInline;Cobertura' # The output formats and scope (separated by semicolon)
+
+            - name: Upload coverage report artifact
+              uses: actions/upload-artifact@v2.2.3
+              with:
+                name: CoverageReport # Artifact name        
+                path: coveragereport # Directory containing files to upload  
+    
+            - name: Code Coverage Summary Report
+              uses: irongut/CodeCoverageSummary@v1.3.0
+              with:
+                filename: coveragereport/Cobertura.xml
+                badge: true
+                format: 'markdown'
+                output: 'both'
+
+            - name: Add Coverage PR Comment
+              uses: marocchino/sticky-pull-request-comment@v2
+              if: github.event_name == 'pull_request'
+              with:
+                recreate: true
+                path: code-coverage-results.md
+
+            - name: Write to Job Summary
+              run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY          
        
+    

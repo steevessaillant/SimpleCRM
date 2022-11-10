@@ -17,11 +17,11 @@ namespace CRMRepository.Validators
             RuleFor(customer => customer.LastName)
                 .NotEmpty()
                 .WithMessage("LastName is required");
-            
+
             RuleFor(customer => customer.DateOfBirth)
                 .NotEmpty()
                 .WithMessage("DateOfBirth is required");
-            
+
             RuleFor(customer => customer.DateOfBirth)
                .LessThanOrEqualTo(DateTime.Now.AddYears(-18))
                 .WithMessage("Age must be 18 or older");

@@ -1,4 +1,4 @@
-import  {Given, Then, When, After}  from "@badeball/cypress-cucumber-preprocessor";
+import { Given, Then, When, After } from "@badeball/cypress-cucumber-preprocessor";
 
 let actualCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; } = null
 let expectedCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; } = null
@@ -32,9 +32,8 @@ When("I add the customer", () => {
 })
 
 Then("the customer should be added as", (customers: any) => {
-  debugger;
+
   customers.hashes().forEach((row: any) => {
-    debugger;
     expectedCustomer = row
   });
   cy.request({
@@ -49,7 +48,7 @@ Then("the customer should not be added and an error saying {string} is displayed
   cy.get('[data-cy="errorForDateOfBirth"]').contains(errorMessage);
 })
 
-After(() =>{
+After(() => {
   cy.request({
     method: 'DELETE',
     url: 'http://localhost:5222/api/CRMCustomer/' + actualCustomer.Id

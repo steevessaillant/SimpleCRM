@@ -3,23 +3,24 @@ using CRMRepository.Validators;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace CRMRepository
 {
     public class CustomerRepository : IRepository<Customer>
     {
+        
         private readonly List<Customer>? customerList = null;
-
+        private readonly AzureTableClient azureClient = new();
+        
         /// <summary>
         /// Instanciate a Customer datasource
         /// </summary>
         public CustomerRepository()
         {
-            customerList = new AzureTableClient().GetAllFromTable();
+            customerList = azureClient.GetAllFromTable();
         }
-
+    
         /// <summary>
         /// Add Or Update a Customer
         /// </summary>
@@ -31,7 +32,7 @@ namespace CRMRepository
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            
+
             var azureTableClient = new AzureTableClient();
             var action = azureTableClient.AddOrUpdateToTable(entity);
             await azureTableClient.SaveToTableAsync(new List<Customer> { entity },
@@ -68,7 +69,7 @@ namespace CRMRepository
             var azureTableClient = new AzureTableClient();
             var action = azureTableClient.DeleteFromTable(entity);
             await azureTableClient.SaveToTableAsync(new List<Customer> { entity }, new List<Azure.Data.Tables.TableTransactionAction> { action });
-            
+
             return await Task.FromResult(this.customerList.Remove(entity));
         }
 
@@ -103,13 +104,13 @@ namespace CRMRepository
                 return null;
             }
 
-            if (customerList.Exists(x => x.Id == entity.Id ))
+            if (customerList.Exists(x => x.Id == entity.Id))
             {
                 return await Task.FromResult(customerList.Find(x => x.Id == entity.Id));
             }
 
             return null;
-          
+
         }
 
         /// <summary>
@@ -132,7 +133,7 @@ namespace CRMRepository
                 return new AzureTableClient().GetById(Id);
             }
         }
-        
+
         public async Task<ValidationResult> ValidateEntity(Customer entity)
         {
             return await new CustomerValidator().ValidateAsync(entity);

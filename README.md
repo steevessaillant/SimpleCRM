@@ -70,10 +70,6 @@ Edit pour video
 
 
 
-TODO : 
-
-2. Add a React NodeJS UI and theyre Cypress Cucumber Specs.
-
 
 
 
