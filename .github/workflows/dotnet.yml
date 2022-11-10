@@ -63,7 +63,7 @@ jobs:
       run: npm cache clean --force
     - name: npm install
       run: npm install
-        working-directory: ./simplecrmweb
+      working-directory: ./simplecrmweb
     - name: npm ci
       run: npm ci
         working-directory: ./simplecrmweb
