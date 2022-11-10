@@ -71,12 +71,12 @@ jobs:
     - name: Run Component tests 🧪
       uses: cypress-io/github-action@v4
       with:
-        working-directory: ./simplecrmweb
+      working-directory: ./simplecrmweb
         # we have already installed everything
-        install: true
+      install: true
         # to run component tests we need to use "component: true"
-        component: true
-        browser: chrome
+      component: true
+      browser: chrome
 
     - name: Cypress Component Test Artifacts (inital temporary configuration)
       uses: actions/upload-artifact@v2
