@@ -69,7 +69,7 @@ jobs:
       working-directory: ./simplecrmweb
 
     - name: Cypress run all tests 🧪 
-        uses: cypress-io/github-action@v4
+      uses: cypress-io/github-action@v4
 
     # - name: Run Component tests 🧪
     #   uses: cypress-io/github-action@v4
