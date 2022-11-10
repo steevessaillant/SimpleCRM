@@ -1,5 +1,9 @@
 # SimpleCRM
 
+
+#this project as not e2e tests in the build process, but it is a good idea to have them in the future,but thus cannot be done with github action
+#we need to start proceses maybe jenkins instance for this project would be prefereble for full e2e tests
+
 This version (branch code) uses Jest Unit Test not cypress (DO NOT MERGE TO MAIN --> FORK INSTEAD)
 
 BDD/TDD implementation with XUnit (GWT plugin)
