@@ -106,7 +106,7 @@ export const CustomerForm = () => (
           <Field type="date" id="dateOfBirth" name="dateOfBirth" data-testid="dateOfBirth" validate={validateDateOfBirth} />
           <ErrorMessage data-testid="errorForDateOfBirth" name='dateOfBirth' component='div' />
           <br />
-          <button type="submit" data-cy="submit">Create / Update Customer</button>
+          <button type="submit" data-testid="submit">Create / Update Customer</button>
         </Form>
       )}
     </Formik>

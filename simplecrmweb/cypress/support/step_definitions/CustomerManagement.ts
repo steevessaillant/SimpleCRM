@@ -2,13 +2,13 @@ import { Given, Then, When, After } from "@badeball/cypress-cucumber-preprocesso
 
 let actualCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; } = null
 let expectedCustomer: { Id: string; FirstName: string; LastName: string; DateOfBirth: string; } = null
-let id = '[data-cy=id]'
-let firstName = '[data-cy=firstName]'
-let lastName = '[data-cy=lastName]'
+let id = '[data-testid=id]'
+let firstName = '[data-testid=firstName]'
+let lastName = '[data-testid=lastName]'
 let dateOfBirth = '[name=dateOfBirth]'
-let form = '[data-cy=form]'
-let submit = '[data-cy=submit]'
-let message = '[data-cy=message]'
+let form = '[data-testid=form]'
+let submit = '[data-testid=submit]'
+let errorMessgeForDOB = '[data-testid=errorForDateOfBirth]'
 
 Given("I want to add a customer", (customers: any) => {
   customers.hashes().forEach((row: any) => {
@@ -37,20 +37,27 @@ Then("the customer should be added as", (customers: any) => {
     expectedCustomer = row
   });
   cy.request({
-    url: 'http://localhost:5222/api/CRMCustomer/' + actualCustomer.Id
+    url: 'http://localhost:5000/api/CRMCustomer/' + actualCustomer.Id
   }).then((response) => {
     expect(response.body.dateOfBirth).to.contain(expectedCustomer.DateOfBirth)
   })
 
+  
 })
 
 Then("the customer should not be added and an error saying {string} is displayed", (errorMessage: string) => {
-  cy.get('[data-cy="errorForDateOfBirth"]').contains(errorMessage);
+  cy.get(errorMessgeForDOB).contains(errorMessage);
 })
 
-After(() => {
-  cy.request({
-    method: 'DELETE',
-    url: 'http://localhost:5222/api/CRMCustomer/' + actualCustomer.Id
+After(() =>{
+  cy.request('http://localhost:5000/api/CRMCustomer/' + actualCustomer.Id)
+  .then((response) =>{
+    if(response.body.dateOfBirth !== ''){
+      cy.request({
+        method: 'DELETE',
+        url: 'http://localhost:5000/api/CRMCustomer/' + response.body.id
+      });
+    }
   })
 })
+
