@@ -67,52 +67,54 @@ jobs:
     - name: npm ci
       run: npm ci
       working-directory: ./simplecrmweb
-        
-    - name: Run Component tests 🧪
-      uses: cypress-io/github-action@v4
-      with:
-      working-directory: ./simplecrmweb
-        # we have already installed everything
-      install: true
-        # to run component tests we need to use "component: true"
-      component: true
-      browser: chrome
 
-    - name: Cypress Component Test Artifacts (inital temporary configuration)
-      uses: actions/upload-artifact@v2
-      #if: failure()fix 4
-      #with:
-      #      working-directory: ./simplecrmweb
-      #     name: cypress-screenshots
-      #     path: cypress/screenshots
-      # Test run video was always captured, so this action uses "always()" condition
-      if: always()
-      with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            result-file: .\simplecrmweb\result.json
-      - name: Start web app 📡
-        run: npm start
-          working-directory: ./simplecrmweb        
-      - name: Start E2E tests 🧪 
-        run: npx cypress run --browser chrome
-          working-directory: ./simplecrmweb       
-       - name: Cypress Component Test Artifacts (inital temporary configuration)
-          # after the test run completes
-          # store videos and any screenshots
-          # NOTE: screenshots will be generated only if E2E test failed
-          # thus we store screenshots only on failures
-          # Alternative: create and commit an empty cypress/screenshots folder
-          # to always have something to upload
-      uses: actions/upload-artifact@v2
-      #if: failure()fix 4
-      #with:
-      #      working-directory: ./simplecrmweb
-      #     name: cypress-screenshots
-      #     path: cypress/screenshots
-      # Test run video was always captured, so this action uses "always()" condition
-      if: always()
-      with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            result-file: .\simplecrmweb\result.json
+    - name: Cypress run all tests 🧪 
+        uses: cypress-io/github-action@v4
+
+    # - name: Run Component tests 🧪
+    #   uses: cypress-io/github-action@v4
+    #   with:
+    #   working-directory: ./simplecrmweb
+    #     # we have already installed everything
+    #   install: true
+    #     # to run component tests we need to use "component: true"
+    #   component: true
+    #   browser: chrome
+    # - name: Cypress Component Test Artifacts (inital temporary configuration)
+    #   uses: actions/upload-artifact@v2
+    #   #if: failure()fix 4
+    #   #with:
+    #   #      working-directory: ./simplecrmweb
+    #   #     name: cypress-screenshots
+    #   #     path: cypress/screenshots
+    #   # Test run video was always captured, so this action uses "always()" condition
+    #   if: always()
+    #   with:
+    #         github-token: ${{ secrets.GITHUB_TOKEN }}
+    #         result-file: .\simplecrmweb\result.json
+    #   - name: Start web app 📡
+    #     run: npm start
+    #       working-directory: ./simplecrmweb        
+    #   - name: Start E2E tests 🧪 
+    #     run: npx cypress run --browser chrome
+    #       working-directory: ./simplecrmweb       
+    #    - name: Cypress Component Test Artifacts (inital temporary configuration)
+    #       # after the test run completes
+    #       # store videos and any screenshots
+    #       # NOTE: screenshots will be generated only if E2E test failed
+    #       # thus we store screenshots only on failures
+    #       # Alternative: create and commit an empty cypress/screenshots folder
+    #       # to always have something to upload
+    #   uses: actions/upload-artifact@v2
+    #   #if: failure()fix 4
+    #   #with:
+    #   #      working-directory: ./simplecrmweb
+    #   #     name: cypress-screenshots
+    #   #     path: cypress/screenshots
+    #   # Test run video was always captured, so this action uses "always()" condition
+    #   if: always()
+    #   with:
+    #         github-token: ${{ secrets.GITHUB_TOKEN }}
+    #         result-file: .\simplecrmweb\result.json
 
 
